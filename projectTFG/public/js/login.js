@@ -4,9 +4,10 @@ $(function(){
   		$.post( "/log", login, function( data ) {
   			if(data=='OK'){
   				console.log('Logueado correctamente');
+  				$('#wrapper').load('prueba.html');
   			}else{
   				console.log('ERROR');
-  				
+ 				$('error').attr('value','Error login');		
   			}
   		});
     })

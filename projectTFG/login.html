@@ -10,9 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
     <script src="/js/login.js"></script>
-    <script>
-    $(document).foundation();//inicializacion de foundation
-    </script>
     
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta charset="utf-8">
@@ -35,22 +32,19 @@
     <form data-abide="" name="project" id="project" method="POST" action="/next">
 			<div class="row">
 				<div class="small-6 small-centered columns">
-					<label> User name:
-					   <small>(required)</small>
+					<label> User name: <small>(required)</small>
+						<input type="text" required pattern="[a-zA-Z]+" size="8" maxlength="40" value="" tabindex="1" name="name", id="name"></input>
 					</label>
-				    <input type="text" required="required" pattern="[a-zA-Z]+" size="8" maxlength="40" value="" tabindex="1" name="name", id="name">
-				       <small class="error">Name is required</small>
-				    </input>
+					<small class="error">Name is required</small>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="small-6 small-centered columns">
-					<label class="pass"> Password:
-					<small>(required)</small>
+					<label class="pass"> Password: <small>(required)</small>
+						<input type="password" required="required" class="password form-control" id="password" name="password"></input>
 					</label>
-                    <input type="password" required="required" class="password form-control" id="password" name="password">
-					<small class="error">Password is required</small>		
+                    <small class="error">Password is required</small>		
 				</div>
 			</div>
 
@@ -75,4 +69,7 @@
         <hr id="line"></hr>
     </div>
 </body>
+    <script>
+    	$(document).foundation();//inicializacion de foundation
+    </script>
 </html> 
