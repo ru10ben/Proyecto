@@ -20,4 +20,16 @@ router.post('/log', function(req, res, next) {
   });
 });
 
+router.get('/roles', function(req, res, next) {
+  getUser(name, function(err, result){
+    if (result.length == 0) {
+      res.send('ERROR');
+    }else{
+      var roles=result[0].roles;
+      console.log('Roles: '+roles);
+      res.send(roles);
+    }
+  });
+});
+
 module.exports = router;
