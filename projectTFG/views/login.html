@@ -32,15 +32,14 @@
 			</div>
 		<hr id="line"></hr>
         <br></br>
-    <form data-abide="" name="project" id="project" method="POST" action="/next">
+    <form data-abide="" name="project" id="project" method="POST" action="/log">
 			<div class="row">
 				<div class="small-6 small-centered columns">
-					<label> User name:
+					<label class="name"> User name:
 					   <small>(required)</small>
 					</label>
-				    <input type="text" required="required" pattern="[a-zA-Z]+" size="8" maxlength="40" value="" tabindex="1" name="name", id="name">
-				       <small class="error">Name is required</small>
-				    </input>
+				    <input type="text" required="required" pattern="[a-zA-Z]+" size="8" maxlength="40" value="" tabindex="1" name="name", id="name"></input>
+				    <small class="error" id="nameError">Name is required</small>
 				</div>
 			</div>
 
@@ -50,13 +49,13 @@
 					<small>(required)</small>
 					</label>
                     <input type="password" required="required" class="password form-control" id="password" name="password">
-					<small class="error">Password is required</small>		
+					<small class="error" id="passError">Password is required</small>		
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="small-6 small-centered columns">
-                    <a class="button-nav" id="log">Login</a>
+                    <a href="#" class="button-nav" id="log">Login</a>
                     <a href="#" class="button-nav" id="forgot">Forgot your user or password</a>
 				</div>
 			</div>
