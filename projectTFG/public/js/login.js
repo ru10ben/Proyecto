@@ -1,14 +1,17 @@
 $(function(){
+	//$('#error2').hide();
 	$('#log').click(function(){
 		var login={username: $('#username').val(), password: $('#password').val()};
   		$.post( "/log", login, function( data ) {
-  			if(data=='OK'){
-  				console.log('Logueado correctamente');
-  				$('#wrapper').load('prueba.html');
-  			}else{
+  			if(data=='ERROR'){
   				console.log('ERROR');
-  				$('.error').text("User name or password incorrect");
- 				//$('.error').show();	
+ 				$('#error2').show();
+  			}else{
+ 				console.log('Logueado correctamente');
+ 				console.log('Valor de DATA: '+data.roles+', '+data.username);
+ 				var user={username: data.username, roles: data.roles};
+				//$('#wrapper').load('prueba.html',{user[1]});
+
   			}
   		});
     })
