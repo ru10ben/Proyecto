@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
-    <script src="/js/login.js"></script>
+    <script src="/js/mainMenu.js"></script>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta charset="utf-8">
     <title>mainMenu</title>
@@ -31,8 +31,8 @@
         <div class="row">
             <h3>My data</h3>
             <hr id="line"></hr>
-            <h5 id="h5-name"> </h5>
-            <h5 id="h5-role"> </h5>
+            <h5 id="h5name" name="h5name">{{ h5name }}</h5>
+            <h5 id="h5role" name="h5role">{{ h5role }}</h5>
                     <a class="button-nav" tabindex="1" id="log">Edit my password</a>
                     <a class="button-nav" tabindex="2" id="forgot">Edit my profile</a>
                     <a class="button-nav" tabindex="3" id="forgot">Logout</a>
