@@ -40,8 +40,36 @@ html, body {
   background-color: #B2AAAA;
   border-color: #B2AAAA;
   color: #222;
-transition: background-color 300ms ease-out; }
+  transition: background-color 300ms ease-out; }
 
 a:hover, .button-nav:hover, a:focus, button-nav:focus {
   color: #222;
   background-color:dimgray;}
+
+#error2 {
+  display: block;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  margin-top: -1px;
+  padding: 0.375rem 0.5625rem 0.5625rem;
+  background: #f04124;
+  color: #FFFFFF; }
+
+.accordion-nav {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: none;
+  border-style: outset;
+  border-width: 2px;
+  font-family:  sans-serif;
+  font-weight: bold;
+  line-height: normal;
+  margin: 0 0 0;
+  position: relative;
+  text-align: none;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  border-color: #00008B;}

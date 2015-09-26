@@ -9,7 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
-    <script src="/js/mainMenu.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation/foundation.accordion.js"></script>
+    <script src="/js/mainmenu.js"></script>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta charset="utf-8">
     <title>mainMenu</title>
@@ -27,33 +28,63 @@
             </div>
         </div>
 		<hr id="line"></hr>
-    
+        
+        <!--Subtitle My data-->
         <div class="row">
             <h3>My data</h3>
             <hr id="line"></hr>
-            <h5 id="h5name" name="h5name">{{ h5name }}</h5>
-            <h5 id="h5role" name="h5role">{{ h5role }}</h5>
-                    <a class="button-nav" tabindex="1" id="log">Edit my password</a>
-                    <a class="button-nav" tabindex="2" id="forgot">Edit my profile</a>
-                    <a class="button-nav" tabindex="3" id="forgot">Logout</a>
+            <h5 id="h5user" name="h5name"> User name: </h5>
+            <h5 id="h5role" name="h5role"> Role: </h5>
+                    <a class="button-nav" tabindex="1" id="editpass">Edit my password</a>
+                    <a class="button-nav" tabindex="2" id="editprofile">Edit my profile</a>
+                    <a class="button-nav" tabindex="3" id="logout">Logout</a>
         </div>
-    
+        
+        <!--Subtitle My actions-->
         <div class="row">
             <h3>My actions</h3>
             <hr id="line"></hr>
         </div>
-
+        
+        <!--buttons for Administrator actions-->
         <div class="row" style="visibility" id="actions">
-            <ul class="accordion" data-accordion>
-  <li class="accordion-navigation">
-    <a href="#panel1a">Accordion 1</a>
-    <div id="panel1a" class="content active">
-      Panel 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </div>
-  </li>
-            </ul>
+            <dl class="accordion" data-accordion>
+                <dd class="accordion-navigation">
+                    <a href="#panel1" class="accordion-nav" tabindex="4" id="admin">Show Administrator actions</a>
+                    <div id="panel1" class="content">
+                        <a class="button-nav" tabindex="5" id="newuser">New user</a>
+                    </div>
+                </dd>
+            </dl>
         </div>
-
+        <!--buttons for Project Manager actions-->
+        <div class="row" style="visibility" id="actions2">
+            <dl class="accordion" data-accordion>
+                <dd class="accordion-navigation">
+                    <a href="#panel2" class="accordion-nav" tabindex="4">Show Project Manager actions</a>
+                    <div id="panel2"class="content">
+                        <div class="large-12 columns">
+                            <a class="button-nav" tabindex="5" id="newproject">New Project Evaluation</a>
+                        </div>
+                        <div class="large-12 columns">
+                            <a class="button-nav" tabindex="6" id="finishproject">Finish Project Evaluation</a>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <!--buttons for Evaluator actions-->
+        <div class="row" style="visibility" id="actions3">
+            <dl class="accordion" data-accordion>
+                <dd class="accordion-navigation">
+                    <a href="#panel3" class="accordion-nav" tabindex="4">Show Evaluator actions</a>
+                    <div id="panel3" class="content">
+                        <a class="button-nav" tabindex="5" id="evaluate">Evaluate</a>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+        <!--footer-->
 		<hr id="line"></hr>
             <div class="row" id="container">
                 <div class="small-9 small-centered columns">
@@ -64,4 +95,7 @@
 
     </div>
 </body>
+    <script>
+        $(document).foundation();//inicializacion de foundation
+    </script>
 </html>
