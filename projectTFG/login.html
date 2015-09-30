@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
-    <link rel="stylesheet" href="/css/ictacce.css">
+    <link rel="stylesheet" href="./public/css/ictacce.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
-    <script src="/js/login.js"></script>
+    <script src="./public/js/login.js"></script>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta charset="utf-8">
     <title>Login</title>
@@ -18,11 +18,11 @@
     <div id="wrapper">
         <!--Header-->
 		<hr id="line"></hr>
-        <div class="large-5 columns">
+        <div class="small-5 large-5 columns">
             <h1 id="title">ICT-AccE</h1>
         </div>    
         <div class="row">	
-            <div class="large-6 columns">
+            <div class="small-6 small-centered large-6 large-centered columns">
 				<h1 id="title">Login</h1>
             </div>
         </div>
@@ -32,7 +32,7 @@
     <form data-abide method="POST" action="">
         <!--Field User name-->
         <div class="row">
-            <div class="small-6 small-centered columns">
+            <div class="small-6 small-centered large-6 large-centered columns">
                 <label for="username">User name: <small> Required</small>
 				    <input type="text" required pattern="[a-zA-Z]+" class="username" tabindex="1" name="username", id="username"></input>
                 </label>
@@ -42,7 +42,7 @@
         </div>
         <!--Field Password-->
         <div class="row">
-            <div class="small-6 small-centered columns">
+            <div class="small-6 small-centered large-6 large-centered columns">
 				<label for="password" class="pass"> Password:<small> Required</small>
                     <input type="password" required class="password" tabindex="2" id="password" name="password">
                 </label>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="row">
-            <div class="small-6 small-centered columns">
+            <div class="small-6 small-centered large-6 large-centered columns">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a class="button-nav" tabindex="3" id="log" aria-describedby="log">Login</a>
                 <a class="button-nav" tabindex="4" id="forgot" aria-describedby="forgot">Forgot your user or password</a>
@@ -65,7 +65,7 @@
         <!--footer-->
 		<hr id="line"></hr>
             <div class="row" id="container">
-                <div class="small-9 small-centered columns">
+                <div class="small-9 small-centered large-9 large-centered columns">
                     <h1 id="title">ICT-AccE tool. User interface prototype</h1>
                 </div>
             </div>
