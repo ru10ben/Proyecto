@@ -16,14 +16,14 @@ router.post('/log', function(req, res, next) {
       res.send('ERROR');
     }else{
       user={username: result[0].userName, roles:result[0].roles}
-      res.send('OK');
+      res.send(user);
     }
   });
 });
 
- router.get('/mainMenu', function(req, res, next) {
+router.get('/mainMenu', function(req, res, next) {
    console.log(user.username);
-   res.render('mainMenu', {h5name:'Username: '+user.username ,h5roles:'Roles: '+user.roles});
- });
+   res.render('mainMenu');
+});
 
 module.exports = router;

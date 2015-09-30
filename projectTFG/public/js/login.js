@@ -1,6 +1,5 @@
 $(function(){
-	//$('#error2').hide();
-  var barrera=false;
+
 	$('#log').click(function(){
 		var login={username: $('#username').val(), password: $('#password').val()};
     var user;
@@ -10,7 +9,9 @@ $(function(){
  				$('#error2').show();
   			}else{
  				 console.log('Logueado correctamente');
-         $('#log').attr('href','/mainMenu');
+         $.cookie('username',data.username);
+         $.cookie('roles',data.roles);
+         window.location='/mainMenu';
   			}
   		});   
   })

@@ -1,5 +1,8 @@
 $(function(){
-    flag=false;
+    var username=$.cookie('username');
+    var role=$.cookie('roles');
+    $('#username').text('User name: '+username);
+    $('#role').text('Role: '+role);
     $('#admin').click(function(){
         $('#admin').text('Hide Administrator actions');
         flag=true;
