@@ -43,43 +43,97 @@
                 <div class="column">
                 <div class="large-4 columns">
                     <label for="firstname">First name: <small> Required</small>
-				        <input type="text" required pattern="[a-zA-Z]+" tabindex="1" name="firstname", id="firstname"></input>
+				        <input type="text" required pattern="[a-zA-Z]+" tabindex="1" name="firstname", id="firstname">
                     </label>
-				    <small class="error">is required</small>
+				    <small class="error">First name is required</small>
                     <div data-alert class="alert-box alert radius" id="error2" style="display:none">User name or password incorrect</div>
                 </div>
                 </div>
     
+                <!--Field Last name-->
+                <div class="column">
+                <div class="large-4 columns">
+				    <label for="lastname"> Last name:<small> Required</small>
+                        <input type="text" required pattern="[a-zA-Z]+"tabindex="2" id="lastname" name="lastname">
+                    </label>
+				    <small class="error">Last name is required</small>		
+                </div>
+                </div>
+                
+                <!--Field User name-->
+                <div class="column">
+                <div class="large-4 columns">
+				    <label for="username"> User name:<small> Required</small>
+                        <input type="text" required pattern="[a-zA-Z]+" tabindex="3" name="username", id="username">
+                    </label>
+				    <small class="error">User name is required</small>		
+                </div>
+                </div>
+                
+                <!--Field email-->
+                <div class="column">
+                <div class="large-4 columns">
+				    <label for="email"> Email:
+                        <input type="email" data-invalid tabindex="4" id="email" name="email">
+                    </label>
+				    <small class="error">valid mail required</small>		
+                </div>
+                </div>
+                
                 <!--Field Password-->
                 <div class="column">
                 <div class="large-4 columns">
-				    <label for="password" class="pass"> Password:<small> Required</small>
-                        <input type="password" required class="password" tabindex="2" id="password" name="password">
+				    <label for="password"> Password:<small> Required</small>
+                        <input type="password" required pattern="[a-zA-Z]+" tabindex="5" id="password" name="password">
                     </label>
 				    <small class="error">Password is required</small>		
                 </div>
                 </div>
-                <!--Field Username-->
+                
+                <!--Field passwordconfirmation-->
                 <div class="column">
                 <div class="large-4 columns">
-				    <label for="password" class="pass"> Password:<small> Required</small>
-                        <input type="password" required class="password" tabindex="2" id="password" name="password">
+				    <label for="password"> Confirm Password:<small> Required</small>
+                        <input type="password" required pattern="[a-zA-Z]+" data-equalto="password" tabindex="6">
                     </label>
-				    <small class="error">Password is required</small>		
+				    <small class="error">The password did not match</small>		
                 </div>
                 </div>
+
+                <!--Subtitle My actions-->
+                <h3>My actions</h3>
+                <hr id="line"></hr>
+                <h5 id="role" name="role"></h5>
+                <div id="myborder">
+                    <!--Check Box-->
+                    <div>
+                        &nbsp;
+                        <input type="radio" name="roles" value="admin" id="admin">
+                        <label id="mybold" for="admin">Administrator</label>
+                    </div>
+                    <div>
+                        &nbsp;
+                        <input type="radio" name="roles" value="promanager" id="promanager">
+                        <label id="mybold" for="promanager">Projecct Manager</label>
+                    </div>
+                    <div>
+                        &nbsp;
+                        <input type="radio" name="roles" value="eval" id="eval">
+                        <label id="mybold" for="eval">Evaluator</label>
+                    </div>
+                </div>
+                (Check box)
+                <br></br>
                 <div class="column">
-                <div class="large-4 columns">
-				    <label for="password" class="pass"> Password:<small> Required</small>
-                        <input type="password" required class="password" tabindex="2" id="password" name="password">
-                    </label>
-				    <small class="error">Password is required</small>		
+                <div class="large-8 columns">
+                <h5>Coments:</h5>
+				<textarea rows="10" cols="30" tabindex="7" name="coments" id="comnets"></textarea>
+                 <br></br>
                 </div>
-                </div>
+                </div>	
 	       </form>
         </div>
-    
-    
+
         <!--footer-->
 		<hr id="line"></hr>
         <div class="row" id="container">
