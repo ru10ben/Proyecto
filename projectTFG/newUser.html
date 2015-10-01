@@ -17,24 +17,25 @@
 </head>
 <body>
     <div id="wrapper">
-        
         <!--Header-->
-		<hr id="line"></hr>
+        <hr id="line"></hr>
+        <!--div id="myborder"-->
         <div class="small-5 large-5 columns">
             <h1 id="title">ICT-AccE</h1>
         </div>
         <div class="row">	
-            <div class="small-9 small-centered large-9 large-centered columns">
+            <div class="small-3 small-clarge-3 large-centered columns">
 				<h1 id="title">New User</h1>
             </div>
         </div>
+        <!--/div-->
 		<hr id="line"></hr>
     
         <!--Subtitle Personal information-->
         <div class="small-1 large-1 columns">
             &nbsp;
         </div>
-        <div class="small-10 large-10 columns">
+        <div class="small-9 large-9 columns">
             <h3>Personal information</h3>
             <hr id="line"></hr>
             <form data-abide method="POST" action="">
@@ -46,7 +47,7 @@
 				        <input type="text" required pattern="[a-zA-Z]+" tabindex="1" name="firstname", id="firstname">
                     </label>
 				    <small class="error">First name is required</small>
-                    <div data-alert class="alert-box alert radius" id="error2" style="display:none">User name or password incorrect</div>
+                    <div data-alert class="alert-box alert radius" id="error3" style="display:none">User name already exit</div>
                 </div>
                 </div>
     
@@ -104,43 +105,59 @@
                 <h3>My actions</h3>
                 <hr id="line"></hr>
                 <h5 id="role" name="role"></h5>
+                <div class="column">
                 <div id="myborder">
                     <!--Check Box-->
                     <div>
                         &nbsp;
-                        <input type="radio" name="roles" value="admin" id="admin">
+                        <input type="radio" name="roleadmin" value="admin" id="admin" tabindex="7">
                         <label id="mybold" for="admin">Administrator</label>
                     </div>
                     <div>
                         &nbsp;
-                        <input type="radio" name="roles" value="promanager" id="promanager">
+                        <input type="radio" name="roleproman" value="promanager" id="promanager" tabindex="8">
                         <label id="mybold" for="promanager">Projecct Manager</label>
                     </div>
                     <div>
                         &nbsp;
-                        <input type="radio" name="roles" value="eval" id="eval">
+                        <input type="radio" name="roleval" value="eval" id="eval" tabindex="9">
                         <label id="mybold" for="eval">Evaluator</label>
                     </div>
                 </div>
                 (Check box)
+                </div>
                 <br></br>
                 <div class="column">
                 <div class="large-8 columns">
-                <h5>Coments:</h5>
-				<textarea rows="10" cols="30" tabindex="7" name="coments" id="comnets"></textarea>
+                <h5>Comments:</h5>
+				<textarea rows="10" cols="30" tabindex="10" name="comments" id="comments"></textarea>
                  <br></br>
                 </div>
-                </div>	
+                </div>
+                <div class="small-8 large-8 columns">
+                    &nbsp;
+                </div>
+                <div class="small-4 large-4 columns">
+                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <a class="button-nav" tabindex="11" id="cancel">Cancel</a>
+                    <a class="button-nav" tabindex="12" id="saveandclose">Save & Close</a>
+                </div>
 	       </form>
+        </div>
+        <div class="small-2 large-2 columns">
+            <a class="button-nav" tabindex="13" id="logout">Logout</a>
         </div>
 
         <!--footer-->
 		<hr id="line"></hr>
-        <div class="row" id="container">
-            <div class="small-9 small-centered columns">
+        <!--div class="column" id="myborder"-->
+            <div class="small-7 small-centered large-7 large-centered columns">
+                 &nbsp; &nbsp;
+            </div>
+            <div class="small-5 small-centered large-5 large-centered columns">
                 <h1 id="title">ICT-AccE tool. User interface prototype</h1>
             </div>
-        </div>
+        <!--/div-->
         <hr id="line"></hr>
     </div>
 </body>
