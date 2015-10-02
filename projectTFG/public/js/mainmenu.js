@@ -1,4 +1,5 @@
 $(function(){
+    var flag=false;
     var username=$.cookie('username');
     var role=$.cookie('roles');
     $('#username').text('User name: '+username);
@@ -13,16 +14,17 @@ $(function(){
     if(role.indexOf('Project Manager')>-1){
        $('#actions2').show(); 
     }
-
     $('#admin').click(function(){
         $('#admin').text('Hide Administrator actions');
-        if(role == "Administrator"){
-            console.log('algo');
+        flag=true;
+        if(flag == true){
             $('#admin').click(function(){
                 location.reload();
                 $('#admin').text('Show Administrator actions');
             })
-        }  
-  })
-    
+      }  
+    })
+    $('#newuser').click(function(){
+            window.location='/newUser';
+      })
 });
