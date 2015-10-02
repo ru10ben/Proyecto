@@ -42,7 +42,7 @@ var connection = mysql.createConnection({
 
 //Devuelve el usuario que tenga el nombre pasado como parametro y null si no lo encuentra
 global.getUser = function(name_user, callback) {
-    connection.query("SELECT * FROM users WHERE userName='"+ name_user +"';", function(err, rows, fields) {
+    connection.query("SELECT * FROM user WHERE userName='"+ name_user +"';", function(err, rows, fields) {
         callback(err, rows);
     });
 };

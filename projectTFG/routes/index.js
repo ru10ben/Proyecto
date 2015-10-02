@@ -31,7 +31,7 @@ router.get('/newUser', function(req, res, next) {
   res.render('newUser');
 });
 
-router.post('/insertUser', function(req, res, next) {
+router.post('/newUser/insertUser', function(req, res, next) {
   //res.render('login', { title: 'Express' });
   var firstname=req.body.firstname;
   var lastname=req.body.lastname;
@@ -39,6 +39,7 @@ router.post('/insertUser', function(req, res, next) {
   var password=req.body.password;
   var email=req.body.email;
   var roles=req.body.role;
+  console.log('Roles: '+roles);
   var comments=req.body.comments;
 
   getUser(username, function(err, result){

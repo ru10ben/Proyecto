@@ -1,24 +1,29 @@
 $(function(){
 
 	$('#saveandclose').click(function(){
-		var newuser={firstname: $('#firstname').val(), lastname: $('#lastname').val(), username: $('#username').val(), email: $('#email').val(), password:    $('#password').val()};
-    
-  		$.post( "/newUser", newUser, function( data ) {
+    var checkboxValues = new Array();
+    $("input[name='role']:checked").each(function() {
+      checkboxValues.push($(this).val());
+    });
+
+		var newuser={firstname: $('#firstname').val(), lastname: $('#lastname').val(), username: $('#username').val(), 
+                    email: $('#email').val(), password: $('#password').val(),comments: $('#comments'), role: checkboxValues};
+    console.log(checkboxValues);
+
+  	$.post( "/newUser/insertUser", newuser, function( data ) {
   			if(data=='ERROR'){
   				console.log('ERROR');
- 				$('#error3').show();
+ 				  $('#error3').show();
   			}else{
  			    console.log('Logueado correctamente');
-                //$.cookie('username',data.username);
-                //$.cookie('roles',data.roles);
-                window.location='/users';
+          //$.cookie('username',data.username);
+          //$.cookie('roles',data.roles);
+          window.location='/';
   			}
   		});   
   })
     
-    $('#logout').click(function(){
-        
-        window.location='/';
-        
-    })
+  $('#logout').click(function(){
+      window.location='/';
+  })
 });
