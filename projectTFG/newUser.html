@@ -16,6 +16,7 @@
     <title>New User</title>
 </head>
 <body>
+<form data-abide method="POST" action="">
     <div id="wrapper">
         <!--Header-->
         <hr id="line"></hr>
@@ -30,7 +31,6 @@
         </div>
         <!--/div-->
 		<hr id="line"></hr>
-    
         <!--Subtitle Personal information-->
         <div class="small-1 large-1 columns">
             &nbsp;
@@ -38,7 +38,7 @@
         <div class="small-9 large-9 columns">
             <h3>Personal information</h3>
             <hr id="line"></hr>
-            <form data-abide method="POST" action="">
+            
                 
                 <!--Field First name-->
                 <div class="column">
@@ -110,17 +110,17 @@
                     <!--Check Box-->
                     <div>
                         &nbsp;
-                        <input type="radio" name="roleadmin" value="admin" id="admin" tabindex="7">
+                        <input type="checkbox" name="role" value="admin" id="admin" tabindex="7">
                         <label id="mybold" for="admin">Administrator</label>
                     </div>
                     <div>
                         &nbsp;
-                        <input type="radio" name="roleproman" value="promanager" id="promanager" tabindex="8">
+                        <input type="checkbox" name="role" value="promanager" id="promanager" tabindex="8">
                         <label id="mybold" for="promanager">Projecct Manager</label>
                     </div>
                     <div>
                         &nbsp;
-                        <input type="radio" name="roleval" value="eval" id="eval" tabindex="9">
+                        <input type="checkbox" name="role" value="eval" id="eval" tabindex="9">
                         <label id="mybold" for="eval">Evaluator</label>
                     </div>
                 </div>
@@ -140,14 +140,12 @@
                 <div class="small-4 large-4 columns">
                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <a class="button-nav" tabindex="11" id="cancel">Cancel</a>
-                    <a class="button-nav" tabindex="12" id="saveandclose">Save & Close</a>
+                    <a class="button-nav" tabindex="12" id="saveandclose">Save and Close</a>
                 </div>
-	       </form>
         </div>
         <div class="small-2 large-2 columns">
             <a class="button-nav" tabindex="13" id="logout">Logout</a>
         </div>
-
         <!--footer-->
 		<hr id="line"></hr>
         <!--div class="column" id="myborder"-->
@@ -160,6 +158,7 @@
         <!--/div-->
         <hr id="line"></hr>
     </div>
+</form>
 </body>
     <script>
         $(document).foundation();//inicializacion de foundation

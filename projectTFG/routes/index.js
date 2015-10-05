@@ -7,20 +7,36 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
-router.post('/log', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   //res.render('login', { title: 'Express' });
   var username=req.body.username;
   var password=req.body.password;
 
-  getUser(username, function(err, result){
-    if (result.length == 0 || password != result[0].password) {
-      res.send('ERROR');
-    }else{
-      user={username: result[0].userName, roles:result[0].roles}
-      res.send(user);
-    }
-  });
+  passport.use('local-login', new LocalStrategy({
+    // by default, local strategy uses username and password, we will override with email
+    username : 'username',
+    password : 'password',
+    passReqToCallback : true // allows us to pass back the entire request to the callback
+  }, getUser(username, function(err, result){
+           if (!result.length) {
+                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+            } 
+            // if the user is found but the password is wrong
+            if (!( result[0].password == password))
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+            // all is well, return successful user
+            return done(null, result[0]);
+
+    });
 });
+
+
+    // if (result.length == 0 || password != result[0].password) {
+    //   res.send('ERROR');
+    // }else{
+    //   user={username: result[0].userName, roles:result[0].roles}
+    //   res.send(user);
+    // }
 
 router.get('/mainMenu', function(req, res, next) {
    console.log(user.username);

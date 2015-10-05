@@ -3,7 +3,7 @@ $(function(){
 	$('#log').click(function(){
 		var login={username: $('#username').val(), password: $('#password').val()};
     var user;
-  		$.post( "/log", login, function( data ) {
+  		$.post( "/login", login, function( data ) {
   			if(data=='ERROR'){
   				console.log('ERROR');
  				$('#error2').show();
