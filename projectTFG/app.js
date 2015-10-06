@@ -46,19 +46,17 @@ global.getUser = function(name_user, callback) {
         callback(err, rows);
     });
 };
-
 //Inserta un usuario en la base de datos
-global.insertUser = function(id_user, first_name, last_name, user_name, password, email, roles, comments) {
-    connection.query("INSERT INTO user(id,firstName,lastName,userName,password,e-mail,roles,comments) VALUES ("+id_user+","+first_name+","+last_name+",'"+user_name+"','"+password+"','"+email+"','"+roles+"',"+comments+",);",
-    				function(err, rows, fields) {
-        				callback(err, rows);
+global.insertUser = function(id_user, first_name, last_name, user_name, password, email, roles, comments, callback) {
+    connection.query("INSERT INTO user(id,firstName,lastName,userName,password,email,roles,comments) VALUES ("+id_user+",'"+first_name+"','"+last_name+"','"+user_name+"','"+password+"','"+email+"','"+roles+"','"+comments+"');",function(err, rows, fields) {
+      callback(err, rows);
     });
 };
 
-//Devuelve el max(id_event) para que se inserte un evento con el siguiente id al obtenido
+//Devuelve el max(id) para que se inserte un usuario con el siguiente id al obtenido
 global.maxIdUser = function(callback) {
     connection.query("SELECT max(id) FROM user", function(err, rows, fields) {
-        callback(err, rows);
+      callback(err, rows);
     });
 };
 
