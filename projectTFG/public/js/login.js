@@ -11,7 +11,7 @@ $(function(){
  				 console.log('Logueado correctamente');
          $.cookie('username',data.username);
          $.cookie('roles',data.roles);
-         window.location='/mainMenu';
+         window.location.href='/mainMenu';
   			}
   		});   
   })

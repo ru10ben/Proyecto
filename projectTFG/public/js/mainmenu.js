@@ -24,7 +24,4 @@ $(function(){
             })
       }  
     })
-    $('#newuser').click(function(){
-            window.location='/newUser';
-    })
 });

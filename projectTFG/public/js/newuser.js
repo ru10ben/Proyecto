@@ -10,7 +10,7 @@ $(function(){
                     email: $('#email').val(), password: $('#password').val(),comments: $('#comments'), role: checkboxValues};
     console.log(checkboxValues);
 
-  	$.post( "/newUser/insertUser", newuser, function( data ) {
+  	$.post( "/insertUser", newuser, function( data ) {
   			if(data=='ERROR'){
   				console.log('ERROR');
  				  $('#error3').show();
@@ -18,12 +18,8 @@ $(function(){
  			    console.log('Logueado correctamente');
           //$.cookie('username',data.username);
           //$.cookie('roles',data.roles);
-          window.location='/';
+          //window.location.href='/';
   			}
   		});   
-  })
-    
-  $('#logout').click(function(){
-      window.location='/';
   })
 });
