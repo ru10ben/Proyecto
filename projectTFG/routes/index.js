@@ -4,12 +4,12 @@ var user;
 var id_user=1;
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log('paso 1');
+    //console.log('paso 1');
   res.render('login', { title: 'Express' });
 });
 
-router.post('/log', function(req, res, next) {
-    console.log('paso 2');
+router.post('/login', function(req, res, next) {
+    //console.log('paso 2');
     var username=req.body.username;
     var password=req.body.password;
     console.log(username); 
@@ -26,7 +26,7 @@ router.post('/log', function(req, res, next) {
 });
 
 router.get('/mainMenu', function(req, res, next) {
-    console.log('paso 3');
+    //console.log('paso 3');
   res.render('mainMenu');
 });
 
@@ -40,8 +40,8 @@ router.post('/insertUser', function(req, res, next) {
   var roles=req.body.role;
   var comments=req.body.comments;
     //-----------------------------------------------------------
-    console.log(email); //----------------------------------
-    console.log(firstname);
+    console.log(roles); //----------------------------------
+    //console.log(firstname);
 //----------------------------------------------------------------------
   getUser(username, function(err, result){
     if (result.length != 0) {
@@ -70,7 +70,7 @@ router.post('/insertUser', function(req, res, next) {
 });
 
 router.get('/newUser', function(req, res, next) {
-    console.log('paso 4');
+    //console.log('paso 4');
   res.render('newUser');
 });
 

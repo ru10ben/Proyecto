@@ -7,8 +7,8 @@ $(function(){
     });
 
 		var newuser={firstname: $('#firstname').val(), lastname: $('#lastname').val(), username: $('#username').val(), 
-                    email: $('#email').val(), password: $('#password').val(),comments: $('#comments'), role: checkboxValues};
-    console.log(checkboxValues);
+                    email: $('#email').val(), password: $('#password').val(),comments: $('#comments').val(), role: checkboxValues.toString()};
+    console.log(newuser.role);
 
   	$.post( "/insertUser", newuser, function( data ) {
   			if(data=='ERROR'){
