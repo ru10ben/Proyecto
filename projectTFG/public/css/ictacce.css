@@ -10,10 +10,25 @@ html, body {
 
 #line {
  border:solid #00008B;
- border-width: 2px 0 0;;
+ border-width: 2px 0 0;
  clear: both;
  height: 0;
  margin: 1.25rem 0 1.1875rem; }
+
+#myborder{
+    border-style: solid;
+    border-color: #00008B;
+/*border:none;
+border-width: none;
+border-left: 2px solid #00008B;
+height: 50px;*/
+}
+
+#mybold {
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-size: 1.125rem;
+    font-weight: bold;
+}
 
 #title {
   color:#00008B;}
