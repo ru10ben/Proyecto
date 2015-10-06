@@ -16,11 +16,10 @@
     <title>New User</title>
 </head>
 <body>
-<form data-abide method="POST" action="">
     <div id="wrapper">
+        
         <!--Header-->
         <hr id="line"></hr>
-        <!--div id="myborder"-->
         <div class="small-5 large-5 columns">
             <h1 id="title">ICT-AccE</h1>
         </div>
@@ -29,16 +28,17 @@
 				<h1 id="title">New User</h1>
             </div>
         </div>
-        <!--/div-->
 		<hr id="line"></hr>
+        
         <!--Subtitle Personal information-->
         <div class="small-1 large-1 columns">
             &nbsp;
         </div>
+    
+        <form data-abide method="POST" action="">
         <div class="small-9 large-9 columns">
             <h3>Personal information</h3>
-            <hr id="line"></hr>
-            
+            <hr id="line"></hr> 
                 
                 <!--Field First name-->
                 <div class="column">
@@ -47,7 +47,7 @@
 				        <input type="text" required pattern="[a-zA-Z]+" tabindex="1" name="firstname", id="firstname">
                     </label>
 				    <small class="error">First name is required</small>
-                    <div data-alert class="alert-box alert radius" id="error3" style="display:none">User name already exit</div>
+                    <div data-alert class="alert-box alert radius" id="error3" style="display:none">User name is already token</div>
                 </div>
                 </div>
     
@@ -110,17 +110,17 @@
                     <!--Check Box-->
                     <div>
                         &nbsp;
-                        <input type="checkbox" name="role" value="admin" id="admin" tabindex="7">
+                        <input type="checkbox" name="role" value="Administrator" id="admin" tabindex="7">
                         <label id="mybold" for="admin">Administrator</label>
                     </div>
                     <div>
                         &nbsp;
-                        <input type="checkbox" name="role" value="promanager" id="promanager" tabindex="8">
+                        <input type="checkbox" name="role" value="Projecct Manager" id="promanager" tabindex="8">
                         <label id="mybold" for="promanager">Projecct Manager</label>
                     </div>
                     <div>
                         &nbsp;
-                        <input type="checkbox" name="role" value="eval" id="eval" tabindex="9">
+                        <input type="checkbox" name="role" value="Evaluator" id="eval" tabindex="9">
                         <label id="mybold" for="eval">Evaluator</label>
                     </div>
                 </div>
@@ -141,24 +141,26 @@
                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <a class="button-nav" tabindex="11" id="cancel">Cancel</a>
                     <a class="button-nav" tabindex="12" id="saveandclose">Save and Close</a>
-                </div>
+                </div>	       
         </div>
+        </form>
+
         <div class="small-2 large-2 columns">
-            <a class="button-nav" tabindex="13" id="logout">Logout</a>
+            <a href="/" class="button-nav" tabindex="13" id="logout">Logout</a>
         </div>
+
         <!--footer-->
 		<hr id="line"></hr>
-        <!--div class="column" id="myborder"-->
-            <div class="small-7 small-centered large-7 large-centered columns">
+        <div class="row">
+            <!--div class="small-7 small-centered large-7 large-centered columns">
                  &nbsp; &nbsp;
-            </div>
-            <div class="small-5 small-centered large-5 large-centered columns">
+            </div-->
+            <div class="small-10 small-centered large-10 large-centered columns">
                 <h1 id="title">ICT-AccE tool. User interface prototype</h1>
             </div>
-        <!--/div-->
+        </div>
         <hr id="line"></hr>
     </div>
-</form>
 </body>
     <script>
         $(document).foundation();//inicializacion de foundation
