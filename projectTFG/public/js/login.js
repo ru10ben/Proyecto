@@ -9,7 +9,7 @@ $(function(){
   				console.log('ERROR');
                 $('#labelname').css({'color':'#f04124'});
                 $('#username').css({'border-color':'#f04124'});
- 				$('#error2').show();
+ 				        $('#error2').show();
   			}else{
                 $.cookie('username',data.username);
                 $.cookie('roles',data.roles);
