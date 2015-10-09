@@ -8,6 +8,7 @@ var mysql = require('mysql');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var session = require('express-session');
 
 var app = express();
 
@@ -30,6 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+app.use(bodyParser());
+app.use(session({secret:'mi secreto'}));
+
 // DATABASE
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -40,22 +44,29 @@ var connection = mysql.createConnection({
 });
 
 
-//Devuelve el usuario que tenga el nombre pasado como parametro y null si no lo encuentra
+//Get user by username
 global.getUser = function(name_user, callback) {
     connection.query("SELECT * FROM user WHERE userName='"+ name_user +"';", function(err, rows, fields) {
         callback(err, rows);
     });
 };
-//Inserta un usuario en la base de datos
+//Insert a user
 global.insertUser = function(id_user, first_name, last_name, user_name, password, email, roles, comments, callback) {
     connection.query("INSERT INTO user(id,firstName,lastName,userName,password,email,roles,comments) VALUES ("+id_user+",'"+first_name+"','"+last_name+"','"+user_name+"','"+password+"','"+email+"','"+roles+"','"+comments+"');",function(err, rows, fields) {
       callback(err, rows);
     });
 };
 
-//Devuelve el max(id) para que se inserte un usuario con el siguiente id al obtenido
+//Get max(id)
 global.maxIdUser = function(callback) {
     connection.query("SELECT max(id) FROM user", function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
+//Get all users
+global.getAllUsers = function(callback) {
+    connection.query("SELECT firstName,lastName,userName FROM user", function(err, rows, fields) {
       callback(err, rows);
     });
 };

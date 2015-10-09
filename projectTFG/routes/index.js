@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var user;
 var id_user=1;
+var sha1=require('sha1');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,7 +13,7 @@ router.post('/login', function(req, res, next) {
   var username=req.body.username;
   var password=req.body.password;
 
-  var passEncriptada = encriptar(username,password);
+  var passEncriptada = sha1(password);
 
   getUser(username, function(err, result){
     if (result.length == 0 || passEncriptada != result[0].password) {
@@ -25,10 +26,10 @@ router.post('/login', function(req, res, next) {
 });
 
 router.post('/mainMenu', function(req, res, next) {
-   res.render('mainMenu');
+      res.render('mainMenu');
 });
 
-router.post('/newUser', function(req, res, next) {
+router.get('/newUser', function(req, res, next) {
   res.render('newUser');
 });
 
@@ -71,21 +72,25 @@ router.post('/insertUser', function(req, res, next) {
         id_user=1;
       }
       console.log(id_user);
-      var passEncriptada = encriptar(username,password);
+      var passEncriptada = sha1(password);
 
       insertUser(id_user, firstname, lastname, username, passEncriptada, email, roles, comments, function(err, result){
           id_user=id_user+1;
-          res.send('OK');
+          res.render('users');
       });
     });
 });
 
-//encript password
-function encriptar(user, pass) {
-   var crypto = require('crypto')
-   // usamos el metodo CreateHmac y le pasamos el parametro user y actualizamos el hash con la password
-   var hmac = crypto.createHmac('sha1', user).update(pass).digest('hex')
-   return hmac
-}
+router.post('/users', function(req, res, next) {
+    getAllUsers(function(err, result){
+        if (result.length != 0) {
+          console.log(result[0]);
+          res.send('ERROR');
+        }else{
+          console.log(result[0]);
+          res.send(result[0]);
+        }
+    });
+});
 
 module.exports = router;
