@@ -29,7 +29,7 @@ router.post('/mainMenu', function(req, res, next) {
       res.render('mainMenu');
 });
 
-router.get('/newUser', function(req, res, next) {
+router.post('/newUser', function(req, res, next) {
   res.render('newUser');
 });
 
