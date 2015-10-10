@@ -8,7 +8,7 @@ var mysql = require('mysql');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var session = require('express-session');
+//var session = require('express-session');
 
 var app = express();
 
@@ -31,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-app.use(bodyParser());
-app.use(session({secret:'mi secreto'}));
+//app.use(bodyParser());
+//app.use(session({secret:'mi secreto'}));
 
 // DATABASE
 var connection = mysql.createConnection({
