@@ -6,11 +6,15 @@ $(function(){
             
         $.post( "/login", login, function( data ) {
   			if(data=='ERROR'){
-  				console.log('ERROR');
                 $('#labelname').css({'color':'#f04124'});
                 $('#username').css({'border-color':'#f04124'});
  				        $('#error2').show();
+                $('#log').attr('disabled', 'disabled');
+                console.log(data);
+                //$('#log').prop('disabled', true);
   			}else{
+                $('#log').attr('disabled', false);
+                //$('#log').prop('disabled', false);
                 $.cookie('username',data.username);
                 $.cookie('roles',data.roles);
                 $('#error2').hide();
