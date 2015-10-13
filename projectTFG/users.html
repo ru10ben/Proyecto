@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
+    <link rel="stylesheet" href="./public/css/ictacce.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation/foundation.accordion.js"></script>
+    <script src="./public/js/users.js"></script>
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Users</title>
+</head>
+<body>
+    <div id="wrapper">
+        
+        <!--Header-->
+        <hr id="line"></hr>
+        <div class="small-5 large-5 columns">
+            <h1 id="title">ICT-AccE</h1>
+        </div>
+        <div class="row">	
+            <div class="small-3 small-clarge-3 large-centered columns">
+				<h1 id="title">Users</h1>
+            </div>
+        </div>
+		<hr id="line"></hr>
+    
+        <!--Subtitle Personal information-->
+        <div class="small-1 large-1 columns">
+            &nbsp;
+        </div>
+    
+        <form data-abide method="POST" action="">
+            
+        <div class="small-9 large-9 columns">
+            <h3>Table of users</h3>
+            <div class="row">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="400">User</th>
+                        <th width="400">Name</th>
+                        <th width="400">Hit Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="listuser">
+                    <!--tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr-->
+                </tbody>
+            </table>
+            <a class="button-nav" tabindex="1" id="editpass">New User</a>
+            <a class="button-nav" tabindex="2" id="editprofile">Main menu</a>
+            </div>
+            
+        </div>
+            <!--footer-->
+		<hr id="line"></hr>
+        <div class="row">
+            <!--div class="small-7 small-centered large-7 large-centered columns">
+                 &nbsp; &nbsp;
+            </div-->
+            <div class="small-10 small-centered large-10 large-centered columns">
+                <h1 id="title">ICT-AccE tool. User interface prototype</h1>
+            </div>
+        </div>
+        <hr id="line"></hr>
+    
+    </div>
+</body>
+    <script>
+        $(document).foundation();//inicializacion de foundation
+    </script>
+</html>
