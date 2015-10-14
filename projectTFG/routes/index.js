@@ -47,13 +47,16 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
   var sessionID=req.sessionID;
+  var username=req.session.user.username;
   var path=req.session.cookie.path;
   var expires=req.session.cookie.expires;
   var maxAge=req.session.cookie.maxAge;
-  insertSession(sessionID,req.session.user.username, path,expires, maxAge, function(err, result){
-    if(err){
-      console.log(err);
-    }
+  getSession(username, function(err, result){
+      if (result.length == 0){
+          insertSession(sessionID, username, path, expires, maxAge, function(err, result){});
+        }else{
+          updateSession(sessionID, username, path, expires, maxAge,function(err, result){});
+        }
   });
   req.session.destroy();
   res.clearCookie('username');
@@ -63,7 +66,6 @@ router.get('/logout', function(req, res, next) {
 
 router.post('/mainMen', function(req, res, next) {
   getSession(req.session.user.username, function(err, result){
-    console.log(result[0]);
       if (result.length == 0){
           res.redirect('/mainMenu'); //si no existe una sesion en bd sigue el camino normal
         }else{

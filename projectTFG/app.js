@@ -75,7 +75,13 @@ global.insertSession = function(id_session, user_name, path, expires, originalMa
 };
 
 global.getSession = function(name_user, callback) {
-    connection.query("SELECT * FROM session WHERE userName='"+ name_user +"';", function(err, rows, fields) {
+    connection.query("SELECT * FROM session WHERE userName='"+name_user+"';", function(err, rows, fields) {
+        callback(err, rows);
+    });
+};
+
+global.updateSession = function(id_session, name_user, path, expires, originalMaxAge, callback) {
+    connection.query("UPDATE session SET id='"+id_session+"',path='"+path+"',expires='"+expires+"' WHERE userName='"+name_user+"';", function(err, rows, fields) {
         callback(err, rows);
     });
 };
