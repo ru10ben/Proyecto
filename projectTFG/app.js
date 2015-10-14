@@ -8,6 +8,7 @@ var mysql = require('mysql');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
 //var session = require('express-session');
 
 var app = express();
@@ -31,9 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-//app.use(bodyParser());
-//app.use(session({secret:'mi secreto'}));
-
 // DATABASE
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -43,7 +41,6 @@ var connection = mysql.createConnection({
     database : 'myapp',
 });
 
-
 //Get user by username
 global.getUser = function(name_user, callback) {
     connection.query("SELECT * FROM user WHERE userName='"+ name_user +"';", function(err, rows, fields) {
@@ -52,7 +49,7 @@ global.getUser = function(name_user, callback) {
 };
 //Insert a user
 global.insertUser = function(id_user, first_name, last_name, user_name, password, email, roles, comments, callback) {
-    connection.query("INSERT INTO user(id,firstName,lastName,userName,password,email,roles,comments) VALUES ("+id_user+",'"+first_name+"','"+last_name+"','"+user_name+"','"+password+"','"+email+"','"+roles+"','"+comments+"');",function(err, rows, fields) {
+    connection.query("INSERT INTO user(id,firstName,lastName,userName,password,email,roles,comments) VALUES ('"+id_user+"','"+first_name+"','"+last_name+"','"+user_name+"','"+password+"','"+email+"','"+roles+"','"+comments+"');",function(err, rows, fields) {
       callback(err, rows);
     });
 };
@@ -68,6 +65,18 @@ global.maxIdUser = function(callback) {
 global.getAllUsers = function(callback) {
     connection.query("SELECT firstName,lastName,userName FROM user", function(err, rows, fields) {
       callback(err, rows);
+    });
+};
+
+global.insertSession = function(id_session, user_name, path, expires, originalMaxAge, callback) {
+    connection.query("INSERT INTO session(id,userName,path,expires,originalMaxAge) VALUES ('"+id_session+"','"+user_name+"','"+path+"','"+expires+"','"+originalMaxAge+"');",function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
+global.getSession = function(name_user, callback) {
+    connection.query("SELECT * FROM session WHERE userName='"+ name_user +"';", function(err, rows, fields) {
+        callback(err, rows);
     });
 };
 

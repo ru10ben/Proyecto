@@ -1,5 +1,6 @@
 
 $(function(){
+  $('#log').attr('disabled', 'disabled');
     $('#password').on('focusout', function(){
         var login={username: $('#username').val(), password: $('#password').val()};
         if($('#username').val()!=""){
@@ -9,7 +10,6 @@ $(function(){
                 $('#labelname').css({'color':'#f04124'});
                 $('#username').css({'border-color':'#f04124'});
  				        $('#error2').show();
-                $('#log').attr('disabled', 'disabled');
                 console.log(data);
                 //$('#log').prop('disabled', true);
   			}else{
