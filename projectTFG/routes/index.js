@@ -150,7 +150,7 @@ router.post('/insertUser', function(req, res, next) {
     });
 });
 
-router.post('/users', function(req, res, next) {
+router.get('/allUsers', function(req, res, next) {
     getAllUsers(function(err, result){
         if (result.length == 0) {        
           res.send('ERROR');
