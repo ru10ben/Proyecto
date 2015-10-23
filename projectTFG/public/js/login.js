@@ -1,27 +1,28 @@
 
 $(function(){
-  $('#log').attr('disabled', 'disabled');
-    $('#password').on('focusout', function(){
+    var timeValidate;
+  $('#log').attr('disabled', 'disabled'); //desactiva el boton
+    $('#password').on('keyup', function(){
+        clearTimeout(timeValidate);
+        timeValidate=setTimeout(function(){
         var login={username: $('#username').val(), password: $('#password').val()};
         if($('#username').val()!=""){
-            
-        $.post( "/login", login, function( data ) {
-  			if(data=='ERROR'){
-                $('#labelname').css({'color':'#f04124'});
-                $('#username').css({'border-color':'#f04124'});
- 				        $('#error2').show();
-                console.log(data);
-                //$('#log').prop('disabled', true);
-  			}else{
-                $('#log').attr('disabled', false);
-                //$('#log').prop('disabled', false);
-                $.cookie('username',data.username);
-                $.cookie('roles',data.roles);
-                $('#error2').hide();
-                $('#labelname').css({'color':'#00FF00'});
-                $('#username').css({'border-color':'#00FF00'});
-  			}
-  		});
+            $.post( "/login", login, function( data ) { //microllamada para saber si el usuario existe
+  			   if(data=='ERROR'){
+                    $('#labelname').css({'color':'#f04124'});
+                    $('#username').css({'border-color':'#f04124'});
+ 			        $('#error2').show();
+                    console.log(data);
+  			   }else{
+                    $('#log').attr('disabled', false);
+                    $.cookie('username',data.username);
+                    $.cookie('roles',data.roles);
+                    $('#error2').hide();
+                    $('#labelname').css({'color': ""});
+                    $('#username').css({'border-color': ""});
+  			   }
+  		    });
         }
+        },2000);
     });
 });

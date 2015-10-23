@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
+    <link rel="stylesheet" href="./public/css/ictacce.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
+    <script src="./public/js/newProjectEvaluation.js"></script>
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>New Evaluation Project</title>
+</head>
+<body>
+    <div id="wrapper">
+        <!--Header-->
+		<hr id="line"></hr>
+        <div class="small-5 large-5 columns">
+            <h1 id="title">ICT-AccE</h1>
+        </div>    
+        <div class="row">	
+            <div class="small-8 small-centered large-8 large-centered columns">
+				<h1 id="title">Create New Evaluation Project</h1>
+            </div>
+        </div>
+		<hr id="line"></hr>
+        <br></br>
+
+    <form data-abide method="post" action="">
+        
+        <!--Field 1.Product or service name:-->
+        <div class="column">
+            <div class="small-4 large-4 columns">
+                <label for="product or service name" id="labelproductname">1.Product or service name: <small>Required</small>
+				    <input type="text" required pattern="[a-zA-Z]+" class="productname" tabindex="1" name="productname", id="productname"></input>
+                </label>
+				<small class="error">Product or service name is required</small>
+                <div data-alert class="alert-box alert radius" id="error4" style="display:none">User name or password incorrect</div>
+            </div>
+        </div>
+        
+        <!--Field 2.Description:-->
+        <div class="column">
+            <div class="small-6 large-6 columns">
+                <label>2.Description:</label>
+				<textarea rows="10" cols="50" tabindex="2" name="description" id="description"></textarea>
+				<br></br>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="small-4 large-4 columns">
+                <button type="submit" class="button-nav" tabindex="3" id="create" aria-describedby="create">Create evaluation project</button>
+            </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        </div>
+	</form>
+        <!--footer-->
+		<hr id="line"></hr>
+            <div class="row" id="container">
+                <div class="small-9 small-centered large-9 large-centered columns">
+                    <h1 id="title">ICT-AccE tool. User interface prototype</h1>
+                </div>
+            </div>
+        <hr id="line"></hr>
+    </div>
+
+</body>
+    <script>
+        $(document).foundation();//inicializacion de foundation
+    </script>
+</html> 
