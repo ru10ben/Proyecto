@@ -49,18 +49,16 @@
             <hr id="line"></hr>
         
         <!--buttons for Administrator actions-->
-        <form method="post" action="/newUse">
             <div style="display:none" id="actions">
                 <dl class="accordion" data-accordion>
                     <dd class="accordion-navigation">
                         <a href="#panel1" class="accordion-nav" tabindex="4" id="admin">Show Administrator actions</a>
                         <div id="panel1" class="content">
-                            <button type="submit" class="button-nav" tabindex="5" id="newuser">New user</a>
+                            <a href="/newUser" class="button-nav" tabindex="5" id="newuser">New user</a>
                         </div>
                     </dd>
                 </dl>
             </div>
-        </form>
         
         <!--buttons for Project Manager actions-->
             <div style="display:none" id="actions2">
@@ -68,16 +66,12 @@
                     <dd class="accordion-navigation">
                         <a href="#panel2" class="accordion-nav" tabindex="4">Show Project Manager actions</a>
                         <div id="panel2"class="content">
-                        <form method="post" action="/newProj">    
                             <div>
-                                <button class="button-nav" tabindex="5" id="newproject">New Project Evaluation</button>
+                                <a href="/newProject" class="button-nav" tabindex="5" id="newproject">New Project Evaluation</a>
                             </div>
-                        </form>
-                        <form method="post" action="/finish">
                             <div>
-                                <button class="button-nav" tabindex="6" id="finishproject">Finish Project Evaluation</button>
+                                <a href="" class="button-nav" tabindex="6" id="finishproject">Finish Project Evaluation</a>
                             </div>
-                        </form>
                         </div>
                     </dd>
                 </dl>
@@ -89,7 +83,7 @@
                 <dd class="accordion-navigation">
                     <a href="#panel3" class="accordion-nav" tabindex="4">Show Evaluator actions</a>
                     <div id="panel3" class="content">
-                        <a class="button-nav" tabindex="5" id="evaluate">Evaluate</a>
+                        <a href="" class="button-nav" tabindex="5" id="evaluate">Evaluate</a>
                     </div>
                 </dd>
             </dl>

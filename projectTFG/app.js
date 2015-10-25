@@ -86,6 +86,34 @@ global.updateSession = function(id_session, name_user, path, expires, originalMa
     });
 };
 
+//This function inserts a project
+global.insertProject = function(idProj, name, description,callback) {
+    connection.query("INSERT INTO project(id,name,description) VALUES('"+idProj+"','"+name+"','"+description+"');",function(err,results,fields){
+        callback(err, results);
+    });
+};
+
+//This function gets the text of a question
+global.getQuestion = function(actualQuest, callback) {
+    connection.query('SELECT text FROM question WHERE id='+'"'+actualQuest+'"',function(err,results,fields){ 
+        callback(err, results);
+    });
+};
+
+//This function gets the help of a question
+global.getHelp = function(actualQuest, callback) {
+    connection.query('SELECT help FROM question WHERE id='+'"'+actualQuest+'"',function(err,results,fields){
+        callback(err, results);
+    });
+};
+
+//This function gets the id and the title of the clauses always apply
+global.getClauses = function(callback) {
+    connection.query('SELECT id, title FROM clause WHERE id="05.2" or id="05.3" or id="05.4" or id="05.7" or id="05.8" or id="05.9"',function(err,results,fields){
+      callback(err, results);
+    });
+};
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

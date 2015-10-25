@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var user;
-var id_user=1;
 var sha1=require('sha1');
 var session = require('express-session');
+
+var user;
+var id_user=1;
+var nameProj;
+var idProj=0;
+var actualQuest='Q01';
+var myQuestion;
+var myClauses = new Array();
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -88,10 +94,6 @@ router.get('/mainMenu', function(req, res, next) {
       }
 });
 
-router.post('/newUse', function(req, res, next) {
-  res.redirect('/newUser');
-});
-
 router.get('/newUser', function(req, res, next) {
   if(typeof req.session.user == 'undefined'){
     res.redirect('/');
@@ -150,7 +152,7 @@ router.post('/insertUser', function(req, res, next) {
     });
 });
 
-router.get('/allUsers', function(req, res, next) {
+router.post('/users', function(req, res, next) {
     getAllUsers(function(err, result){
         if (result.length == 0) {        
           res.send('ERROR');
@@ -158,6 +160,48 @@ router.get('/allUsers', function(req, res, next) {
           res.send(result);
         }
     });
+});
+
+router.get('/newProject', function(req, res, next) {
+  if(typeof req.session.user == 'undefined'){
+    res.redirect('/');
+  }else{
+    console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    req.session.cookie.path='/newProjectEvaluation';
+    res.render('newProjectEvaluation');
+  }
+});
+
+router.post('/insertProj', function(req, res, next) {
+  var name=req.body.name;
+  nameProj=name;
+  var description=req.body.description;
+  console.log(name+' '+description);
+
+  idProj=idProj+1;
+  actualQuest='Q01';
+  var myHelp;
+
+  insertProject(idProj, name, description, function(err, results){});
+
+  getQuestion(actualQuest, function(err, results){
+    myQuestion=results[0].text;
+    console.log(myQuestion);
+  });
+
+  getHelp(actualQuest, function(err, results){
+    myHelp=results[0].help;
+    console.log(myHelp);
+  });
+
+  getClauses(function(err, results){
+    for (var i = 0; i < results.length; i++) {
+      myClauses[i]= results[i].id+' '+results[i].title; //Poner clauses formato adecuado
+    };
+    console.log(myClauses);
+    //render=[tittleApp,name,myQuestion,myHelp,myClauses];
+    res.render('ictFeatures');
+  }); 
 });
 
 module.exports = router;
