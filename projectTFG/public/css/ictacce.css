@@ -1,21 +1,21 @@
 
-html, body {
+html, body { /* color de fondo del body*/
  background:#FFF5EE;
  box-sizing: none;}
 
-#wrapper {
+#wrapper { /* color de fondo de toda la pantalla*/
   min-height: 100%;
   background-color: #FFF5EE;
 }
 
-#line {
+#line { /* creamos las dos lineas de la cabecera y el pie de pagina*/
  border:solid #00008B;
  border-width: 2px 0 0;
  clear: both;
  height: 0;
  margin: 1.25rem 0 1.1875rem; }
 
-#myborder{
+.myborder{ /* esto crea el borde para la cabecera o el pie de pagina*/
     border-style: solid;
     border-color: #00008B;
 /*border:none;
@@ -24,19 +24,20 @@ border-left: 2px solid #00008B;
 height: 50px;*/
 }
 
-#mybold {
-    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+#mybold { /* Cambia las letras de los roles*/
+    font-family: sans-serif;
     font-size: 1.125rem;
     font-weight: bold;
 }
 
-#title {
-  color:#00008B;}
+#title { /* color de los titulos de cada pagina*/
+  color:#00008B;
+  font-family: sans-serif;}
 
-#container {
-  background-color: #B2AAAA;}
+#container { /* posible opcion de pintar el pie de página*/
+  background-color: lightgrey;}
 
-.button-nav {
+.button-nav { /* Formato de los botones*/
   -webkit-appearance: none;
   -moz-appearance: none;
   border-radius: 6px;
@@ -57,9 +58,31 @@ height: 50px;*/
   color: #222;
   transition: background-color 300ms ease-out; }
 
-a:hover, .button-nav:hover, a:focus, button-nav:focus {
+button:hover, button:focus, a:hover, a:focus, .button-nav:hover, .button-nav:focus {
   color: #222;
-  background-color:dimgray;}
+  background-color:dimgray;
+  line-height: none;}
+
+#log:disabled, #saveandclose:disabled { /* desactiva los botones*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 6px;
+  border-style: outset;
+  border-width: 2px;
+  font-family:  sans-serif;
+  font-weight: bold;
+  line-height: normal;
+  margin: 0 0 1.25rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1rem 2rem 1.0625rem 2rem;
+  font-size: 1rem;
+  background-color: lightgrey;
+  border-color: lightgrey;
+  color: #222;
+  transition: background-color 300ms ease-out; }
 
 #error2 {
   display: block;
@@ -72,19 +95,45 @@ a:hover, .button-nav:hover, a:focus, button-nav:focus {
   background: #f04124;
   color: #FFFFFF; }
 
-.accordion-nav {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: none;
+.myaccordion {
+  margin-bottom: 0; }
+
+.myaccordion:before, .myaccordion:after {
+  content: " ";
+  display: table; }
+
+.myaccordion:after {
+  clear: both; }
+
+.myaccordion .myaccordion-navigation, .myaccordion dd {
+  display: block;
+  margin-bottom: 0 !important; }
+
+.myaccordion .myaccordion-navigation.active > a, .myaccordion dd.active > a {
+  background: mediumblue;} 
+
+.myaccordion .myaccordion-navigation > a, .myaccordion dd > a {
+  background: mediumblue;
+  color: white;
+  border-radius: 6px;
   border-style: outset;
   border-width: 2px;
+  display: block;
   font-family:  sans-serif;
   font-weight: bold;
-  line-height: normal;
-  margin: 0 0 0;
-  position: relative;
-  text-align: none;
-  text-decoration: none;
-  display: inline-block;
   font-size: 1rem;
-  border-color: #00008B;}
+  padding: 0.375rem 0.5625rem 0.5625rem; }
+
+.myaccordion .myaccordion-navigation > a:hover, .myaccordion dd > a:hover {
+        background: darkblue; }
+
+.myaccordion .myaccordion-navigation > .content, .myaccordion dd > .content {
+      display: none;
+      padding: 0.9375rem; }
+
+.myaccordion .myaccordion-navigation > a:focus, .myaccordion dd > a:focus {
+        background: darkblue; }
+
+.myaccordion .myaccordion-navigation > .content.active, .myaccordion dd > .content.active {
+        background: #FFF5EE;
+        display: block; }
