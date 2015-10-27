@@ -86,6 +86,12 @@ global.updateSession = function(id_session, name_user, path, expires, originalMa
     });
 };
 
+global.insertPath = function(name_user, path, callback) {
+    connection.query("UPDATE session SET path='"+path+"' WHERE userName='"+name_user+"';", function(err, rows, fields) {
+        callback(err, rows);
+    });
+};
+
 //This function inserts a project
 global.insertProject = function(idProj, name, description,callback) {
     connection.query("INSERT INTO project(id,name,description) VALUES('"+idProj+"','"+name+"','"+description+"');",function(err,results,fields){

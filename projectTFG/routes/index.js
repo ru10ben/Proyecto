@@ -10,6 +10,8 @@ var idProj=0;
 var actualQuest='Q01';
 var myQuestion;
 var myClauses = new Array();
+var date;
+
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -19,11 +21,11 @@ router.use(session({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log('Cookies en /:');
-  console.log(req.cookies);
-  console.log('---------------');
+  //console.log('Cookies en /:');
+  //console.log(req.cookies);
+  //console.log('---------------');
   res.render('login', { title: 'Express' });
-  console.log(req.session);
+  //console.log(req.session);
 });
 
 router.post('/login', function(req, res, next) {
@@ -39,13 +41,26 @@ router.post('/login', function(req, res, next) {
       user={username: result[0].userName, roles:result[0].roles};
       req.session.user = user;
       var hour = 3600000; //Una hora 3600000
-      req.session.cookie.expires = new Date(Date.now() + hour);
+      date=dateFormat(new Date(Date.now() + hour));
       req.session.cookie.maxAge = hour;
-      console.log('Cookies en /login:');
-      console.log(req.cookies);
-      console.log('---------------');
+
+      //console.log('Cookies en /login:');
+      //console.log(req.cookies);
+      //console.log('---------------');
       console.log(req.session);
-      console.log('GET login: '+req.session.user.username+': '+req.sessionID);
+      //console.log('GET login: '+req.session.user.username+': '+req.sessionID);
+      var sessionID=req.sessionID;
+      var username=req.session.user.username;
+  	  var path=req.session.cookie.path;
+  	  var expires=date;
+  	  var maxAge=req.session.cookie.maxAge;
+      getSession(username, function(err, result){
+      	if (result.length == 0){
+          insertSession(sessionID, username, path, expires, maxAge, function(err, result){});
+        }else{
+          updateSession(sessionID, username, path, expires, maxAge,function(err, result){});
+        }
+  	  });
       res.send(user);
     }
   });
@@ -55,8 +70,8 @@ router.get('/logout', function(req, res, next) {
   var sessionID=req.sessionID;
   var username=req.session.user.username;
   var path=req.session.cookie.path;
-  var expires=req.session.cookie.expires;
   var maxAge=req.session.cookie.maxAge;
+  var expires=date;
   getSession(username, function(err, result){
       if (result.length == 0){
           insertSession(sessionID, username, path, expires, maxAge, function(err, result){});
@@ -72,33 +87,39 @@ router.get('/logout', function(req, res, next) {
 
 router.post('/mainMen', function(req, res, next) {
   getSession(req.session.user.username, function(err, result){
-      if (result.length == 0){
+      if (result[0].path == '/'){
           res.redirect('/mainMenu'); //si no existe una sesion en bd sigue el camino normal
-        }else{
+      }else{
           res.redirect(result[0].path); //funciona va al path / y carga home
-        }
+      }
   });
 });
 
 router.get('/mainMenu', function(req, res, next) {
-  console.log('Cookies en /mainMenu:');
-  console.log(req.cookies);
-  console.log('---------------');
-  console.log(req.session);
-      if(typeof req.session.user == 'undefined'){
-        res.redirect('/');
-      }else{
-        console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
-        req.session.cookie.path='/mainMenu';
-        res.render('mainMenu');
-      }
+  //console.log('Cookies en /mainMenu:');
+  //console.log(req.cookies);
+  //console.log('---------------');
+  //console.log(req.session);
+/*  var username=req.session.user.username;
+  var path='/mainMenu';
+  insertPath(username, path, function(err, result){});*/
+  if(typeof req.session.user == 'undefined'){
+  	res.redirect('/');
+  }else{
+    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    req.session.cookie.path='/mainMenu';
+    res.render('mainMenu');
+  }
 });
 
 router.get('/newUser', function(req, res, next) {
+/*  var username=req.session.user.username;
+  var path='/mainMenu';
+  insertPath(username, path, function(err, result){});*/
   if(typeof req.session.user == 'undefined'){
     res.redirect('/');
   }else{
-    console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
     req.session.cookie.path='/newUser';
     res.render('newUser');
   }
@@ -108,7 +129,7 @@ router.post('/checkUser', function(req, res, next) {
   var username=req.body.username;
 
   getUser(username, function(err, result){
-  	console.log(result);
+  	//console.log(result);
     if (result.length != 0) {
     	res.send('ERROR');
     }else{
@@ -125,8 +146,8 @@ router.post('/insertUser', function(req, res, next) {
   var password=req.body.password;
   var email=req.body.email;
   var roles=req.body.role;
-  console.log('booooody: '+firstname);
-  console.log('Roles: '+roles);
+  //console.log('booooody: '+firstname);
+  //console.log('Roles: '+roles);
   var comments=req.body.comments;
     maxIdUser(function(err, rows){
       console.log(rows);
@@ -166,7 +187,7 @@ router.get('/newProject', function(req, res, next) {
   if(typeof req.session.user == 'undefined'){
     res.redirect('/');
   }else{
-    console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
     req.session.cookie.path='/newProjectEvaluation';
     res.render('newProjectEvaluation');
   }
@@ -203,5 +224,11 @@ router.post('/insertProj', function(req, res, next) {
     res.render('ictFeatures');
   }); 
 });
+
+function dateFormat(date){
+	var month=date.getMonth()+1;
+	var result=date.getFullYear()+'-'+month+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+	return result;
+}
 
 module.exports = router;
