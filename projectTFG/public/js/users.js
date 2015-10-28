@@ -11,6 +11,7 @@ $(function(){
         }
     });
 });
+
 var tabla=function(column,column2,column3){
 
         var clon=$("#listuser").clone();
