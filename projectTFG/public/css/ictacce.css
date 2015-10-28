@@ -5,8 +5,7 @@ html, body { /* color de fondo del body*/
 
 #wrapper { /* color de fondo de toda la pantalla*/
   min-height: 100%;
-  background-color: #FFF5EE;
-}
+  background-color: #FFF5EE;}
 
 #line { /* creamos las dos lineas de la cabecera y el pie de pagina*/
  border:solid #00008B;
@@ -17,18 +16,12 @@ html, body { /* color de fondo del body*/
 
 .myborder{ /* esto crea el borde para la cabecera o el pie de pagina*/
     border-style: solid;
-    border-color: #00008B;
-/*border:none;
-border-width: none;
-border-left: 2px solid #00008B;
-height: 50px;*/
-}
+    border-color: #00008B;}
 
 #mybold { /* Cambia las letras de los roles*/
     font-family: sans-serif;
     font-size: 1.125rem;
-    font-weight: bold;
-}
+    font-weight: bold;}
 
 #title { /* color de los titulos de cada pagina*/
   color:#00008B;

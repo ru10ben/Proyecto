@@ -14,7 +14,7 @@ $(function(){
 var tabla=function(column,column2,column3){
 
         var clon=$("#listuser").clone();
-        //clon.removeClass('listuser');
+        clon.removeAttr('style');
         clon.find('#prueba1').text(column);
         clon.find('#prueba2').text(column2+', '+column3);
         //clon.find('#prueba3').text(column3);

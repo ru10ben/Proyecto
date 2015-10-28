@@ -14,7 +14,7 @@ $(function(){
     if(role.indexOf('Project Manager')>-1){
        $('#actions2').show(); 
     }
-    $('#admin').click(function(){ //en proyecto
+    /*$('#admin').click(function(){ //en proyecto
         $('#admin').text('Hide Administrator actions');
         flag=true;
         if(flag == true){
@@ -23,5 +23,5 @@ $(function(){
                 $('#admin').text('Show Administrator actions');
             })
       }  
-    })
+    })*/
 });

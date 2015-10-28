@@ -17,150 +17,145 @@
 </head>
 <body>
     <div id="wrapper">
-        
         <!--Header-->
-        <hr id="line"></hr>
-        <div class="small-5 large-5 columns">
-            <h1 id="title">ICT-AccE</h1>
-        </div>
-        <div class="row">	
-            <div class="small-3 small-clarge-3 large-centered columns">
-				<h1 id="title">New User</h1>
+        <div class="myborder">
+            <div class="small-7 small-centered  medium-5 medium-uncentered large-5 large-uncentered columns">
+                <h1 id="title">ICT-AccE</h1>
+            </div>    
+            <div class="row">	
+                <div class="small-5 small-centered large-6 large-centered medium-centered columns">
+				    <h1 id="title">New user</h1>
+                </div>
             </div>
         </div>
-		<hr id="line"></hr>
-        
-        <!--Subtitle Personal information-->
-        <div class="small-1 large-1 columns">
-            &nbsp;
-        </div>
-    
+        <br></br>
         <form data-abide method="POST" action="/insertUser">
-            
-        <div class="small-9 large-9 columns">
-            <h3>Personal information</h3>
-            <hr id="line"></hr> 
-                
-                <!--Field First name-->
-                <div class="column">
-                <div class="large-4 columns">
+            <div class="row" style="max-width:80%;">
+                <div class="medium-7 large-4 columns">
+                    <h3>Personal information</h3>
+                </div>
+                <div class="medium-1 large-4 columns">
+                    &nbsp;
+                </div>
+                <div class="medium-4 medium-pull-12 large-4 columns">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href='/logout' class="button-nav" tabindex="13" id="logout">Logout</a>                    
+                </div>
+            <hr id="line"></hr>
+            </div>
+            <div class="row" style="max-width:80%;">
+            <!--Field First name-->
+                <div class="small-12 medium-6 large-4 columns">
                     <label for="firstname">First name: <small> Required</small>
 				        <input type="text" required pattern="[a-zA-Z]+" tabindex="1" name="firstname", id="firstname">
                     </label>
 				    <small class="error">First name is required</small>
-                </div>
-                </div>
-    
-                <!--Field Last name-->
-                <div class="column">
-                <div class="large-4 columns">
+                </div>                 
+            </div> 
+            <div class="row" style="max-width:80%;">
+            <!--Field Last name-->
+                <div class="small-12 medium-6 large-4 columns">
 				    <label for="lastname"> Last name:<small> Required</small>
                         <input type="text" required pattern="[a-zA-Z]+"tabindex="2" id="lastname" name="lastname">
                     </label>
 				    <small class="error">Last name is required</small>		
-                </div>
-                </div>
-                
-                <!--Field User name-->
-                <div class="column">
-                <div class="large-4 columns">
+                </div>                 
+            </div>     
+            <div class="row" style="max-width:80%;">
+            <!--Field User name-->
+                <div class="small-12 medium-6 large-4 columns">
 				    <label for="username" id="labelname"> User name:<small> Required</small>
                         <input type="text" required pattern="[a-zA-Z]+" tabindex="3" name="username", id="username">
                     </label>
 				    <small class="error">User name is required</small>
                     <div data-alert class="alert-box alert radius" id="error3" style="display:none">User name is already token</div>
-                </div>
-                </div>
-                
-                <!--Field email-->
-                <div class="column">
-                <div class="large-4 columns">
+                </div>                
+            </div> 
+            <div class="row" style="max-width:80%;">
+            <!--Field email-->
+                <div class="small-12 medium-6 large-4 columns">
 				    <label for="email"> Email:
                         <input type="email" data-invalid tabindex="4" id="email" name="email">
                     </label>
 				    <small class="error">valid mail required</small>		
-                </div>
-                </div>
-                
-                <!--Field Password-->
-                <div class="column">
-                <div class="large-4 columns">
+                </div>               
+            </div>
+            <div class="row" style="max-width:80%;">
+            <!--Field Password-->
+                <div class="small-12 medium-6 large-4 columns">
 				    <label for="password"> Password:<small> Required</small>
                         <input type="password" required pattern="[a-zA-Z]+" tabindex="5" id="password" name="password">
                     </label>
 				    <small class="error">Password is required</small>		
-                </div>
-                </div>
-                
-                <!--Field passwordconfirmation-->
-                <div class="column">
-                <div class="large-4 columns">
+                </div>             
+            </div>
+            <div class="row" style="max-width:80%;">
+            <!--Field password confirmation-->
+                <div class="small-12 medium-6 large-4 columns">
 				    <label for="password"> Confirm Password:<small> Required</small>
                         <input type="password" required pattern="[a-zA-Z]+" data-equalto="password" tabindex="6">
                     </label>
 				    <small class="error">The password did not match</small>		
-                </div>
-                </div>
-
-                <!--Subtitle My actions-->
+                </div>             
+            </div>
+            <div class="row" style="max-width:80%;">
+            <!--Subtitle My actions-->
                 <h3>My actions</h3>
                 <hr id="line"></hr>
                 <h5 id="role" name="role"></h5>
-                <div class="column">
-                <div id="myborder">
-                    <!--Check Box-->
-                    <div>
-                        &nbsp;
-                        <input type="checkbox" name="role" value="Administrator" id="admin" tabindex="7">
-                        <label id="mybold" for="admin">Administrator</label>
-                    </div>
-                    <div>
-                        &nbsp;
-                        <input type="checkbox" name="role" value="Project Manager" id="promanager" tabindex="8">
-                        <label id="mybold" for="promanager">Project Manager</label>
-                    </div>
-                    <div>
-                        &nbsp;
-                        <input type="checkbox" name="role" value="Evaluator" id="eval" tabindex="9">
-                        <label id="mybold" for="eval">Evaluator</label>
-                    </div>
+            </div>  
+            <div class="row" style="max-width:80%; border-style: solid; border-color: #00008B;">
+            <!--Check Box-->
+                <div>
+                    &nbsp;
+                    <input type="checkbox" name="role" value="Administrator" id="admin" tabindex="7">
+                    <label id="mybold" for="admin">Administrator</label>
                 </div>
+                <div>
+                    &nbsp;
+                    <input type="checkbox" name="role" value="Project Manager" id="promanager" tabindex="8">
+                    <label id="mybold" for="promanager">Project Manager</label>
+                </div>
+                <div>
+                    &nbsp;
+                    <input type="checkbox" name="role" value="Evaluator" id="eval" tabindex="9">
+                    <label id="mybold" for="eval">Evaluator</label>
+                </div>                
+            </div>
+            <div class="row" style="max-width:80%;">
                 (Check box)
-                </div>
-                <br></br>
-                <div class="column">
-                <div class="large-8 columns">
+            </div>
+            <div class="row" style="max-width:80%;">
+            <!--Comments-->
+                <div class="medium-10 large-8 columns">
                 <h5>Comments:</h5>
 				<textarea rows="10" cols="30" tabindex="10" name="comments" id="comments"></textarea>
                  <br></br>
-                </div>
-                </div>
-                <div class="small-8 large-8 columns">
+                </div>                
+            </div>
+            <div class="row" style="max-width:80%;">
+            <!--Buttons--> 
+                <div class="small-5 medium-5 large-8 columns">
                     &nbsp;
-                </div>
-                <div class="small-4 large-4 columns">
-                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <button type="submit" class="button-nav" tabindex="11" id="cancel">Cancel</a>
-                    <button type="submit" class="button-nav" tabindex="12" id="saveandclose">Save and Close</a>
-                </div>	       
-        </div>
-        </form>
-        <form  method="GET" action="/">
-        <div class="small-2 large-2 columns">
-            <a href='/logout' class="button-nav" tabindex="13" id="logout">Logout</a>
-        </div>
+                </div>    
+                <div class="small-7 small-centered medium-7 medium-uncentered large-4 large-uncentered columns">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="button-nav" tabindex="11" id="cancel">Cancel</button>
+                    <button type="submit" class="button-nav" tabindex="12" id="saveandclose" aria-describedby="saveandclose">Save and Close</button>
+                </div>                
+            </div>
         </form>
         <!--footer-->
-		<hr id="line"></hr>
-        <div class="row">
-            <!--div class="small-7 small-centered large-7 large-centered columns">
-                 &nbsp; &nbsp;
-            </div-->
-            <div class="small-10 small-centered large-10 large-centered columns">
-                <h1 id="title">ICT-AccE tool. User interface prototype</h1>
+            <div class="myborder" id="container">
+            <div class="row">
+                <div class="small-0 medium-2 large-2 columns">
+                    &nbsp;
+                </div>
+                <div class="small-12 small-centered medium-6 medium-centered large-6 large-centered columns">
+                    <h2><small id="title">ICT-AccE tool. User interface prototype</small></h2>
+                </div>
             </div>
-        </div>
-        <hr id="line"></hr>
+            </div>
     </div>
 </body>
     <script>

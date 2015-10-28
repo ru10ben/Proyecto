@@ -18,88 +18,87 @@
 <body>
     <div id="wrapper">
         <!--Header-->
-		<hr id="line"></hr>
-        <div class="small-5 large-5 columns">
-            <h1 id="title">ICT-AccE</h1>
-        </div>
-        <div class="row">	
-            <div class="small-9 small-centered large-9 large-centered columns">
-				<h1 id="title">Main menu</h1>
+        <div class="myborder">
+            <div class="small-7 small-centered  medium-5 medium-uncentered large-5 large-uncentered columns">
+                <h1 id="title">ICT-AccE</h1>
+            </div>    
+            <div class="row">	
+                <div class="small-5 small-centered large-6 large-centered medium-centered columns">
+				    <h1 id="title">Main menu</h1>
+                </div>
             </div>
-        </div>
-		<hr id="line"></hr>
-        
-        <div class="small-1 large-1 columns">
-            &nbsp;
-        </div>
-
-        <div class="small-10 large-10 columns">
-            
-            <!--Subtitle My data-->
-            <h3>My data</h3>
-            <hr id="line"></hr>
-            <h5 id="username" name="username"></h5>
-            <h5 id="role" name="role"></h5>
-            <a class="button-nav" tabindex="1" id="editpass">Edit my password</a>
-            <a class="button-nav" tabindex="2" id="editprofile">Edit my profile</a>
-            <a href='/logout' class="button-nav" tabindex="3" id="logout">Logout</a>
-    
-            <!--Subtitle My actions-->
-            <h3>My actions</h3>
-            <hr id="line"></hr>
-        
-        <!--buttons for Administrator actions-->
-            <div style="display:none" id="actions">
-                <dl class="myaccordion" data-accordion>
-                    <dd class="myaccordion-navigation">
-                        <a href="#panel1" tabindex="4" id="admin">Show Administrator actions</a>
-                        <div id="panel1" class="content">
-                            <a href="/newUser" class="button-nav" tabindex="5" id="newuser">New user</a>
-                        </div>
-                    </dd>
-                </dl>
-            </div>
-        
-        <!--buttons for Project Manager actions-->
-            <div style="display:none" id="actions2">
-                <dl class="myaccordion" data-accordion>
-                    <dd class="myaccordion-navigation">
-                        <a href="#panel2" tabindex="6" id="projectman">Show Project Manager actions</a>
-                        <div id="panel2"class="content">
-                            <div>
-                                <a href="/newProject" class="button-nav" tabindex="7" id="newproject">New Evaluation Project</a>
-                            </div>
-                            <div>
-                                <a href="" class="button-nav" tabindex="8" id="finishproject">Finish Evaluation Project</a>
-                            </div>
-                        </div>
-                    </dd>
-                </dl>
-            </div>
-
-        <!--button for Evaluator action-->
-        <div style="display:none" id="actions3">
-            <dl class="myaccordion" data-accordion>
-                <dd class="myaccordion-navigation">
-                    <a href="#panel3" tabindex="9" id="eval">Show Evaluator actions</a>
-                    <div id="panel3" class="content">
-                        <a href="" class="button-nav" tabindex="10" id="evaluate">Evaluate</a>
-                    </div>
-                </dd>
-            </dl>
         </div>
         <br></br>
+        <br></br>
+        <div class="row" style="max-width:80%;">
+            <!--Subtitle My data-->
+                <h3>My data</h3>
+                <hr id="line"></hr>
+                <h5 id="username" name="username"></h5>
+                <h5 id="role" name="role"></h5>
+                <a class="button-nav" tabindex="1" id="editpass">Edit my password</a>
+                <a class="button-nav" tabindex="2" id="editprofile">Edit my profile</a>
+                <a href='/logout' class="button-nav" tabindex="3" id="logout">Logout</a>
+        </div>
+        <div class="row" style=" max-width:80%;">
+            <!--Subtitle My actions-->
+                <h3>My actions</h3>
+                <hr id="line"></hr>            
+        </div>
+        <div class="row" style="max-width:80%;">
+            <!--buttons for Administrator actions-->
+                <div style="display:none" id="actions">
+                    <dl class="myaccordion" data-accordion>
+                        <dd class="myaccordion-navigation">
+                            <a href="#panel1" tabindex="4" id="admin">Show Administrator actions</a>
+                            <div id="panel1" class="content">
+                                <a href="/newUser" class="button-nav" tabindex="5" id="newuser">New user</a>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>            
+            <!--buttons for Project Manager actions-->
+                <div style="display:none" id="actions2">
+                    <dl class="myaccordion" data-accordion>
+                        <dd class="myaccordion-navigation">
+                            <a href="#panel2" tabindex="6" id="projectman">Show Project Manager actions</a>
+                            <div id="panel2"class="content">
+                                <div>
+                                    <a href="/newProject" class="button-nav" tabindex="7" id="newproject">New Evaluation Project</a>
+                                </div>
+                                <div>
+                                    <a href="" class="button-nav" tabindex="8" id="finishproject">Finish Evaluation Project</a>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            <!--button for Evaluator action-->
+                <div style="display:none" id="actions3">
+                    <dl class="myaccordion" data-accordion>
+                        <dd class="myaccordion-navigation">
+                            <a href="#panel3" tabindex="9" id="eval">Show Evaluator actions</a>
+                            <div id="panel3" class="content">
+                                <a href="" class="button-nav" tabindex="10" id="evaluate">Evaluate</a>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+                <br></br>
+                <br></br>
         </div>
 
         <!--footer-->
-		<hr id="line"></hr>
-            <div class="row" id="container">
-                <div class="small-9 small-centered columns">
-                    <h1 id="title">ICT-AccE tool. User interface prototype</h1>
+            <div class="myborder" id="container">
+            <div class="row">
+                <div class="small-0 medium-2 large-2 columns">
+                    &nbsp;
+                </div>
+                <div class="small-12 small-centered medium-6 medium-centered large-6 large-centered columns">
+                    <h2><small id="title">ICT-AccE tool. User interface prototype</small></h2>
                 </div>
             </div>
-        <hr id="line"></hr>
-
+            </div>
     </div>
 </body>
     <script>
