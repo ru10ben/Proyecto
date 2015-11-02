@@ -193,17 +193,10 @@ router.get('/newProject', function(req, res, next) {
   }
 });
 
-router.post('/insertProj', function(req, res, next) {
-  var name=req.body.name;
-  nameProj=name;
-  var description=req.body.description;
-  console.log(name+' '+description);
-
+router.get('/getData', function(req, res, next) {
   idProj=idProj+1;
   actualQuest='Q01';
   var myHelp;
-
-  insertProject(idProj, name, description, function(err, results){});
 
   getQuestion(actualQuest, function(err, results){
     myQuestion=results[0].text;
@@ -220,9 +213,18 @@ router.post('/insertProj', function(req, res, next) {
       myClauses[i]= results[i].id+' '+results[i].title; //Poner clauses formato adecuado
     };
     console.log(myClauses);
-    //render=[tittleApp,name,myQuestion,myHelp,myClauses];
-    res.render('ictFeatures');
+    var render={question:myQuestion,help:myHelp,clauses:myClauses};
+    res.send(render);
   }); 
+});
+
+router.post('/insertProj', function(req, res, next) {
+  var name=req.body.name;
+  nameProj=name;
+  var description=req.body.description;
+  console.log(name+' '+description);
+  insertProject(idProj, name, description, function(err, results){});
+  res.render('ictFeatures');
 });
 
 function dateFormat(date){
