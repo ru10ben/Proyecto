@@ -11,7 +11,10 @@ var actualQuest='Q01';
 var myQuestion;
 var myClauses = new Array();
 var date;
-
+var nextQuest;
+var myHistoric = new Array(); //Array providedAns
+var idClauses = new Array();
+var newClauses = new Array();
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -226,6 +229,73 @@ router.post('/insertProj', function(req, res, next) {
   insertProject(idProj, name, description, function(err, results){});
   res.render('ictFeatures');
 });
+
+router.post('/next',function(req,res){
+  var answer=req.body.answer;
+  var nextAns;
+  var historic;
+  var myHelp2;
+   if(answer=='No'){
+    insertAnswers(idAns, actualQuest, idProj,answer, function(err, results){});
+    idAns=idAns+1;
+    historic = '['+answer+'] -> '+myQuestion;
+    myHistoric = myHistoric.concat(historic);
+    
+    nextAns='nextno';
+    getQuestionAns(nextAns,actualQuest, function(err, results){
+      nextQuest=results[0].nextno; 
+      actualQuest=nextQuest;     
+      if(nextQuest!=''){
+        getQuestion(actualQuest, function(err, results){
+          myQuestion = results[0].text;
+          getHelp(actualQuest, function(err, results){
+            myHelp2 = results[0].help;
+            var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
+            //[myQuestion,myHelp2,myClauses,myHistoric];
+            res.send(render);
+          });
+        });
+      }else{
+        res.send('You have completed the evaluation');  
+      }
+    });  
+   }else{ //el usuario responde si y si no responde se considera si
+    answer='Yes';
+    insertAnswers(idAns, actualQuest, idProj,answer, function(err, results){});
+    idAns=idAns+1;
+    historic = '['+answer+'] -> '+myQuestion;
+    myHistoric = myHistoric.concat(historic);
+    getClauses2(actualQuest, function(err, results){
+      for (var i = 0; i < results.length; i++) {
+        idClauses[i] = results[i].idClause;
+        getDataClause(idClauses[i], function(err, results){
+              newClauses = results[0].id+' '+results[0].title;
+              myClauses=myClauses.concat(newClauses);     
+        });        
+      };
+    });
+    nextAns='nextyes';
+    getQuestionAns(nextAns,actualQuest, function(err, results){
+      //Poner pregunta formato adecuado
+      nextQuest=results[0].nextyes;
+      actualQuest=nextQuest;     
+      if(nextQuest!=''){
+        getQuestion(actualQuest, function(err, results){
+          myQuestion = results[0].text;
+          getHelp(actualQuest, function(err, results){
+            myHelp2 = results[0].help;
+            var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
+            //[myQuestion,myHelp2,myClauses,myHistoric];
+            res.send(render);
+          });
+        });
+      }else{
+        res.send('You have completed the evaluation');  
+      }
+    });  
+   }  
+});
+
 
 function dateFormat(date){
 	var month=date.getMonth()+1;

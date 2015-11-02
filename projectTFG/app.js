@@ -120,6 +120,32 @@ global.getClauses = function(callback) {
     });
 };
 
+//This function inserts the answer to a question
+global.insertAnswers = function(idAns, idQuest, idProj, answer,callback) {
+  connection.query('INSERT INTO answer(id,idQuest,idProj,answer) VALUES(?,?,?,?)',[idAns,actualQuest,idProj,answer],function(err,results,fields){
+        callback(err, results);
+    });
+};
+
+//This function gets the id of the next question according to the answer to the current question 
+global.getQuestionAns = function(nextAns,actualQuest, callback) {
+    connection.query('SELECT '+nextAns+' FROM question WHERE id='+'"'+actualQuest+'"',function(err,results,fields){ 
+        callback(err, results);
+    });
+};
+
+global.getClauses2 = function(actualQuest,callback) {
+    connection.query('SELECT idClause FROM clausesofquestion WHERE idQuest='+'"'+actualQuest+'"',function(err,results,fields){
+      callback(err, results);
+    });
+};
+
+global.getDataClause = function(idClause, callback) {
+    connection.query('SELECT id, title FROM clause WHERE id='+'"'+idClause+'"',function(err,results,fields){
+      callback(err, results);
+    });
+};
+ 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
