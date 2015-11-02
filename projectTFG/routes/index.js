@@ -15,6 +15,7 @@ var nextQuest;
 var myHistoric = new Array(); //Array providedAns
 var idClauses = new Array();
 var newClauses = new Array();
+var idAns=1;
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -191,7 +192,7 @@ router.get('/newProject', function(req, res, next) {
     res.redirect('/');
   }else{
     //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
-    req.session.cookie.path='/newProjectEvaluation';
+    req.session.cookie.path='/newProject';
     res.render('newProjectEvaluation');
   }
 });
@@ -203,19 +204,19 @@ router.get('/getData', function(req, res, next) {
 
   getQuestion(actualQuest, function(err, results){
     myQuestion=results[0].text;
-    console.log(myQuestion);
+    //console.log(myQuestion);
   });
 
   getHelp(actualQuest, function(err, results){
     myHelp=results[0].help;
-    console.log(myHelp);
+    //console.log(myHelp);
   });
 
   getClauses(function(err, results){
     for (var i = 0; i < results.length; i++) {
       myClauses[i]= results[i].id+' '+results[i].title; //Poner clauses formato adecuado
     };
-    console.log(myClauses);
+    //console.log(myClauses);
     var render={question:myQuestion,help:myHelp,clauses:myClauses};
     res.send(render);
   }); 
@@ -225,13 +226,14 @@ router.post('/insertProj', function(req, res, next) {
   var name=req.body.name;
   nameProj=name;
   var description=req.body.description;
-  console.log(name+' '+description);
+  //console.log(name+' '+description);
   insertProject(idProj, name, description, function(err, results){});
   res.render('ictFeatures');
 });
 
 router.post('/next',function(req,res){
   var answer=req.body.answer;
+  console.log(answer);
   var nextAns;
   var historic;
   var myHelp2;
@@ -251,7 +253,7 @@ router.post('/next',function(req,res){
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
             var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
-            //[myQuestion,myHelp2,myClauses,myHistoric];
+            //console.log(render);
             res.send(render);
           });
         });

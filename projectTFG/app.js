@@ -122,7 +122,7 @@ global.getClauses = function(callback) {
 
 //This function inserts the answer to a question
 global.insertAnswers = function(idAns, idQuest, idProj, answer,callback) {
-  connection.query('INSERT INTO answer(id,idQuest,idProj,answer) VALUES(?,?,?,?)',[idAns,actualQuest,idProj,answer],function(err,results,fields){
+  connection.query("INSERT INTO answer(id,idQuest,idProj,answer) VALUES('"+idAns+"','"+idQuest+"','"+idProj+"','"+answer+"')",function(err,results,fields){
         callback(err, results);
     });
 };

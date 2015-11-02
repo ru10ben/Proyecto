@@ -27,7 +27,7 @@ $(function(){
             $('#question').text(data.question);
             $('#help').text(data.help);
             var clausesArr2=data.clauses;
-            clausesArr2=clausesArr2.split(",");
+            //console.log(clausesArr2)
             while(i<clausesArr2.length){
 
                 var opt = document.createElement("option");
@@ -35,7 +35,7 @@ $(function(){
                 opt.innerHTML = clausesArr2[i];
                 select1.appendChild(opt);
                 i++;
-    } 
+            } 
         });
     });
 });
