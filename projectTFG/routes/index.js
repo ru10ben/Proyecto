@@ -260,10 +260,9 @@ router.get('/ictFeatures', function(req, res, next) {
     var hour = 3600000; //Una hora 3600000
     req.session.cookie.maxAge = hour;
     req.session.cookie.path='/ictFeatures';
-    myHistoric=[];
+    //myHistoric=[];
     //myClauses=[];
-    var actualQuest='Q01';
-
+    //var actualQuest='Q01';
     res.render('ictFeatures');
   }
 });
