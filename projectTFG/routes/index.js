@@ -111,6 +111,8 @@ router.get('/mainMenu', function(req, res, next) {
   	res.redirect('/');
   }else{
     //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
     req.session.cookie.path='/mainMenu';
     res.render('mainMenu');
   }
@@ -124,6 +126,8 @@ router.get('/newUser', function(req, res, next) {
     res.redirect('/');
   }else{
     //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
     req.session.cookie.path='/newUser';
     res.render('newUser');
   }
@@ -137,6 +141,8 @@ router.post('/checkUser', function(req, res, next) {
     if (result.length != 0) {
     	res.send('ERROR');
     }else{
+      var hour = 3600000; //Una hora 3600000
+      req.session.cookie.maxAge = hour;
       res.send('OK');
     }
   });
@@ -172,19 +178,29 @@ router.post('/insertUser', function(req, res, next) {
 
       insertUser(id_user, firstname, lastname, username, passEncriptada, email, roles, comments, function(err, result){
           id_user=id_user+1;
+          var hour = 3600000; //Una hora 3600000
+          req.session.cookie.maxAge = hour;
           res.render('users');
       });
     });
 });
 
 router.get('/allUsers', function(req, res, next) {
+  if(typeof req.session.user == 'undefined'){
+    res.redirect('/');
+  }else{
+    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    req.session.cookie.path='/allUsers';
     getAllUsers(function(err, result){
         if (result.length == 0) {        
           res.send('ERROR');
         }else{
+          var hour = 3600000; //Una hora 3600000
+          req.session.cookie.maxAge = hour;
           res.send(result);
         }
     });
+  }
 });
 
 router.get('/newProject', function(req, res, next) {
@@ -192,13 +208,15 @@ router.get('/newProject', function(req, res, next) {
     res.redirect('/');
   }else{
     //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
     req.session.cookie.path='/newProject';
     res.render('newProjectEvaluation');
   }
 });
 
 router.get('/getData', function(req, res, next) {
-  idProj=idProj+1;
+ 
   actualQuest='Q01';
   var myHelp;
 
@@ -218,6 +236,8 @@ router.get('/getData', function(req, res, next) {
     };
     //console.log(myClauses);
     var render={question:myQuestion,help:myHelp,clauses:myClauses};
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
     res.send(render);
   }); 
 });
@@ -227,16 +247,31 @@ router.post('/insertProj', function(req, res, next) {
   nameProj=name;
   var description=req.body.description;
   //console.log(name+' '+description);
+  idProj=idProj+1;
   insertProject(idProj, name, description, function(err, results){});
-  res.render('ictFeatures');
+  res.redirect('/ictFeatures');
+});
+
+router.get('/ictFeatures', function(req, res, next) {
+  if(typeof req.session.user == 'undefined'){
+    res.redirect('/');
+  }else{
+    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
+    req.session.cookie.path='/ictFeatures';
+    res.render('ictFeatures');
+  }
 });
 
 router.post('/next',function(req,res){
   var answer=req.body.answer;
-  console.log(answer);
+  //console.log(answer);
   var nextAns;
   var historic;
   var myHelp2;
+  var hour = 3600000; //Una hora 3600000
+  req.session.cookie.maxAge = hour;
    if(answer=='No'){
     insertAnswers(idAns, actualQuest, idProj,answer, function(err, results){});
     idAns=idAns+1;
@@ -245,8 +280,11 @@ router.post('/next',function(req,res){
     
     nextAns='nextno';
     getQuestionAns(nextAns,actualQuest, function(err, results){
-      nextQuest=results[0].nextno; 
+      nextQuest=results[0].nextno;
       actualQuest=nextQuest;     
+      //if(nextQuest!=''){
+      nextQuest.toString();
+      console.log(nextQuest);
       if(nextQuest!=''){
         getQuestion(actualQuest, function(err, results){
           myQuestion = results[0].text;
@@ -258,7 +296,9 @@ router.post('/next',function(req,res){
           });
         });
       }else{
-        res.send('You have completed the evaluation');  
+        var render={clauses:myClauses,historic:myHistoric,message:'You have completed the evaluation'};
+        res.send(render);
+        //res.send('You have completed the evaluation');  
       }
     });  
    }else{ //el usuario responde si y si no responde se considera si
@@ -281,6 +321,8 @@ router.post('/next',function(req,res){
       //Poner pregunta formato adecuado
       nextQuest=results[0].nextyes;
       actualQuest=nextQuest;     
+      //if(nextQuest!=''){
+      nextQuest.toString();
       if(nextQuest!=''){
         getQuestion(actualQuest, function(err, results){
           myQuestion = results[0].text;
@@ -292,7 +334,8 @@ router.post('/next',function(req,res){
           });
         });
       }else{
-        res.send('You have completed the evaluation');  
+        var render={clauses:myClauses,historic:myHistoric,message:'You have completed the evaluation'};
+        //res.send('You have completed the evaluation');  
       }
     });  
    }  

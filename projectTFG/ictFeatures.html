@@ -32,7 +32,7 @@
         <div class="column">
             <!--Field Questions:-->
             <div class="small-5 medium-5 large-5 columns">
-                <label>Questions:</label>
+                <label id="questions">Questions:</label>
 				<textarea rows="10" cols="50" tabindex="-1" name="question" id="question" disabled="disabled"></textarea>
                 <dl class="accordion" data-accordion>
                     <dd class="accordion-navigation">
@@ -43,8 +43,8 @@
                 </dl>
                 <!--Field Answer:-->
                 <div class="small-3 medium-3 large-3 columns">
-                    <label>Answer:</label>
-                    <div class="switch large">
+                    <label id="answer">Answer:</label>
+                    <div class="switch large" id="switch">
                         <input type='radio' checked name='answer' value='Yes' id='Yes'></input>
                         <label style="color: black" for="Yes">Yes</label>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -76,6 +76,7 @@
             <!--Field Next question:-->
             <div class="small-2 medium-2 large-2 columns">
                 <button type="button" class="button-nav" tabindex="3" id="nextquest" aria-describedby="nextquest">Next question</button>
+                <button style="display:none" type="button" class="button-nav" tabindex="3" id="showresults" aria-describedby="showresults">Show results</button>
             </div>
         </div>
 
