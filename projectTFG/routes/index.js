@@ -260,13 +260,16 @@ router.get('/ictFeatures', function(req, res, next) {
     var hour = 3600000; //Una hora 3600000
     req.session.cookie.maxAge = hour;
     req.session.cookie.path='/ictFeatures';
+    myHistoric=[];
+    //myClauses=[];
+    var actualQuest='Q01';
+
     res.render('ictFeatures');
   }
 });
 
 router.post('/next',function(req,res){
   var answer=req.body.answer;
-  //console.log(answer);
   var nextAns;
   var historic;
   var myHelp2;
@@ -282,7 +285,6 @@ router.post('/next',function(req,res){
     getQuestionAns(nextAns,actualQuest, function(err, results){
       nextQuest=results[0].nextno;
       actualQuest=nextQuest;     
-      //if(nextQuest!=''){
       nextQuest.toString();
       console.log(nextQuest);
       if(nextQuest!=''){
@@ -291,14 +293,12 @@ router.post('/next',function(req,res){
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
             var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
-            //console.log(render);
             res.send(render);
           });
         });
       }else{
         var render={clauses:myClauses,historic:myHistoric,message:'You have completed the evaluation'};
-        res.send(render);
-        //res.send('You have completed the evaluation');  
+        res.send(render);  
       }
     });  
    }else{ //el usuario responde si y si no responde se considera si
@@ -321,7 +321,6 @@ router.post('/next',function(req,res){
       //Poner pregunta formato adecuado
       nextQuest=results[0].nextyes;
       actualQuest=nextQuest;     
-      //if(nextQuest!=''){
       nextQuest.toString();
       if(nextQuest!=''){
         getQuestion(actualQuest, function(err, results){
@@ -329,18 +328,29 @@ router.post('/next',function(req,res){
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
             var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
-            //[myQuestion,myHelp2,myClauses,myHistoric];
             res.send(render);
           });
         });
       }else{
+        getClauses2('Q11', function(err, results){
+          for (var i = 0; i < results.length; i++) {
+            idClauses[i] = results[i].idClause;
+            getDataClause(idClauses[i], function(err, results){
+              newClauses = results[0].id+' '+results[0].title;
+              myClauses=myClauses.concat(newClauses);     
+            });        
+          };
         var render={clauses:myClauses,historic:myHistoric,message:'You have completed the evaluation'};
-        //res.send('You have completed the evaluation');  
+        res.send(render);
+        });  
       }
     });  
    }  
 });
 
+router.get('/showResults', function(req, res, next) {
+  res.render('resultIctFeatures');
+});
 
 function dateFormat(date){
 	var month=date.getMonth()+1;
