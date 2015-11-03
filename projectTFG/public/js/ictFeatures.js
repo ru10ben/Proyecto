@@ -25,17 +25,18 @@ $(function(){
         var param = { answer:$("input[name='answer']:checked").val()};
         $.post( "/next", param, function( data ) {
             if(data.message=='You have completed the evaluation'){
-                $('.accordion').hide();
-                $('#switch').hide();//no funciona
+                $('.myaccordion').hide();
+                $('#switch').hide();
+                $('#field').hide();
                 $('#questions').text("Message: ");
                 $('#question').text(data.message);
                 $('#answer').hide();
                 $('#nextquest').hide();
                 $('#showresults').show();
-                console.log(data.clauses);
 
                 var clausesArr3=data.clauses;
                 var historic=data.historic;
+                $.cookie('historic',historic.join(';'));
                 var actualHistoric=historic[historic.length-1];
                 
                 var opt2 = document.createElement("option");
@@ -49,6 +50,7 @@ $(function(){
                     select1.appendChild(opt);
                     i++;
                 }
+                $.cookie('clauses',clausesArr3.join(';'));
             }else{
                 $('#question').text(data.question);
                 $('#help').text(data.help);

@@ -7,7 +7,6 @@ $(function(){
                 $.cookie('question',data.question);
                 $.cookie('help',data.help);
                 $.cookie('clauses',data.clauses);
-                console.log(data.question+""+data.help);
             });
         }
     });

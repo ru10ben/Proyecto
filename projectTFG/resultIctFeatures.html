@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
+    <link rel="stylesheet" href="./public/css/ictacce.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
+    <script src="./public/js/resultIctFeatures.js"></script>
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Decision tree results</title>  
+</head>
+  <body>
+    <div id="wrapper">  
+        <!--Header-->
+        <div class="myborder">
+            <div class="small-4 small-centered  medium-4 medium-uncentered large-4 large-uncentered columns">
+                <h1 id="title">ICT-AccE</h1>
+            </div>    
+            <div class="row">	
+                <div class="small-8 small-centered large-8 large-centered medium-centered columns">
+				    <h1 id="title">EN 301 549. Decision tree results</h1>
+                </div>
+            </div>
+        </div>
+        <br></br>
+        <!--Answers to questions-->
+        <div class="row" style="max-width:95%;">
+            <div class="medium-1 large-1 columns">
+                &nbsp;
+            </div>
+            <div class="medium-5 large-5 columns">
+                <label>Answers to questions:</label>
+                <select id="ansToQuest" name="ansToQuest" multiple style="height: 400px; background-color: white">
+                    <!--option value="0">Initial Value</option-->
+                </select>
+            </div>
+            <div class="medium-5 large-5 columns">
+                &nbsp;
+            </div>
+        </div>
+        <br></br>      
+        <!--Applicable clauses:-->
+        <div class="row" style="max-width:95%;">
+            <div class="medium-1 large-1 columns">
+                &nbsp;
+            </div>
+            <div class="medium-5 large-5 columns">
+                <label>Applicable clauses:</label>
+                <select id="appliClaus" name="appliClaus" multiple style="height: 400px; background-color: white">
+                    <!--option value="0">Initial Value</option-->
+                </select>
+            </div>
+            <div class="medium-5 large-5 columns">
+                &nbsp;
+            </div>
+        </div>
+        <br></br>     
+        <!--footer-->
+            <div class="myborder" id="container">
+            <div class="row">
+                <div class="small-0 medium-2 large-2 columns">
+                    &nbsp;
+                </div>
+                <div class="small-12 small-centered medium-6 medium-centered large-6 large-centered columns">
+                    <h2><small id="title">ICT-AccE tool. User interface prototype</small></h2>
+                </div>
+            </div>
+            </div>   
+    </div>
+  </body>
+    <script>
+        $(document).foundation();//inicializacion de foundation
+    </script>
+</html>
