@@ -93,8 +93,8 @@ global.insertPath = function(name_user, path, callback) {
 };
 
 //This function inserts a project
-global.insertProject = function(idProj, name, description,callback) {
-    connection.query("INSERT INTO project(id,name,description) VALUES('"+idProj+"','"+name+"','"+description+"');",function(err,results,fields){
+global.insertProject = function(idProj, idUser, name, description,callback) {
+    connection.query("INSERT INTO project(id,idUser,name,description) VALUES('"+idProj+"','"+idUser+"','"+name+"','"+description+"');",function(err,results,fields){
         callback(err, results);
     });
 };

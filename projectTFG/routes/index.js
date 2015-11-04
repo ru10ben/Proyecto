@@ -247,9 +247,14 @@ router.post('/insertProj', function(req, res, next) {
   nameProj=name;
   var description=req.body.description;
   //console.log(name+' '+description);
+  var username=req.session.user.username;
   idProj=idProj+1;
-  insertProject(idProj, name, description, function(err, results){});
-  res.redirect('/ictFeatures');
+  getUser(username, function(err, result){
+    //console.log(result);
+    var idUser=result[0].id;
+    insertProject(idProj, idUser, name, description, function(err, results){});
+    res.redirect('/ictFeatures');
+  });
 });
 
 router.get('/ictFeatures', function(req, res, next) {
