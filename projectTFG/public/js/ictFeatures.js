@@ -36,7 +36,6 @@ $(function(){
 
                 var clausesArr3=data.clauses;
                 var historic=data.historic;
-                $.cookie('historic',historic.join(';'));
                 var actualHistoric=historic[historic.length-1];
                 
                 var opt2 = document.createElement("option");
