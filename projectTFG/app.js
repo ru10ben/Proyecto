@@ -145,6 +145,12 @@ global.getDataClause = function(idClause, callback) {
       callback(err, results);
     });
 };
+
+global.maxIdProject = function(callback) {
+    connection.query("SELECT max(id) FROM project", function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
  
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

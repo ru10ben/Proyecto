@@ -16,6 +16,7 @@ var myHistoric = new Array(); //Array providedAns
 var idClauses = new Array();
 var newClauses = new Array();
 var idAns=1;
+var miProyecto;
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -248,12 +249,28 @@ router.post('/insertProj', function(req, res, next) {
   var description=req.body.description;
   //console.log(name+' '+description);
   var username=req.session.user.username;
-  idProj=idProj+1;
-  getUser(username, function(err, result){
-    //console.log(result);
-    var idUser=result[0].id;
-    insertProject(idProj, idUser, name, description, function(err, results){});
-    res.redirect('/ictFeatures');
+  var idProject=0;
+  maxIdProject(function(err, rows){
+    var id_string = JSON.stringify(rows);
+    id_string = id_string.replace('max(id)','');
+    id_string = id_string.replace('"','');
+    id_string = id_string.replace('"','');
+    id_string = id_string.replace(':','');
+    id_string = id_string.replace('[{','');
+    id_string = id_string.replace('}]','');
+    if(id_string!='null'){
+      idProject=parseInt(id_string)+1;
+    }else{
+      idProject=1;
+    }
+    miProyecto=new Proyecto(idProject,name);////
+    console.log(miProyecto);
+    getUser(username, function(err, result){
+      //console.log(result);
+      var idUser=result[0].id;
+      insertProject(miProyecto.id, idUser, name, description, function(err, results){});
+      res.redirect('/ictFeatures');
+    });
   });
 });
 
@@ -268,6 +285,7 @@ router.get('/ictFeatures', function(req, res, next) {
     //myHistoric=[];
     //myClauses=[];
     //var actualQuest='Q01';
+    console.log('mi proyecto id: '+miProyecto.id);
     res.render('ictFeatures');
   }
 });
@@ -280,7 +298,8 @@ router.post('/next',function(req,res){
   var hour = 3600000; //Una hora 3600000
   req.session.cookie.maxAge = hour;
    if(answer=='No'){
-    insertAnswers(idAns, actualQuest, idProj,answer, function(err, results){});
+    //Problema de concurrencia
+    insertAnswers(idAns, actualQuest, miProyecto.id,answer, function(err, results){});
     idAns=idAns+1;
     historic = '['+answer+'] -> '+myQuestion;
     myHistoric = myHistoric.concat(historic);
@@ -307,7 +326,7 @@ router.post('/next',function(req,res){
     });  
    }else{ //el usuario responde si y si no responde se considera si
     answer='Yes';
-    insertAnswers(idAns, actualQuest, idProj,answer, function(err, results){});
+    insertAnswers(idAns, actualQuest, miProyecto.id,answer, function(err, results){});
     idAns=idAns+1;
     historic = '['+answer+'] -> '+myQuestion;
     myHistoric = myHistoric.concat(historic);
@@ -360,6 +379,17 @@ function dateFormat(date){
 	var month=date.getMonth()+1;
 	var result=date.getFullYear()+'-'+month+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
 	return result;
+}
+
+function Proyecto(id, nombre){
+  this.id = id
+  this.nombre = nombre
+  this.getProject=getProject
+} 
+
+function getProject(name){
+  this.nombre=name
+  return id
 }
 
 module.exports = router;
