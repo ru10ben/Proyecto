@@ -151,6 +151,13 @@ global.maxIdProject = function(callback) {
       callback(err, rows);
     });
 };
+
+//This function inserts the answer to a question
+global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
+  connection.query("INSERT INTO clausesofproject(idClause,idProj,idAnswer) VALUES('"+idClause+"','"+idProj+"','"+idAnswer+"')",function(err,results,fields){
+        callback(err, results);
+  });
+};
  
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -372,7 +372,19 @@ router.post('/next',function(req,res){
 });
 
 router.get('/showResults', function(req, res, next) {
+  idClauses.unshift("05.2","05.3","05.4","05.7","05.8","05.9");
+  var idAns=1;
+  for (var i = 0; i < idClauses.length; i++) {
+  	console.log(idClauses[i]+' : '+miProyecto.id);
+  	insertClausesOfProject(idClauses[i], miProyecto.id, idAns,function(err, results){
+  		if (err){console.log(err);}
+  	});
+  };
   res.render('resultIctFeatures');
+});
+
+router.get('/assingEvaluator', function(req, res, next) {
+  res.render('assingEvaluator');
 });
 
 function dateFormat(date){
