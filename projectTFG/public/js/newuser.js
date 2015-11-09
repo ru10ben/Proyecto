@@ -14,11 +14,11 @@ $(function(){
   		  $.post( "/checkUser", newuser, function( data ) {
   			  if(data=='ERROR'){
   				 console.log('ERROR');
+                $('#saveandclose').attr('disabled', 'disabled');
                 $('#labelname').css({'color':'#f04124'});
                 $('#username').css({'border-color':'#f04124'});
  			    $('#error3').show();
   			   }else{
-                //$('#saveandclose').attr('disabled', false);
                 $('#error3').hide();
                 $('#labelname').css({'color':'#00FF00'});
                 $('#username').css({'border-color':'#00FF00'});
@@ -26,22 +26,25 @@ $(function(){
         });
   		  }   
       });
-    $('#admin').on('keypress', function (event) { //Posible idea para solucionar el problema de los checkbox
-        if($(this).prop("checked")){
-            console.log("lelelelee")
+  
+    $('#admin').click(function () { 
+        $(".s1").css("color", "mediumblue");
+        if($(this).is(":checked")){
             $('#saveandclose').attr('disabled', false);
          }
     });
-    $('#promanager').on('keypress', function (event) { //Posible idea para solucionar el problema de los checkbox
-        if($(this).prop("checked")){
-            console.log("lelelelee")
+    
+    $('#promanager').click(function () { 
+        $(".s2").css("color", "mediumblue");
+        if($(this).is(":checked")){
             $('#saveandclose').attr('disabled', false);
          }
-    });
-    $('#eval').on('keypress', function (event) { //Posible idea para solucionar el problema de los checkbox
-        if($(this).prop("checked")){
-            console.log("lelelelee")
+    });    
+    
+    $('#eval').click(function () { 
+        $(".s3").css("color", "mediumblue");
+        if($(this).is(":checked")){
             $('#saveandclose').attr('disabled', false);
          }
-    });
+    });       
 });

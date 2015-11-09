@@ -9,54 +9,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
-    <script src="./public/js/resultIctFeatures.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation/foundation.accordion.js"></script>
+    <script src="./public/js/users.js"></script>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Decision tree results</title>  
+    <title>Assing evaluators</title>
 </head>
-  <body>
-    <div id="wrapper">  
+<body>
+    <div id="wrapper">
+        
         <!--Header-->
         <div class="myborder">
-            <div class="small-4 small-centered  medium-4 medium-uncentered large-4 large-uncentered columns">
+            <div class="small-7 small-centered  medium-5 medium-uncentered large-5 large-uncentered columns">
                 <h1 id="title">ICT-AccE</h1>
             </div>    
             <div class="row">	
-                <div class="small-8 small-centered large-8 large-centered medium-centered columns">
-				    <h1 id="title">Summary requeriments</h1>
+                <div class="small-5 small-centered large-6 large-centered medium-centered columns">
+				    <h1 id="title">Assing evaluators</h1>
                 </div>
             </div>
         </div>
         <br></br>
-          
-        <!--Applicable clauses:-->
-        <div class="row" style="max-width:95%;">
-            <div class="medium-1 large-1 columns">
-                &nbsp;
-            </div>
-            <div class="medium-5 large-5 columns">
-                <label id="typeLetter2">Applicable clauses:</label>
-                <select id="appliClaus" name="appliClaus" multiple style="height: 400px; background-color: white">
-                    <!--option value="0">Initial Value</option-->
-                </select>
-            </div>
-            <div class="medium-5 large-5 columns">
-                &nbsp;
-            </div>
-        </div>
-        <br></br> 
+        <br></br>
+        <br></br>
     
-        <div class="row" style="max-width:95%;">
-            <div class="medium-1 large-1 columns">
-                &nbsp;
-            </div>
-            <div class="medium-5 large-5 columns">
-                <a href="/assingEvaluator" type="button" class="button-nav" tabindex="1" id="showresults" aria-describedby="showresults">Assing evaluator</a>
-            </div>
-            <div class="medium-5 large-5 columns">
-                &nbsp;
+        <!--Table of users-->
+        <div class="row" style="max-width:80%;">    
+            <div class="small-9 large-9 columns">
+                <h3>Table of users</h3>
+                <div class="row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="400">User</th>
+                            <th width="400">Name</th>
+                            <th width="400">Hit Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listuser">
+                        <tr class="clonar">
+                            <td id="prueba1">
+                                <div>
+                                    <input type="checkbox" name="role" value="Administrator" id="admin" tabindex="7">
+                                    <label  for="admin">Apellidos, Nombre</label>
+                                </div>        
+                            </td>
+                            <td id="prueba2">Número</td>
+                            <td id="prueba3">Porcentaje</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <a href="" class="button-nav" id="save">Save</a>
             </div>
         </div>
+        </div>
+        <br></br>
         <br></br>
         <br></br>
         <br></br>
@@ -70,9 +77,10 @@
                     <h2><small id="title">ICT-AccE tool. User interface prototype</small></h2>
                 </div>
             </div>
-            </div>   
+            </div>
+    
     </div>
-  </body>
+</body>
     <script>
         $(document).foundation();//inicializacion de foundation
     </script>

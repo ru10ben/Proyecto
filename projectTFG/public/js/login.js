@@ -9,6 +9,7 @@ $(function(){
         if($('#username').val()!=""){
             $.post( "/login", login, function( data ) { //microllamada para saber si el usuario existe
   			   if(data=='ERROR'){
+                   $('#log').attr('disabled', 'disabled');
                     $('#labelname').css({'color':'#f04124'});
                     $('#username').css({'border-color':'#f04124'});
  			        $('#error2').show();
@@ -23,6 +24,6 @@ $(function(){
   			   }
   		    });
         }
-        },2000);
+        },1000);//1 segundo
     });
 });

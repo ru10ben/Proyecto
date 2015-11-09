@@ -14,14 +14,16 @@ $(function(){
     if(role.indexOf('Project Manager')>-1){
        $('#actions2').show(); 
     }
-    /*$('#admin').click(function(){ //en proyecto
-        $('#admin').text('Hide Administrator actions');
-        flag=true;
-        if(flag == true){
-            $('#admin').click(function(){
-                location.reload();
-                $('#admin').text('Show Administrator actions');
-            })
-      }  
-    })*/
+    
+    $('#admin').click(function(){ //en proyecto   
+         $('.p1').toggle();
+    });
+
+    $('#projectman').click(function(){ //en proyecto
+         $('.p2').toggle();
+    });
+
+    $('#eval').click(function(){ //en proyecto
+         $('.p3').toggle();
+    });
 });

@@ -14,6 +14,30 @@ html, body { /* color de fondo del body*/
  height: 0;
  margin: 1.25rem 0 1.1875rem; }
 
+.typeLetter{
+  font-family: sans-serif;
+  /*font-weight: bold;*/
+  color: #222;
+}
+
+#typeLetter{
+  font-family: sans-serif;
+  /*font-weight: bold;*/
+  color: #222;
+}
+
+#typeLetter2{
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #222;
+}
+
+.typeLetter2{
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #222;
+}
+
 .myborder{ /* esto crea el borde para la cabecera o el pie de pagina*/
     border-style: solid;
     border-color: #00008B;}
@@ -52,8 +76,8 @@ html, body { /* color de fondo del body*/
   transition: background-color 300ms ease-out; }
 
 button:hover, button:focus, a:hover, a:focus, .button-nav:hover, .button-nav:focus {
-  color: #222;
-  background-color:dimgray;
+  color: white;
+  background-color:mediumblue;
   line-height: none;}
 
 #log:disabled, #saveandclose:disabled { /* desactiva los botones*/
@@ -88,6 +112,17 @@ button:hover, button:focus, a:hover, a:focus, .button-nav:hover, .button-nav:foc
   background: #f04124;
   color: #FFFFFF; }
 
+#error3 {
+  display: block;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  margin-top: -1px;
+  padding: 0.375rem 0.5625rem 0.5625rem;
+  background: #f04124;
+  color: #FFFFFF; }
+
 .myaccordion {
   margin-bottom: 0; }
 
@@ -103,30 +138,31 @@ button:hover, button:focus, a:hover, a:focus, .button-nav:hover, .button-nav:foc
   margin-bottom: 0 !important; }
 
 .myaccordion .myaccordion-navigation.active > a, .myaccordion dd.active > a {
-  background: mediumblue;} 
+  background: #B2AAAA;} 
 
 .myaccordion .myaccordion-navigation > a, .myaccordion dd > a {
-  background: mediumblue;
-  color: white;
+  background: #B2AAAA;
+  color: #222;
   border-radius: 6px;
   border-style: outset;
   border-width: 2px;
   display: block;
   font-family:  sans-serif;
+  border-color: lightgrey;
   font-weight: bold;
   font-size: 1rem;
   padding: 0.375rem 0.5625rem 0.5625rem; }
 
 .myaccordion .myaccordion-navigation > a:hover, .myaccordion dd > a:hover {
-        background: darkblue; }
-
+        background: mediumblue; 
+        color: white; }
 .myaccordion .myaccordion-navigation > .content, .myaccordion dd > .content {
       display: none;
       padding: 0.9375rem; }
 
 .myaccordion .myaccordion-navigation > a:focus, .myaccordion dd > a:focus {
-        background: darkblue; }
-
+        background: mediumblue; 
+        color: white; }
 .myaccordion .myaccordion-navigation > .content.active, .myaccordion dd > .content.active {
         background: #FFF5EE;
         display: block; }

@@ -36,9 +36,8 @@
         <!--Field User name-->
         <div class="row">
             <div class="small-10 small-centered medium-6 medium-centered large-6 large-centered columns">
-                <label for="username" id="labelname">User name: <small> Required</small>
+                <label for="username" id="labelname" class="typeLetter">User name: <small> Required</small></label>
 				    <input type="text" required pattern="[a-zA-Z]+" class="username" tabindex="1" name="username", id="username"></input>
-                </label>
 				<small class="error">User name is required</small>
                 <div data-alert class="alert-box alert radius" id="error2" style="display:none">User name or password incorrect</div>
             </div>
@@ -46,9 +45,8 @@
         <!--Field Password-->
         <div class="row">
             <div class="small-10 small-centered medium-6 medium-centered large-6 large-centered columns">
-				<label for="password" class="pass"> Password:<small> Required</small>
-                    <input type="password" required class="password" tabindex="2" id="password" name="password">
-                </label>
+				<label for="password" class="pass" id="typeLetter"> Password:<small> Required</small></label>
+                    <input type="password" required class="password" tabindex="2" id="password" name="password"></input>
 				<small class="error">Password is required</small>
             </div>
         </div>

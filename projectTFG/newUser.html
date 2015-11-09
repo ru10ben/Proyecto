@@ -46,27 +46,24 @@
             <div class="row" style="max-width:80%;">
             <!--Field First name-->
                 <div class="small-12 medium-6 large-4 columns">
-                    <label for="firstname">First name: <small> Required</small>
+                    <label for="firstname" id="typeLetter">First name: <small> Required</small></label>
 				        <input type="text" required pattern="[a-zA-Z]+" tabindex="1" name="firstname", id="firstname">
-                    </label>
 				    <small class="error">First name is required</small>
                 </div>                 
             </div> 
             <div class="row" style="max-width:80%;">
             <!--Field Last name-->
                 <div class="small-12 medium-6 large-4 columns">
-				    <label for="lastname"> Last name:<small> Required</small>
+                    <label for="lastname" id="typeLetter"> Last name:<small> Required</small></label>
                         <input type="text" required pattern="[a-zA-Z]+"tabindex="2" id="lastname" name="lastname">
-                    </label>
 				    <small class="error">Last name is required</small>		
                 </div>                 
             </div>     
             <div class="row" style="max-width:80%;">
             <!--Field User name-->
                 <div class="small-12 medium-6 large-4 columns">
-				    <label for="username" id="labelname"> User name:<small> Required</small>
+                    <label for="username" id="labelname" class="typeLetter"> User name:<small> Required</small></label>
                         <input type="text" required pattern="[a-zA-Z]+" tabindex="3" name="username", id="username">
-                    </label>
 				    <small class="error">User name is required</small>
                     <div data-alert class="alert-box alert radius" id="error3" style="display:none">User name is already token</div>
                 </div>                
@@ -74,27 +71,24 @@
             <div class="row" style="max-width:80%;">
             <!--Field email-->
                 <div class="small-12 medium-6 large-4 columns">
-				    <label for="email"> Email:
+                    <label for="email" id="typeLetter"> Email: </label>
                         <input type="email" data-invalid tabindex="4" id="email" name="email">
-                    </label>
 				    <small class="error">valid mail required</small>		
                 </div>               
             </div>
             <div class="row" style="max-width:80%;">
             <!--Field Password-->
                 <div class="small-12 medium-6 large-4 columns">
-				    <label for="password"> Password:<small> Required</small>
+                    <label for="password" id="typeLetter"> Password:<small> Required</small></label>
                         <input type="password" required pattern="[a-zA-Z]+" tabindex="5" id="password" name="password">
-                    </label>
 				    <small class="error">Password is required</small>		
                 </div>             
             </div>
             <div class="row" style="max-width:80%;">
             <!--Field password confirmation-->
                 <div class="small-12 medium-6 large-4 columns">
-				    <label for="password"> Confirm Password:<small> Required</small>
+                    <label for="password" id="typeLetter"> Confirm Password:<small> Required</small></label>
                         <input type="password" required pattern="[a-zA-Z]+" data-equalto="password" tabindex="6">
-                    </label>
 				    <small class="error">The password did not match</small>		
                 </div>             
             </div>
@@ -106,20 +100,20 @@
             </div>  
             <div class="row" style="max-width:80%; border-style: solid; border-color: #00008B;">
             <!--Check Box-->
-                <div>
+                <div id="design-checkbox">
                     &nbsp;
                     <input type="checkbox" name="role" value="Administrator" id="admin" tabindex="7">
-                    <label id="mybold" for="admin">Administrator</label>
+                    <label id="mybold" for="admin" class="s1">Administrator</label>
                 </div>
                 <div>
                     &nbsp;
                     <input type="checkbox" name="role" value="Project Manager" id="promanager" tabindex="8">
-                    <label id="mybold" for="promanager">Project Manager</label>
+                    <label id="mybold" for="promanager" class="s2">Project Manager</label>
                 </div>
                 <div>
                     &nbsp;
                     <input type="checkbox" name="role" value="Evaluator" id="eval" tabindex="9">
-                    <label id="mybold" for="eval">Evaluator</label>
+                    <label id="mybold" for="eval" class="s3">Evaluator</label>
                 </div>                
             </div>
             <div class="row" style="max-width:80%;">

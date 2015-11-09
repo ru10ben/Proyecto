@@ -33,7 +33,7 @@
         <div class="column">
             <!--Field Questions:-->
             <div class="small-5 medium-5 large-5 columns">
-                <label id="questions">Questions:</label>
+                <label id="questions" class="typeLetter2">Questions:</label>
 				<textarea rows="10" cols="50" tabindex="-1" name="question" id="question" disabled="disabled" style="height: 200px; background-color:white"></textarea>
                 <br id="field" style="display:none"></br>
                 <a href="/showResults" type="button" class="button-nav" tabindex="3" id="showresults" aria-describedby="showresults" style="display:none">Show results</a>
@@ -46,13 +46,13 @@
                 </dl>
                 <!--Field Answer:-->
                 <div class="small-3 medium-3 large-3 columns">
-                    <label id="answer">Answer:</label>
+                    <label id="answer" class="typeLetter2">Answer:</label>
                     <div class="switch large" id="switch">
                         <input type='radio' checked name='answer' value='Yes' id='Yes'></input>
-                        <label style="color: black" for="Yes">Yes</label>
+                        <label style="color: black;font-weight: bold;" for="Yes">Yes</label>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type='radio' name='answer' value='No' id='No'></input>       
-                        <label style="color: black" for='No'>No</label>
+                        <label style="color: black;font-weight: bold;" for='No'>No</label>
                     </div>
                 </div>
             </div>
@@ -61,13 +61,12 @@
             </div>
             <!--Field Provided answer:-->
             <div class="small-5 medium-5 large-5 columns">
-                <label>Provided answer:
+                <label id="typeLetter2">Provided answer:</label>
                 <select id="listhistoric"style="height: 200px;" multiple>
                 </select>
-                </label>
                 <br></br>
                 <!--Field Aplicable clauses:-->
-                <label>Aplicable clauses:</label>
+                <label id="typeLetter2">Aplicable clauses:</label>
                 <select id="listclauses" style="height: 200px;" multiple>
                 </select>
             </div>
