@@ -9,12 +9,12 @@ var nameProj;
 var idProj=0;
 var actualQuest='Q01';
 var myQuestion;
-var myClauses = new Array();
+var myClauses;   
 var date;
 var nextQuest;
-var myHistoric = new Array(); //Array providedAns
+var myHistoric;
 var idClauses = new Array();
-var newClauses = new Array();
+var newClauses= new Array();
 var idAns=1;
 var miProyecto;
 
@@ -217,8 +217,9 @@ router.get('/newProject', function(req, res, next) {
 });
 
 router.get('/getData', function(req, res, next) {
- 
+  myClauses = new Array();
   actualQuest='Q01';
+
   var myHelp;
 
   getQuestion(actualQuest, function(err, results){
@@ -284,7 +285,8 @@ router.get('/ictFeatures', function(req, res, next) {
     req.session.cookie.path='/ictFeatures';
     //myHistoric=[];
     //myClauses=[];
-    //var actualQuest='Q01';
+    //actualQuest='Q01';
+    myHistoric = new Array(); //Array providedAns
     console.log('mi proyecto id: '+miProyecto.id);
     res.render('ictFeatures');
   }
@@ -293,7 +295,7 @@ router.get('/ictFeatures', function(req, res, next) {
 router.post('/next',function(req,res){
   var answer=req.body.answer;
   var nextAns;
-  var historic;
+  var historic='';
   var myHelp2;
   var hour = 3600000; //Una hora 3600000
   req.session.cookie.maxAge = hour;
@@ -387,6 +389,18 @@ router.get('/assingEvaluator', function(req, res, next) {
   res.render('assingEvaluator');
 });
 
+router.get('/allEvaluators', function(req, res, next) {
+  getAllUsers(function(err, result){
+    if (result.length == 0) {        
+      res.send('ERROR');
+    }else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+
 function dateFormat(date){
 	var month=date.getMonth()+1;
 	var result=date.getFullYear()+'-'+month+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
@@ -396,12 +410,12 @@ function dateFormat(date){
 function Proyecto(id, nombre){
   this.id = id
   this.nombre = nombre
-  this.getProject=getProject
+  //this.getProject=getProject
 } 
-
+/*
 function getProject(name){
   this.nombre=name
   return id
-}
+}*/
 
 module.exports = router;

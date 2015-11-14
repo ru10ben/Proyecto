@@ -9,56 +9,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/jquery.cookie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation/foundation.accordion.js"></script>
     <script src="./public/js/assingEvaluator.js"></script>
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Assing evaluators</title>  
+    <title>Assing evaluators</title>
 </head>
-  <body>
-    <div id="wrapper"> 
+<body>
+    <div id="wrapper">
+        
         <!--Header-->
         <div class="myborder">
-            <div class="small-5 small-centered  medium-5 medium-uncentered large-5 large-uncentered columns">
+            <div class="small-7 small-centered  medium-5 medium-uncentered large-5 large-uncentered columns">
                 <h1 id="title">ICT-AccE</h1>
             </div>    
             <div class="row">	
-                <div class="small-7 small-centered large-7 large-centered medium-centered columns">
+                <div class="small-5 small-centered large-6 large-centered medium-centered columns">
 				    <h1 id="title">Assing evaluators</h1>
                 </div>
             </div>
         </div>
-        <br></br> 
-        <br></br> 
-        <br></br>      
-        <div class="row" style="max-width:95%;">
-              
-            <div class="medium-5 large-5 large-uncentered columns">
-                <label></label>
-                <select id="evaluatorName1" name="evaluatorName1" multiple style="height: 400px; background-color: white">
-                    <optgroup label="Evaluators" style="background-color:lightgray">
-                    </optgroup>
-                </select>
+        <br></br>
+        <br></br>
+        <br></br>
+    
+        <!--Table of users-->
+        <div class="row" style="max-width:80%;">    
+            <div class="small-9 large-9 columns">
+                <h3>Table of users</h3>
+                <div class="row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="50">    </th>
+                            <th width="400">User Name</th>
+                            <th width="400">Number of Projects</th>
+                            <th width="400">Hit Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listEvaluator" style="display:none">
+                        <tr class="clonar">
+                            <td id="prueba0" >
+                                <input type="checkbox" name="evaluator">
+                            </td>
+                            <td id="prueba1"></td>
+                            <td id="prueba2"></td>
+                            <td id="prueba3"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            <button type="button" class="button-nav" id="save">Save</button>
             </div>
-            
-            <div class="medium-1 large-1 columns">
-                <br></br> 
-                <br></br> 
-                <br></br> 
-                <button type="button" class="button-nav" id="right" aria-describedby="right">&nbsp;&nbsp;> > &nbsp;&nbsp;</button>
-                <button type="button" class="button-nav" id="left" aria-describedby="left">&nbsp;&nbsp;< < &nbsp;&nbsp;</button>
-            </div>            
-            
-            <div class="medium-5 medium-uncentered large-5 large-uncentered columns">
-                <label></label>
-                <select id="evaluatorName2" name="evaluatorName2" multiple style="height: 400px; background-color: white">
-                    <optgroup label="Evaluators assings" style="background-color:lightgray">
-                    </optgroup>
-                </select>
-            </div>
-        </div>        
-        <br></br> 
-        <br></br> 
-        <br></br>        
+        </div>
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
         <br></br>
         <!--footer-->
             <div class="myborder" id="container">
@@ -70,9 +76,10 @@
                     <h2><small id="title">ICT-AccE tool. User interface prototype</small></h2>
                 </div>
             </div>
-            </div>   
+            </div>
+    
     </div>
-  </body>
+</body>
     <script>
         $(document).foundation();//inicializacion de foundation
     </script>

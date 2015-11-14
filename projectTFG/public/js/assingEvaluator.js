@@ -1,56 +1,42 @@
-$(function(){              
-    
-    var listArray = new Array ("Juan", "Pepito", "Piter", "Javi", "Ruben");
-    console.log(listArray);
+$(function(){
     var i=0;
-    var valor;
-    var texto;
-    var valor2;
-    var texto2;
-    select = document.getElementById("evaluatorName1");
-    select2 = document.getElementById("evaluatorName2");
-    //var opt2 = document.createElement("option");
-
-    while(i<listArray.length){
-        var opt = document.createElement("option");
-        opt.value = i;
-        opt.innerHTML = listArray[i];
-        select.appendChild(opt);
-        i++;
-    } 
+    var checkboxValues;
+    //var nameArray = new Array ("Juan", "Pepito", "Piter", "Javi", "Ruben");
+    //var nProjectArray = new Array ("3", "0", "4", "1", "10");
+    //var rateArray = new Array ("3", "0", "4", "1", "10");
     
-    $('select#evaluatorName1').on('change',function(){
-        valor = $(this).val();
-        texto = $("#evaluatorName1 option:selected").text();
-        console.log(valor);
-        console.log(texto);
-    });
-    
-    $('select#evaluatorName2').on('change',function(){
-        valor2 = $(this).val();
-        texto2 = $("#evaluatorName2 option:selected").text();
-        console.log(valor2);
-        console.log(texto2);
+    $.get( "/allEvaluators", function( data ) {
+        if(data!="ERROR"){
+            while(i<data.length){
+                if((data[i].roles).indexOf('Evaluator')>-1){
+                    tabla(data[i].userName, data[i].numProject, data[i].hitRatio);
+                }
+                i++;
+            }            
+        }
     });
 
     
-    $('#right').click(function(){ //en proyecto
-        //$("<option value='5'>Scientific Linux</option>").appendTo("#miselect");
-        var opt2 = document.createElement("option");
-        opt2.value=valor;
-        opt2.innerHTML = texto;
-        select2.appendChild(opt2);
-        $("#evaluatorName1 option[value='"+valor+"']").remove();
-        
+    $("input[name=evaluator]").click(function () { 
+        checkboxValues = new Array();
+        $("input[name='evaluator']:checked").each(function() {
+            checkboxValues.push($(this).val());
+        });
+    });
+    
+    $("#save").click(function () { 
+        console.log(checkboxValues);
     });
 
-    $('#left').click(function(){ //en proyecto
-        //$("<option value='5'>Scientific Linux</option>").appendTo("#miselect");
-        var opt3 = document.createElement("option");
-        opt3.value=valor2;
-        opt3.innerHTML = texto2;
-        select.appendChild(opt3);
-        $("#evaluatorName2 option[value='"+valor+"']").remove();
-        
-    });
-});
+});    
+var tabla=function(column,column2,column3){
+
+        var clon=$("#listEvaluator").clone();
+        clon.removeAttr('style');
+        clon.find("input[name=evaluator]").attr("value",column);
+        clon.find("input[name=evaluator]").attr("id",column);
+        clon.find('#prueba1').text(column);
+        clon.find('#prueba2').text(column2);
+        clon.find('#prueba3').text(column3+'%');
+        $("#listEvaluator").after(clon);    
+}

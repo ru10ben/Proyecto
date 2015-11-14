@@ -63,7 +63,7 @@ global.maxIdUser = function(callback) {
 
 //Get all users
 global.getAllUsers = function(callback) {
-    connection.query("SELECT firstName,lastName,userName FROM user", function(err, rows, fields) {
+    connection.query("SELECT * FROM user", function(err, rows, fields) {
       callback(err, rows);
     });
 };
@@ -158,7 +158,19 @@ global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
         callback(err, results);
   });
 };
- 
+
+/*global.maxIdAnswer = function(idProj, callback) {
+    connection.query("SELECT max(id) FROM answer WHERE idProj='"+idProj+"'", function(err, rows, fields) {
+      callback(err, rows);
+    });
+};*/
+
+/*global.getClauseAnswer = function(id, callback) {
+    connection.query("SELECT idQuest FROM answer WHERE id='"+id+"'",function(err,results,fields){
+      callback(err, results);
+    });
+};*/
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
