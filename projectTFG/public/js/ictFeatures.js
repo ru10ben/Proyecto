@@ -1,15 +1,14 @@
 $(function(){
     
-    var productName=$.cookie('productName');
-    var question=$.cookie('question');
-    var help=$.cookie('help');
-    var clauses=$.cookie('clauses');
+    var productName=$.cookie("productName");
+    var question=$.cookie("question");
+    var help=$.cookie("help");
+    var clauses=$.cookie("clauses");
+    var clausesArr = clauses.split(","); 
     
-    var clausesArr = clauses.split(',');
-    
-    $('.titleName').text(productName);
-    $('#question').text(question);
-    $('#help').text(help);
+    $(".titleName").text(productName);
+    $("#question").text(question);
+    $("#help").text(help);
     select1 = document.getElementById("listclauses");
     select = document.getElementById("listhistoric");
     var i=0;
@@ -22,6 +21,7 @@ $(function(){
         i++;
     }
     $("#nextquest").on("click",function(){
+       // $("#Yes").prop("checked", true);
         var param = { answer:$("input[name='answer']:checked").val()};
         $.post( "/next", param, function( data ) {
             if(data.message=='You have completed the evaluation'){
@@ -34,7 +34,7 @@ $(function(){
                 $('#nextquest').hide();
                 $('#showresults').show();
 
-                var clausesArr3=data.clauses;
+                 clausesArr2=data.clauses;
                 var historic=data.historic;
                 var actualHistoric=historic[historic.length-1];
                 
@@ -42,14 +42,15 @@ $(function(){
                 opt2.innerHTML = actualHistoric;
                 select.appendChild(opt2);
             
-                while(i<clausesArr3.length){
+                while(i<clausesArr2.length){
                     var opt = document.createElement("option");
                     opt.value = i;
-                    opt.innerHTML = clausesArr3[i];
+                    opt.innerHTML = clausesArr2[i];
                     select1.appendChild(opt);
                     i++;
                 }
-                $.cookie('clauses',clausesArr3.join(';'));
+                $.cookie('clauses',clausesArr2.join(";")); ///
+                 console.log($.cookie('clauses1',clausesArr2.join(";")));
             }else{
                 $('#question').text(data.question);
                 $('#help').text(data.help);

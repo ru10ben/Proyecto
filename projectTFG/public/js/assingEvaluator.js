@@ -14,19 +14,22 @@ $(function(){
                 i++;
             }            
         }
-    });
-
-    
-    $("input[name=evaluator]").click(function () { 
-        checkboxValues = new Array();
-        $("input[name='evaluator']:checked").each(function() {
-            checkboxValues.push($(this).val());
+        $("input[name=evaluator]").click(function () { 
+            checkboxValues = new Array();
+            $("input[name='evaluator']:checked").each(function() {
+                checkboxValues.push($(this).val());
+            });
         });
-    });
+    }); 
+    //var data= {evaluator:checkboxValues};
+    
+    //$.post( "/assing", data);
     
     $("#save").click(function () { 
         console.log(checkboxValues);
     });
+    
+
 
 });    
 var tabla=function(column,column2,column3){
