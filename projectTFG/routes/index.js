@@ -8,15 +8,11 @@ var id_user=1;
 var nameProj;
 var idProj=0;
 var actualQuest='Q01';
-var myQuestion;
-var myClauses;   
+var myQuestion; 
 var date;
 var nextQuest;
-var myHistoric;
 var idClauses = new Array();
-var newClauses= new Array();
 var idAns=1;
-var miProyecto;
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -217,9 +213,8 @@ router.get('/newProject', function(req, res, next) {
 });
 
 router.get('/getData', function(req, res, next) {
-  myClauses = new Array();
+  var myClauses = new Array();
   actualQuest='Q01';
-
   var myHelp;
 
   getQuestion(actualQuest, function(err, results){
@@ -231,25 +226,6 @@ router.get('/getData', function(req, res, next) {
     myHelp=results[0].help;
     //console.log(myHelp);
   });
-
-  getClauses(function(err, results){
-    for (var i = 0; i < results.length; i++) {
-      myClauses[i]= results[i].id+' '+results[i].title; //Poner clauses formato adecuado
-    };
-    //console.log(myClauses);
-    var render={question:myQuestion,help:myHelp,clauses:myClauses};
-    var hour = 3600000; //Una hora 3600000
-    req.session.cookie.maxAge = hour;
-    res.send(render);
-  }); 
-});
-
-router.post('/insertProj', function(req, res, next) {
-  var name=req.body.name;
-  nameProj=name;
-  var description=req.body.description;
-  //console.log(name+' '+description);
-  var username=req.session.user.username;
   var idProject=0;
   maxIdProject(function(err, rows){
     var id_string = JSON.stringify(rows);
@@ -264,46 +240,69 @@ router.post('/insertProj', function(req, res, next) {
     }else{
       idProject=1;
     }
-    miProyecto=new Proyecto(idProject,name);////
-    console.log(miProyecto);
+    miProyecto=new Proyecto(idProject);////
+  });
+
+  getClauses(function(err, results){
+    for (var i = 0; i < results.length; i++) {
+      myClauses[i]= results[i].id+' '+results[i].title; //Poner clauses formato adecuado
+    };
+    //console.log(myClauses);
+    var render={idProject: miProyecto.id,question:myQuestion,help:myHelp,clauses:myClauses};
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
+    res.send(render);
+  }); 
+});
+
+router.post('/insertProj', function(req, res, next) {
+  var name=req.body.name;
+  nameProj=name;
+  var description=req.body.description;
+  var username=req.session.user.username;
     getUser(username, function(err, result){
-      //console.log(result);
       var idUser=result[0].id;
       insertProject(miProyecto.id, idUser, name, description, function(err, results){});
       res.redirect('/ictFeatures');
     });
-  });
 });
 
 router.get('/ictFeatures', function(req, res, next) {
   if(typeof req.session.user == 'undefined'){
     res.redirect('/');
   }else{
-    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
     var hour = 3600000; //Una hora 3600000
     req.session.cookie.maxAge = hour;
     req.session.cookie.path='/ictFeatures';
-    //myHistoric=[];
-    //myClauses=[];
-    //actualQuest='Q01';
-    myHistoric = new Array(); //Array providedAns
-    console.log('mi proyecto id: '+miProyecto.id);
+    //myHistoric = new Array(); //Array providedAns
+
     res.render('ictFeatures');
   }
 });
 
 router.post('/next',function(req,res){
   var answer=req.body.answer;
+  var idProject=req.body.idProject;
+  var myClauses=req.body.clauses;
+  var myHistoric=req.body.historic;
+  //console.log(myClauses);
+  if(typeof myHistoric == 'undefined'){
+    myHistoric=[];
+  }
+  if(typeof myClauses == 'undefined'){
+    myClauses=[];
+  }
   var nextAns;
-  var historic='';
+  //var historic='';
   var myHelp2;
+  actualQuest=req.body.actualQuest;
   var hour = 3600000; //Una hora 3600000
   req.session.cookie.maxAge = hour;
    if(answer=='No'){
     //Problema de concurrencia
-    insertAnswers(idAns, actualQuest, miProyecto.id,answer, function(err, results){});
+    insertAnswers(idAns, actualQuest, idProject,answer, function(err, results){});
     idAns=idAns+1;
-    historic = '['+answer+'] -> '+myQuestion;
+    var historic = '['+answer+'] -> '+myQuestion;
     myHistoric = myHistoric.concat(historic);
     
     nextAns='nextno';
@@ -311,13 +310,13 @@ router.post('/next',function(req,res){
       nextQuest=results[0].nextno;
       actualQuest=nextQuest;     
       nextQuest.toString();
-      console.log(nextQuest);
+      //console.log(nextQuest);
       if(nextQuest!=''){
         getQuestion(actualQuest, function(err, results){
           myQuestion = results[0].text;
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
-            var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
+            var render={actualQuest:actualQuest,question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
             res.send(render);
           });
         });
@@ -328,16 +327,17 @@ router.post('/next',function(req,res){
     });  
    }else{ //el usuario responde si y si no responde se considera si
     answer='Yes';
-    insertAnswers(idAns, actualQuest, miProyecto.id,answer, function(err, results){});
+    insertAnswers(idAns, actualQuest, idProject,answer, function(err, results){});
     idAns=idAns+1;
-    historic = '['+answer+'] -> '+myQuestion;
+    var historic = '['+answer+'] -> '+myQuestion;
     myHistoric = myHistoric.concat(historic);
+
     getClauses2(actualQuest, function(err, results){
       for (var i = 0; i < results.length; i++) {
         idClauses[i] = results[i].idClause;
         getDataClause(idClauses[i], function(err, results){
-              newClauses = results[0].id+' '+results[0].title;
-              myClauses=myClauses.concat(newClauses);     
+              var newClauses = {id:results[0].id,title: results[0].title}; /////
+              myClauses = myClauses.concat(newClauses);     /////
         });        
       };
     });
@@ -352,7 +352,7 @@ router.post('/next',function(req,res){
           myQuestion = results[0].text;
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
-            var render={question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
+            var render={actualQuest:actualQuest,question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
             res.send(render);
           });
         });
@@ -361,10 +361,13 @@ router.post('/next',function(req,res){
           for (var i = 0; i < results.length; i++) {
             idClauses[i] = results[i].idClause;
             getDataClause(idClauses[i], function(err, results){
-              newClauses = results[0].id+' '+results[0].title;
-              myClauses=myClauses.concat(newClauses);     
+              // newClauses = results[0].id+' '+results[0].title;
+              // myClauses=myClauses.concat(newClauses); 
+              var newClauses = {id:results[0].id,title: results[0].title};
+              myClauses = myClauses.concat(newClauses);    
             });        
           };
+        //console.log(myClauses);
         var render={clauses:myClauses,historic:myHistoric,message:'You have completed the evaluation'};
         res.send(render);
         });  
@@ -373,16 +376,34 @@ router.post('/next',function(req,res){
    }  
 });
 
-router.get('/showResults', function(req, res, next) {
-  idClauses.unshift("05.2","05.3","05.4","05.7","05.8","05.9");
+router.post('/clausesFinal', function(req, res, next) {
+  var idClauses1=req.body.arrayId;
+  var idProject=req.body.idProject;
+  //console.log(idClauses1);
+  var idClauses2=idClauses1.split(',');
+  //console.log(idClauses2);
   var idAns=1;
-  for (var i = 0; i < idClauses.length; i++) {
-  	console.log(idClauses[i]+' : '+miProyecto.id);
-  	insertClausesOfProject(idClauses[i], miProyecto.id, idAns,function(err, results){
-  		if (err){console.log(err);}
-  	});
+  for (var i = 0; i < idClauses2.length; i++) {
+    insertClausesOfProject(idClauses2[i], idProject, idAns,function(err, results){});
   };
-  res.render('resultIctFeatures');
+  res.send('OK');
+});
+
+router.get('/result', function(req, res, next) {
+  if(typeof req.session.user == 'undefined'){
+    res.redirect('/');
+  }else{
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
+    res.render('resultIctFeatures');
+  }
+});
+
+router.post('/clauses', function(req, res, next) {
+  var idProject=req.body.idProject;
+  getClausesOfProject(idProject, function(err, results){
+    res.send(results);
+  });
 });
 
 router.get('/assingEvaluator', function(req, res, next) {
@@ -407,15 +428,8 @@ function dateFormat(date){
 	return result;
 }
 
-function Proyecto(id, nombre){
-  this.id = id
-  this.nombre = nombre
-  //this.getProject=getProject
-} 
-/*
-function getProject(name){
-  this.nombre=name
-  return id
-}*/
+function Proyecto(id){
+  this.id=id;
+}
 
 module.exports = router;
