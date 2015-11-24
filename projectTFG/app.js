@@ -159,6 +159,13 @@ global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
   });
 };
 
+//SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='1'
+global.getClausesOfProject = function(id, callback) {
+    connection.query('SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='+'"'+id+'"',function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
 /*global.maxIdAnswer = function(idProj, callback) {
     connection.query("SELECT max(id) FROM answer WHERE idProj='"+idProj+"'", function(err, rows, fields) {
       callback(err, rows);

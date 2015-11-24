@@ -1,9 +1,6 @@
 $(function(){
     var i=0;
     var checkboxValues;
-    //var nameArray = new Array ("Juan", "Pepito", "Piter", "Javi", "Ruben");
-    //var nProjectArray = new Array ("3", "0", "4", "1", "10");
-    //var rateArray = new Array ("3", "0", "4", "1", "10");
     
     $.get( "/allEvaluators", function( data ) {
         if(data!="ERROR"){
@@ -20,16 +17,14 @@ $(function(){
                 checkboxValues.push($(this).val());
             });
         });
-    }); 
-    //var data= {evaluator:checkboxValues};
-    
-    //$.post( "/assing", data);
-    
+    });
+
+    //var data= {evaluator:checkboxValues};  
+    //$.post( "/assing", data);  
+      
     $("#save").click(function () { 
         console.log(checkboxValues);
     });
-    
-
 
 });    
 var tabla=function(column,column2,column3){

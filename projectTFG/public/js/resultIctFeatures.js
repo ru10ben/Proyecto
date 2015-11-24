@@ -1,18 +1,21 @@
 $(function(){              
-    var clauses=$.cookie('clauses');
-    console.log(clauses);
-    
+    var idProject=$.cookie('idProject');
     var i=0;
     select = document.getElementById("appliClaus");
+    var datos={idProject: idProject};
 
-        var clausesArr = clauses.split(";");
-    
-        while(i<clausesArr.length){
+    $.post('/clauses', datos,function(data) {
+        while(i<data.length){
             var opt = document.createElement("option");
             opt.value = i;
-            opt.innerHTML = clausesArr[i];
+            opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
             i++;
         }   
-
+    });
+    $.removeCookie('question');
+    $.removeCookie('help');
+    $.removeCookie('idProject');
+    $.removeCookie('myClauses');
+    $.removeCookie('clauses22');
 });
