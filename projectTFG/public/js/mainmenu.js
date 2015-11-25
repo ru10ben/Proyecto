@@ -15,15 +15,15 @@ $(function(){
        $('#actions2').show(); 
     }
     
-    $('#admin').click(function(){   
+    $('#admin').click(function(){ //en proyecto   
          $('.p1').toggle();
     });
 
-    $('#projectman').click(function(){
+    $('#projectman').click(function(){ //en proyecto
          $('.p2').toggle();
     });
 
-    $('#eval').click(function(){
+    $('#eval').click(function(){ //en proyecto
          $('.p3').toggle();
     });
 });

@@ -23,11 +23,14 @@ $(function(){
         select1.appendChild(opt);
         i++;
     }
+
     $("#nextquest").on("click",function(){
-        var param = { answer:$("input[name='answer']:checked").val(),idProject: idProject,actualQuest: actualQuest, clauses: clausesArr,historic: myHistoric};
+        var param = { answer:$("input[name='answer']:checked").val(),idProject: idProject,actualQuest: actualQuest, clauses: clausesArr};
         //$("#Yes").prop("checked", true);//
         $.post( "/next", param, function( data ) {
             if(data.message=='You have completed the evaluation'){
+                var question=$('#question').text();
+                
                 $('.myaccordion').hide();
                 $('#switch').hide();
                 $('#field').hide();
@@ -38,8 +41,9 @@ $(function(){
                 $('#showresults').show();
 
                 clausesArr=clausesArr.concat(data.clauses);
-                historic=data.historic;
-                var actualHistoric=historic[historic.length-1];
+                //var historic=data.historic;
+                var actualHistoric='['+param.answer+'] <- '+question;
+                myHistoric=myHistoric.concat(actualHistoric);
                 
                 var opt2 = document.createElement("option");
                 opt2.innerHTML = actualHistoric;
@@ -52,20 +56,17 @@ $(function(){
                     select1.appendChild(opt);
                     i++;
                 }
-                // console.log(clausesArr);
-                //var cookie=clausesArr.join(';');
-                //$.cookie('clauses22',cookie);
-                //console.log(hola);
-
             }else{
                 actualQuest=data.actualQuest;
+                var question=$('#question').text();
                 $('#question').text(data.question);
                 $('#help').text(data.help);
                 //console.log(data.clauses);
                 clausesArr=clausesArr.concat(data.clauses);
                 
-                historic=data.historic;
-                var actualHistoric=historic[historic.length-1];
+                //var historic=data.historic;
+                var actualHistoric='['+param.answer+'] <- '+question;
+                myHistoric=myHistoric.concat(actualHistoric);
                 
                 var opt2 = document.createElement("option");
                 opt2.innerHTML = actualHistoric;

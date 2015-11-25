@@ -6,7 +6,6 @@ $(function(){
             $.get( "/getData", function( data ) {
                 $.cookie('question',data.question);
                 $.cookie('help',data.help);
-                //$.cookie('clauses',data.clauses);
                 $.cookie('idProject',data.idProject);
                 $.cookie('myClauses',data.clauses);
             });

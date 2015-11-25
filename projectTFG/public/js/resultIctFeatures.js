@@ -15,7 +15,7 @@ $(function(){
     });
     $.removeCookie('question');
     $.removeCookie('help');
-    $.removeCookie('idProject');
+    //$.removeCookie('idProject');
     $.removeCookie('myClauses');
     $.removeCookie('clauses22');
 });
