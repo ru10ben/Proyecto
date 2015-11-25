@@ -441,6 +441,19 @@ router.post('/assing', function(req, res, next) {
   };
 });
 
+router.get('/projectEvaluation', function(req, res, next) {
+  if(typeof req.session.user == 'undefined'){
+    res.redirect('/');
+  }else{
+    //console.log('GET mainMenu: '+req.session.user.username+': '+req.sessionID); //da error si expira la session
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
+    req.session.cookie.path='/projectEvaluation';
+    res.render('projectsEvaluation');
+  }
+});
+
+
 function dateFormat(date){
 	var month=date.getMonth()+1;
 	var result=date.getFullYear()+'-'+month+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
