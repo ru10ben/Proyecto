@@ -284,7 +284,7 @@ router.post('/next',function(req,res){
   var answer=req.body.answer;
   var idProject=req.body.idProject;
   var myClauses=req.body.clauses;
-  var myHistoric=req.body.historic;
+  //var myHistoric=req.body.historic;
   //console.log(myClauses);
   if(typeof myHistoric == 'undefined'){
     myHistoric=[];
@@ -302,8 +302,8 @@ router.post('/next',function(req,res){
     //Problema de concurrencia
     insertAnswers(idAns, actualQuest, idProject,answer, function(err, results){});
     idAns=idAns+1;
-    var historic = '['+answer+'] -> '+myQuestion;
-    myHistoric = myHistoric.concat(historic);
+    //var historic = '['+answer+'] -> '+myQuestion;
+    //myHistoric = myHistoric.concat(historic);
     
     nextAns='nextno';
     getQuestionAns(nextAns,actualQuest, function(err, results){
@@ -316,7 +316,7 @@ router.post('/next',function(req,res){
           myQuestion = results[0].text;
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
-            var render={actualQuest:actualQuest,question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
+            var render={actualQuest:actualQuest,question:myQuestion,help:myHelp2,clauses:myClauses};
             res.send(render);
           });
         });
@@ -329,8 +329,8 @@ router.post('/next',function(req,res){
     answer='Yes';
     insertAnswers(idAns, actualQuest, idProject,answer, function(err, results){});
     idAns=idAns+1;
-    var historic = '['+answer+'] -> '+myQuestion;
-    myHistoric = myHistoric.concat(historic);
+    //var historic = '['+answer+'] -> '+myQuestion;
+    //myHistoric = myHistoric.concat(historic);
 
     getClauses2(actualQuest, function(err, results){
       for (var i = 0; i < results.length; i++) {
@@ -352,7 +352,7 @@ router.post('/next',function(req,res){
           myQuestion = results[0].text;
           getHelp(actualQuest, function(err, results){
             myHelp2 = results[0].help;
-            var render={actualQuest:actualQuest,question:myQuestion,help:myHelp2,clauses:myClauses,historic:myHistoric};
+            var render={actualQuest:actualQuest,question:myQuestion,help:myHelp2,clauses:myClauses};
             res.send(render);
           });
         });
@@ -407,7 +407,13 @@ router.post('/clauses', function(req, res, next) {
 });
 
 router.get('/assingEvaluator', function(req, res, next) {
-  res.render('assingEvaluator');
+  if(typeof req.session.user == 'undefined'){
+    res.redirect('/');
+  }else{
+    var hour = 3600000; //Una hora 3600000
+    req.session.cookie.maxAge = hour;
+    res.render('assingEvaluator');
+  }
 });
 
 router.get('/allEvaluators', function(req, res, next) {
@@ -415,12 +421,25 @@ router.get('/allEvaluators', function(req, res, next) {
     if (result.length == 0) {        
       res.send('ERROR');
     }else{
-      console.log(result);
+      //console.log(result);
       res.send(result);
     }
   });
 });
 
+router.post('/assing', function(req, res, next) {
+  var evaluator=req.body.evaluator;
+  console.log(evaluator);
+  var idEvaluators=evaluator.split(',');
+  console.log(idEvaluators);
+  var idProject=req.body.idProject;
+  console.log(idProject);
+  var situation=0;
+
+  for (var i = 0; i < idEvaluators.length; i++) {
+    insertEvaluatorOfProject(idEvaluators[i], idProject, situation, function(err, results){});
+  };
+});
 
 function dateFormat(date){
 	var month=date.getMonth()+1;

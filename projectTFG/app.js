@@ -166,6 +166,12 @@ global.getClausesOfProject = function(id, callback) {
     });
 };
 
+global.insertEvaluatorOfProject = function(idUser, idProj, situation,callback) {
+    connection.query("INSERT INTO evaluatorofproject(idUser,idProj,situation) VALUES ('"+idUser+"','"+idProj+"','"+situation+"');",function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
 /*global.maxIdAnswer = function(idProj, callback) {
     connection.query("SELECT max(id) FROM answer WHERE idProj='"+idProj+"'", function(err, rows, fields) {
       callback(err, rows);
