@@ -1,39 +1,35 @@
 $(function(){
     var i=0;
     var checkboxValues;
+    var username=$.cookie('username');
+
+    console.log(username);
     
-    $.get( "/allProjects", function( data ) {
+    $.post( "/allProjects", username, function( data ) { //post donde te envio el username y luego miraremos donde borrar las cookies
         if(data!="ERROR"){
             while(i<data.length){
-                tabla(data[i].name, data[i].id,"aaaaaaaa"); //CAMBIAR
+                tabla(data[i].name, data[i].description, data[i].idUser, data[i].id); //Los nombres pueden variar estos son de mis pruebas con la tabla project
                 i++;
             }            
         }
         $("input[name=projName]").click(function () { 
-            //checkboxValues = new Array();
-            //$("input[name='projName']:checked").each(function() {
-            //    checkboxValues.push($(this).val());
-            //});
-            //$.post("/allProjects2",checkboxValues.toString());
             checkboxValues= $("input[name='projName']:checked").val();
-            console.log(checkboxValues);
         });
     });  
       
     $("#next2").click(function () { 
-        //console.log(checkboxValues.val()); //Tiene valor!!!
         $.post("/allProjects2",checkboxValues);
     });
 
 });    
-var tabla=function(column,column2,column3){
+var tabla=function(column,column2,column3,columnId){
 
         var clon=$("#listProject").clone();
         clon.removeAttr('style');
-        clon.find("input[name=projName]").attr("value",column);
-        clon.find("input[name=projName]").attr("id",column);
+        clon.find("input[name=projName]").attr("value",columnId); //tanto el valor como el id van a tomar el valor del id que necesitemos
+        clon.find("input[name=projName]").attr("id",columnId);
         clon.find('#pru1').text(column);
-        clon.find('#pru2').text(column);
-        clon.find('#pru3').text(column2+'%');
+        clon.find('#pru2').text(column2);
+        clon.find('#pru3').text(column3+'%');
         $("#listProject").after(clon);    
 }
