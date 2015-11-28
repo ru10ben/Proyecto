@@ -453,6 +453,18 @@ router.get('/projectEvaluation', function(req, res, next) {
   }
 });
 
+router.post('/allProjects', function(req, res, next) {
+  console.log('aaaaaaaaaaaaaaaaaaa');
+  var username=req.body.username;
+  console.log(username);
+   getUser(username, function(err, results){
+      var idUser=results[0].id;
+      allProjects(idUser, function(err, results){
+        res.send(results);
+      });
+   });
+});
+
 
 function dateFormat(date){
 	var month=date.getMonth()+1;

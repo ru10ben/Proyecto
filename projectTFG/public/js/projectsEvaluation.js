@@ -4,11 +4,13 @@ $(function(){
     var username=$.cookie('username');
 
     console.log(username);
-    
-    $.post( "/allProjects", username, function( data ) { //post donde te envio el username y luego miraremos donde borrar las cookies
+    var datos={username: username};
+
+    $.post( "/allProjects", datos, function( data ) { //post donde te envio el username y luego miraremos donde borrar las cookies
+        console.log(data[0].name);
         if(data!="ERROR"){
             while(i<data.length){
-                tabla(data[i].name, data[i].description, data[i].idUser, data[i].id); //Los nombres pueden variar estos son de mis pruebas con la tabla project
+                tabla(data[i].name, data[i].description, 0,data[i].id); //data[i].idUser //Los nombres pueden variar estos son de mis pruebas con la tabla project
                 i++;
             }            
         }

@@ -172,11 +172,12 @@ global.insertEvaluatorOfProject = function(idUser, idProj, situation,callback) {
     });
 };
 
-/*global.maxIdAnswer = function(idProj, callback) {
-    connection.query("SELECT max(id) FROM answer WHERE idProj='"+idProj+"'", function(err, rows, fields) {
+//SELECT project.id, project.name, project.description FROM project INNER JOIN evaluatorofproject ON project.id=evaluatorofproject.idProj WHERE evaluatorofproject.idUser=5
+global.allProjects = function(idUser, callback) {
+    connection.query('SELECT project.id, project.name, project.description FROM project INNER JOIN evaluatorofproject ON project.id=evaluatorofproject.idProj WHERE evaluatorofproject.idUser='+'"'+idUser+'"', function(err, rows, fields) {
       callback(err, rows);
     });
-};*/
+};
 
 /*global.getClauseAnswer = function(id, callback) {
     connection.query("SELECT idQuest FROM answer WHERE id='"+id+"'",function(err,results,fields){
