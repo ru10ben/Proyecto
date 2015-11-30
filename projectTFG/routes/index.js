@@ -25,6 +25,9 @@ router.get('/', function(req, res, next) {
   //console.log('Cookies en /:');
   //console.log(req.cookies);
   //console.log('---------------');
+  // req.session.regenerate(function(err) { //nueva sesion al volver a home
+  // // // will have a new session here 
+  // })
   res.render('login', { title: 'Express' });
   //console.log(req.session);
 });
@@ -46,7 +49,7 @@ router.post('/login', function(req, res, next) {
       req.session.cookie.maxAge = hour;
 
       //console.log('Cookies en /login:');
-      //console.log(req.cookies);
+      console.log(req.cookies);
       //console.log('---------------');
       console.log(req.session);
       //console.log('GET login: '+req.session.user.username+': '+req.sessionID);
@@ -98,9 +101,9 @@ router.post('/mainMen', function(req, res, next) {
 
 router.get('/mainMenu', function(req, res, next) {
   //console.log('Cookies en /mainMenu:');
-  //console.log(req.cookies);
+  console.log(req.cookies);
   //console.log('---------------');
-  //console.log(req.session);
+  console.log(req.session);
 /*  var username=req.session.user.username;
   var path='/mainMenu';
   insertPath(username, path, function(err, result){});*/
@@ -454,9 +457,7 @@ router.get('/projectEvaluation', function(req, res, next) {
 });
 
 router.post('/allProjects', function(req, res, next) {
-  console.log('aaaaaaaaaaaaaaaaaaa');
   var username=req.body.username;
-  console.log(username);
    getUser(username, function(err, results){
       var idUser=results[0].id;
       allProjects(idUser, function(err, results){
@@ -465,6 +466,27 @@ router.post('/allProjects', function(req, res, next) {
    });
 });
 
+router.get('/evaluation', function(req, res, next) {
+  res.render('evaluation');
+});
+
+router.post('/clausesEvaluation', function(req, res, next) {
+  var idProject=req.body.idProject;
+  getClausesOfProject(idProject, function(err, results){
+    res.send(results);
+  });
+});
+
+router.get('/tablaEvaluation', function(req, res, next) {
+  var idProject=req.body.idProject;
+  getEvaluation(idProject, function(err, results){
+      if(results.length == 0){
+        res.send('ERROR');
+      }else{
+        res.send(results);
+      }
+  });
+});
 
 function dateFormat(date){
 	var month=date.getMonth()+1;
