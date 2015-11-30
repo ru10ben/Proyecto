@@ -2,6 +2,7 @@ $(function(){
     var i=0;
     var checkboxValues;
     var username=$.cookie('username');
+    $("#next2").attr('disabled','disabled');
 
     console.log(username);
     var datos={username: username};
@@ -15,14 +16,11 @@ $(function(){
             }            
         }
         $("input[name=projName]").click(function () { 
-            checkboxValues= $("input[name='projName']:checked").val();
+            checkboxValues= $("input[name='projName']:checked").attr("id");
+            $.cookie('idProject',checkboxValues);
+            $("#next2").attr('disabled', false);
         });
     });  
-      
-    $("#next2").click(function () { 
-        $.post("/allProjects2",checkboxValues);
-    });
-
 });    
 var tabla=function(column,column2,column3,columnId){
 

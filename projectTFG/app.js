@@ -161,7 +161,7 @@ global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
 
 //SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='1'
 global.getClausesOfProject = function(id, callback) {
-    connection.query('SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='+'"'+id+'"',function(err, rows, fields) {
+    connection.query('SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
       callback(err, rows);
     });
 };
