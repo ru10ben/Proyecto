@@ -56,7 +56,7 @@ global.insertUser = function(id_user, first_name, last_name, user_name, password
 
 //Get max(id)
 global.maxIdUser = function(callback) {
-    connection.query("SELECT max(id) FROM user", function(err, rows, fields) {
+    connection.query("SELECT max(id) num FROM user", function(err, rows, fields) {
       callback(err, rows);
     });
 };
@@ -192,6 +192,30 @@ global.insertForEvaluation = function(id, callback) {
       callback(err, results);
     });
 };
+
+global.getAnswerEvaluation = function(id, answer,should, callback) {
+    connection.query('SELECT count(answer) num FROM evaluation INNER JOIN clause ON clause.id=evaluation.idClause WHERE evaluation.answer='+'"'+answer+'" AND evaluation.idProj='+'"'+id+'" AND clause.should='+'"'+should+'"',function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
+global.getTotalRQ = function(id, should, callback) {
+    connection.query('SELECT count(answer) num FROM evaluation INNER JOIN clause ON clause.id=evaluation.idClause WHERE evaluation.idProj='+'"'+id+'" AND clause.should='+'"'+should+'"',function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
+global.getTotalSH = function(id, should, callback) {
+    connection.query('SELECT count(answer) num FROM evaluation INNER JOIN clause ON clause.id=evaluation.idClause WHERE evaluation.idProj='+'"'+id+'" AND clause.should='+'"'+should+'"',function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
+
+/*global.getAnswerEvaluation = function(id,answer, callback) {
+    connection.query('SELECT count(should) FROM clause',function(err, rows, fields) {
+      callback(err, rows);
+    });
+};*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

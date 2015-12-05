@@ -160,19 +160,7 @@ router.post('/insertUser', function(req, res, next) {
   //console.log('Roles: '+roles);
   var comments=req.body.comments;
     maxIdUser(function(err, rows){
-      console.log(rows);
-      var id_string = JSON.stringify(rows);
-      id_string = id_string.replace('max(id)','');
-      id_string = id_string.replace('"','');
-      id_string = id_string.replace('"','');
-      id_string = id_string.replace(':','');
-      id_string = id_string.replace('[{','');
-      id_string = id_string.replace('}]','');
-      if(id_string!='null'){
-        id_user=parseInt(id_string)+1;
-      }else{
-        id_user=1;
-      }
+      var id_user=rows[0].num+1;
       console.log(id_user);
       var passEncriptada = sha1(password);
 
@@ -442,6 +430,7 @@ router.post('/assing', function(req, res, next) {
   for (var i = 0; i < idEvaluators.length; i++) {
     insertEvaluatorOfProject(idEvaluators[i], idProject, situation, function(err, results){});
   };
+
   insertForEvaluation(idProject, function(err, results){});
 });
 
@@ -473,20 +462,50 @@ router.get('/evaluation', function(req, res, next) {
 
 router.post('/clausesEvaluation', function(req, res, next) {
   var idProject=req.body.idProject;
-  getClausesOfProject(idProject, function(err, results){
-    console.log(results);
+  getClausesOfProject2(idProject, function(err, results){
+    //console.log(results);
     res.send(results);
   });
 });
 
-router.get('/tablaEvaluation', function(req, res, next) {
+router.post('/tablaEvaluation', function(req, res, next) {
   var idProject=req.body.idProject;
-  getEvaluation(idProject, function(err, results){
-      if(results.length == 0){
-        res.send('ERROR');
-      }else{
-        res.send(results);
-      }
+  var notApplicableRQ=0;
+  var passRQ=0;
+  var failRQ=0;
+  var notEvaluatedRQ=0;
+  var totalRQ=214;
+  var totalClause=240;
+  var should='No'; //Requeriments
+  getTotalRQ(idProject, should, function(err, results){
+      //results[0].num total de requisitos de un proyecto
+      notApplicableRQ=totalRQ-results[0].num;
+      getAnswerEvaluation(idProject, 'Pass',should, function(err, results){
+        passRQ=results[0].num;
+        getAnswerEvaluation(idProject, 'Fail',should, function(err, results){
+          failRQ=results[0].num;
+          getAnswerEvaluation(idProject, 'Not Evaluated',should, function(err, results){
+            notEvaluatedRQ=results[0].num;
+            should='Si'; //Recomendations
+            getTotalSH(idProject, should, function(err, results){
+              var totalSH=totalClause-totalRQ;
+              notApplicableSH=totalSH-results[0].num;
+              getAnswerEvaluation(idProject, 'Pass',should, function(err, results){
+                passSH=results[0].num;
+                getAnswerEvaluation(idProject, 'Fail',should, function(err, results){
+                  failSH=results[0].num;
+                  getAnswerEvaluation(idProject, 'Not Evaluated',should, function(err, results){
+                    notEvaluatedSH=results[0].num;
+                    var render={notApplicableRQ: notApplicableRQ, passRQ: passRQ, failRQ: failRQ, notEvaluatedRQ: notEvaluatedRQ, notApplicableSH: notApplicableSH, passSH: passSH, failSH: failSH, notEvaluatedSH: notEvaluatedSH};
+                    console.log(render);
+                    res.send(render);
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
   });
 });
 

@@ -1,6 +1,7 @@
 $(function(){
     var idProject=$.cookie('idProject');
     var i=0;
+
     $("#notes").click(function(){   
          $(".p1").toggle();
     });
@@ -11,6 +12,18 @@ $(function(){
     
     var datos={idProject: idProject};
     select = document.getElementById("selectClas");
+
+    //tabla
+    $.post('/tablaEvaluation', datos, function(data) {
+        $('#pru1').html(data.notApplicableRQ);
+        $('#pru2').html(data.passRQ);
+        $('#pru3').html(data.failRQ);
+        $('#pru4').html(data.notEvaluatedRQ);
+        $('#pru6').html(data.notApplicableSH);
+        $('#pru7').html(data.passSH);
+        $('#pru8').html(data.failSH);
+        $('#pru9').html(data.notEvaluatedSH);
+    });
     
     $.post('/clausesEvaluation', datos, function(data) {
         while(i<data.length){
