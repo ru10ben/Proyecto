@@ -159,9 +159,9 @@ global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
   });
 };
 
-//SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='1'
+//SELECT clause.id, clause.title,evaluation.answer FROM clause, evaluation INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj=1 ORDER BY clause.id ASC
 global.getClausesOfProject = function(id, callback) {
-    connection.query('SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
+    connection.query('SELECT clause.id, clause.title,evaluation.answer FROM clause, evaluation INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
       callback(err, rows);
     });
 };
@@ -179,11 +179,12 @@ global.allProjects = function(idUser, callback) {
     });
 };
 
-/*global.getClauseAnswer = function(id, callback) {
-    connection.query("SELECT idQuest FROM answer WHERE id='"+id+"'",function(err,results,fields){
+//INSERT INTO tablaDestino SELECT * FROM tablaOrigen
+global.insertForEvaluation = function(id, callback) {
+    connection.query('INSERT INTO evaluation(idClause,idProj) SELECT idClause,idProj FROM clausesofproject WHERE idProj='+'"'+id+'"',function(err,results,fields){
       callback(err, results);
     });
-};*/
+};
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

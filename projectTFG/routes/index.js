@@ -442,6 +442,7 @@ router.post('/assing', function(req, res, next) {
   for (var i = 0; i < idEvaluators.length; i++) {
     insertEvaluatorOfProject(idEvaluators[i], idProject, situation, function(err, results){});
   };
+  insertForEvaluation(idProject, function(err, results){});
 });
 
 router.get('/projectEvaluation', function(req, res, next) {
@@ -473,6 +474,7 @@ router.get('/evaluation', function(req, res, next) {
 router.post('/clausesEvaluation', function(req, res, next) {
   var idProject=req.body.idProject;
   getClausesOfProject(idProject, function(err, results){
+    console.log(results);
     res.send(results);
   });
 });
