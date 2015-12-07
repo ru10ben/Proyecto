@@ -53,14 +53,12 @@ global.insertUser = function(id_user, first_name, last_name, user_name, password
       callback(err, rows);
     });
 };
-
 //Get max(id)
 global.maxIdUser = function(callback) {
     connection.query("SELECT max(id) num FROM user", function(err, rows, fields) {
       callback(err, rows);
     });
 };
-
 //Get all users
 global.getAllUsers = function(callback) {
     connection.query("SELECT * FROM user", function(err, rows, fields) {
@@ -86,6 +84,8 @@ global.updateSession = function(id_session, name_user, path, expires, originalMa
     });
 };
 
+
+/////////////////////////////
 global.insertPath = function(name_user, path, callback) {
     connection.query("UPDATE session SET path='"+path+"' WHERE userName='"+name_user+"';", function(err, rows, fields) {
         callback(err, rows);
@@ -147,12 +147,12 @@ global.getDataClause = function(idClause, callback) {
 };
 
 global.maxIdProject = function(callback) {
-    connection.query("SELECT max(id) FROM project", function(err, rows, fields) {
+    connection.query("SELECT max(id) num FROM project", function(err, rows, fields) {
       callback(err, rows);
     });
 };
 
-//This function inserts the answer to a question
+//This function inserts the clauses of a project
 global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
   connection.query("INSERT INTO clausesofproject(idClause,idProj,idAnswer) VALUES('"+idClause+"','"+idProj+"','"+idAnswer+"')",function(err,results,fields){
         callback(err, results);
@@ -193,6 +193,7 @@ global.insertForEvaluation = function(id, callback) {
     });
 };
 
+//////////////////////
 global.getAnswerEvaluation = function(id, answer,should, callback) {
     connection.query('SELECT count(answer) num FROM evaluation INNER JOIN clause ON clause.id=evaluation.idClause WHERE evaluation.answer='+'"'+answer+'" AND evaluation.idProj='+'"'+id+'" AND clause.should='+'"'+should+'"',function(err, rows, fields) {
       callback(err, rows);

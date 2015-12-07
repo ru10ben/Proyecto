@@ -219,18 +219,7 @@ router.get('/getData', function(req, res, next) {
   });
   var idProject=0;
   maxIdProject(function(err, rows){
-    var id_string = JSON.stringify(rows);
-    id_string = id_string.replace('max(id)','');
-    id_string = id_string.replace('"','');
-    id_string = id_string.replace('"','');
-    id_string = id_string.replace(':','');
-    id_string = id_string.replace('[{','');
-    id_string = id_string.replace('}]','');
-    if(id_string!='null'){
-      idProject=parseInt(id_string)+1;
-    }else{
-      idProject=1;
-    }
+    idProject=rows[0].num+1;
     miProyecto=new Proyecto(idProject);////
   });
 
