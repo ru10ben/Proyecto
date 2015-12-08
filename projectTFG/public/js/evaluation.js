@@ -1,7 +1,13 @@
 $(function(){
     var idProject=$.cookie('idProject');
-    var i=0;
-
+    var i=0; 
+    var arrayId;
+    var valor;
+    var valor2;
+    var valorId;
+    var opt;
+    var datos={idProject: idProject};
+    
     $("#notes").click(function(){   
          $(".p1").toggle();
     });
@@ -10,9 +16,9 @@ $(function(){
          $(".p2").toggle();
     });
     
-    var datos={idProject: idProject};
     select = document.getElementById("selectClas");
-
+        arrayId=new Array();
+    
     //tabla
     $.post('/tablaEvaluation', datos, function(data) {
         $('#pru1').html(data.notApplicableRQ);
@@ -27,34 +33,91 @@ $(function(){
     
     $.post('/clausesEvaluation', datos, function(data) {
         while(i<data.length){
-            var opt = document.createElement("option");
+            opt = document.createElement("option");
             opt.id = data[i].id;
             opt.value= data[i].answer;
+            //opt.name= "opti";
+            arrayId=arrayId.concat(opt.id);
+            
+            if(opt.value=="Not Evaluated"){
+                opt.style.backgroundColor = "lightgray";
+                opt.style.borderStyle = "solid";
+            }     
+            else if(opt.value=="Pass"){
+                //opt.style.backgroundColor = "#66C266";
+                opt.style.backgroundColor = "lightgreen";
+                opt.style.borderStyle = "solid";
+                var valPass = document.getElementById("pass"); 
+                valPass.setAttribute("checked", "checked");
+            }
+            else if(opt.value=="Fail"){
+                //opt.style.backgroundColor = "#FF4D4D";
+                opt.style.backgroundColor = "#FF8C8C";
+                opt.style.borderStyle = "solid";
+                var valFail = document.getElementById("fail"); 
+                //valFail.setAttribute("checked", "checked");
+            }
+            else {
+                //opt.style.backgroundColor = "#FF5C33";
+                opt.style.backgroundColor = "#FF9973";
+                opt.style.borderStyle = "solid";
+                var valNot = document.getElementById("notApp"); 
+                //valNot.setAttribute("checked", "checked");
+            }
             opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
             i++;
         }
-        //if(data!="ERROR"){
-        //    while(i<data.length){
-        //            myselect(data[i].id, data[i].title, data[i].answer);
-        //        i++;
-        //    }            
-        //}
+        var selected = document.getElementById(arrayId[0]); //esto es para sacar el primer requisito seleccionado
+        selected.setAttribute("selected", "selected");
+        
+        if($("select option:selected")){
+            idSelect = $("select option:selected").attr("id"); //aqui cojo el id
+            strText = $("select option:selected").text(); 
+        }
+        
+        $(".clausesTitle").text(strText);
+        
+        $("select").on("change", function() {
+            var strText1="";
+            var strVal="";
+            var idSelect1=null;
+            idSelect1 = $("select option:selected").attr("id");
+            strText1 = $("select option:selected").text();
+            strVal = $("select option:selected").val();
+            //console.log(idSelect1);
+            //console.log(strText1);
+            //console.log(strVal);
+            $(".clausesTitle").text(strText1);
+            
+            if(strVal=="Pass"){
+                var valP = document.getElementById("pass");
+                console.log(strVal);
+                valP.setAttribute("checked", "checked");
+            }
+            else if(strVal=="Fail"){
+                var valF = document.getElementById("fail"); 
+                valF.setAttribute("checked", "checked");
+            }
+            else if(strVal=="Not Applicable"){
+                var valNA = document.getElementById("notApp"); 
+                valNA.setAttribute("checked", "checked");
+            }
+            //HACER UN POST MANDANDOLE EL ID PARA QUE ME DEVUELVA DATOS No lo entiendo este post
+        })
     });
-//    $("#next2").click(function(){  
-//    });
     
-    //post enviar la cookie aki
+    var j = 0;
+    var k = 1;
+    $("#next2").click(function(){
+        var selected = document.getElementById(arrayId[k]); //esto es para sacar el primer requisito seleccionado
+        selected.setAttribute("selected", "selected");
+        var selected = document.getElementById(arrayId[j]);
+        selected.removeAttribute("selected");
+        //HACER OTRO POST PARA MANDAR DATOS AL SERVIDOR
+        j=j+1;
+        k=k+1;
+        
+    });
+    
 });
-
-/*var myselect=function(column,column2,column3){
-        var clon=$(".clauses").clone();
-        clon.removeAttr('style');
-        clon.find("input[name=clauses]").attr("value",column3); //tanto el valor como el id van a tomar el valor del id que necesitemos
-        clon.find("input[name=clauses]").attr("id",column);
-        clon.find("input[name=clauses]").text(column+' '+column2);
-        //clon.find('#pru1').text(column);
-        //clon.find('#pru2').text(column2);
-        //clon.find('#pru3').text(column3+'%');
-        $(".clauses").after(clon);    
-}*/
