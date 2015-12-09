@@ -84,49 +84,41 @@ global.updateSession = function(id_session, name_user, path, expires, originalMa
     });
 };
 
-
-/////////////////////////////
 global.insertPath = function(name_user, path, callback) {
     connection.query("UPDATE session SET path='"+path+"' WHERE userName='"+name_user+"';", function(err, rows, fields) {
         callback(err, rows);
     });
 };
-
 //This function inserts a project
 global.insertProject = function(idProj, idUser, name, description,callback) {
     connection.query("INSERT INTO project(id,idUser,name,description) VALUES('"+idProj+"','"+idUser+"','"+name+"','"+description+"');",function(err,results,fields){
         callback(err, results);
     });
 };
-
 //This function gets the text of a question
 global.getQuestion = function(actualQuest, callback) {
     connection.query('SELECT text FROM question WHERE id='+'"'+actualQuest+'"',function(err,results,fields){ 
         callback(err, results);
     });
 };
-
 //This function gets the help of a question
 global.getHelp = function(actualQuest, callback) {
     connection.query('SELECT help FROM question WHERE id='+'"'+actualQuest+'"',function(err,results,fields){
         callback(err, results);
     });
 };
-
 //This function gets the id and the title of the clauses always apply
 global.getClauses = function(callback) {
     connection.query('SELECT id, title FROM clause WHERE id="05.2" or id="05.3" or id="05.4" or id="05.7" or id="05.8" or id="05.9"',function(err,results,fields){
       callback(err, results);
     });
 };
-
 //This function inserts the answer to a question
 global.insertAnswers = function(idAns, idQuest, idProj, answer,callback) {
   connection.query("INSERT INTO answer(id,idQuest,idProj,answer) VALUES('"+idAns+"','"+idQuest+"','"+idProj+"','"+answer+"')",function(err,results,fields){
         callback(err, results);
     });
 };
-
 //This function gets the id of the next question according to the answer to the current question 
 global.getQuestionAns = function(nextAns,actualQuest, callback) {
     connection.query('SELECT '+nextAns+' FROM question WHERE id='+'"'+actualQuest+'"',function(err,results,fields){ 
@@ -151,21 +143,18 @@ global.maxIdProject = function(callback) {
       callback(err, rows);
     });
 };
-
 //This function inserts the clauses of a project
 global.insertClausesOfProject = function(idClause, idProj, idAnswer,callback) {
   connection.query("INSERT INTO clausesofproject(idClause,idProj,idAnswer) VALUES('"+idClause+"','"+idProj+"','"+idAnswer+"')",function(err,results,fields){
         callback(err, results);
   });
 };
-
 //SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='1'
 global.getClausesOfProject = function(id, callback) {
     connection.query('SELECT clause.id, clause.title FROM clause INNER JOIN clausesofproject ON clause.id=clausesofproject.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
       callback(err, rows);
     });
 };
-
 //SELECT clause.id, clause.title,evaluation.answer FROM clause, evaluation INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj=1 ORDER BY clause.id ASC
 global.getClausesOfProject2 = function(id, callback) {
     connection.query('SELECT clause.id, clause.title,evaluation.answer FROM clause INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
@@ -178,14 +167,12 @@ global.insertEvaluatorOfProject = function(idUser, idProj, situation,callback) {
       callback(err, rows);
     });
 };
-
 //SELECT project.id, project.name, project.description FROM project INNER JOIN evaluatorofproject ON project.id=evaluatorofproject.idProj WHERE evaluatorofproject.idUser=5
 global.allProjects = function(idUser, callback) {
     connection.query('SELECT project.id, project.name, project.description FROM project INNER JOIN evaluatorofproject ON project.id=evaluatorofproject.idProj WHERE evaluatorofproject.idUser='+'"'+idUser+'"', function(err, rows, fields) {
       callback(err, rows);
     });
 };
-
 //INSERT INTO tablaDestino SELECT * FROM tablaOrigen
 global.insertForEvaluation = function(id, callback) {
     connection.query('INSERT INTO evaluation(idClause,idProj) SELECT idClause,idProj FROM clausesofproject WHERE idProj='+'"'+id+'"',function(err,results,fields){
@@ -193,7 +180,6 @@ global.insertForEvaluation = function(id, callback) {
     });
 };
 
-//////////////////////
 global.getAnswerEvaluation = function(id, answer,should, callback) {
     connection.query('SELECT count(answer) num FROM evaluation INNER JOIN clause ON clause.id=evaluation.idClause WHERE evaluation.answer='+'"'+answer+'" AND evaluation.idProj='+'"'+id+'" AND clause.should='+'"'+should+'"',function(err, rows, fields) {
       callback(err, rows);
@@ -211,12 +197,18 @@ global.getTotalSH = function(id, should, callback) {
       callback(err, rows);
     });
 };
-
-/*global.getAnswerEvaluation = function(id,answer, callback) {
-    connection.query('SELECT count(should) FROM clause',function(err, rows, fields) {
+/////////////////////////////
+global.getComplianceOfClause = function(idClause, callback) {
+    connection.query('SELECT `typeOfAssessment`, `pre-conditions`, `procedure`, `result` FROM `compliance` WHERE idClause='+'"'+idClause+'"',function(err, rows, fields) {
       callback(err, rows);
     });
-};*/
+};
+
+global.getNoteOfClause = function(idClause, callback) {
+    connection.query('SELECT * FROM noteofclause WHERE noteofclause.idClause='+'"'+idClause+'"',function(err, rows, fields) {
+      callback(err, rows);
+    });
+};
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

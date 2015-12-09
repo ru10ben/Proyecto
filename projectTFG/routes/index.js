@@ -498,6 +498,29 @@ router.post('/tablaEvaluation', function(req, res, next) {
   });
 });
 
+router.post('/dataClause', function(req, res, next) {
+  var idClause=req.body.idClause;
+  var idClause='05.1.3.01';
+  var compliance;
+  var note;
+  var clause;
+  getComplianceOfClause(idClause, function(err, results){
+    compliance=new Array();
+    for (var i = 0; i < results.length; i++) {
+      compliance=compliance.concat(results[i]);
+    };
+    getNoteOfClause(idClause, function(err, results){
+      note=new Array();
+      for (var i = 0; i < results.length; i++) {
+        note=note.concat(results[i].text);
+      };
+      var render={compliance: compliance, note:note};
+      console.log(render);
+      res.send(render);
+    });
+  });
+});
+
 function dateFormat(date){
 	var month=date.getMonth()+1;
 	var result=date.getFullYear()+'-'+month+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
