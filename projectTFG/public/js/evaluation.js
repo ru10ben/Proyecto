@@ -7,6 +7,8 @@ $(function(){
     var valorId;
     var opt;
     var datos={idProject: idProject};
+    var idSelect;
+    var strText;
     
     $("#notes").click(function(){   
          $(".p1").toggle();
@@ -78,16 +80,19 @@ $(function(){
         
         $(".clausesTitle").text(strText);
         
-        $("select").on("change", function() {
+
+    }); //END POST
+    
+            $("select").on("change", function() {
             var strText1="";
             var strVal="";
             var idSelect1=null;
             idSelect1 = $("select option:selected").attr("id");
             strText1 = $("select option:selected").text();
             strVal = $("select option:selected").val();
-            //console.log(idSelect1);
-            //console.log(strText1);
-            //console.log(strVal);
+            console.log(idSelect1);
+            console.log(strText1);
+            console.log(strVal);
             $(".clausesTitle").text(strText1);
             
             if(strVal=="Pass"){
@@ -103,21 +108,29 @@ $(function(){
                 var valNA = document.getElementById("notApp"); 
                 valNA.setAttribute("checked", "checked");
             }
+            else{
+                var juan = document.getElementsByName("ans");
+                juan.setAttribute("checked", false);
+            }
             //HACER UN POST MANDANDOLE EL ID PARA QUE ME DEVUELVA DATOS No lo entiendo este post
         })
-    });
     
     var j = 0;
     var k = 1;
     $("#next2").click(function(){
         var selected = document.getElementById(arrayId[k]); //esto es para sacar el primer requisito seleccionado
         selected.setAttribute("selected", "selected");
+        if($("select option:selected")){
+            idSelect = $("select option:selected").attr("id"); //aqui cojo el id
+            strText = $("select option:selected").text(); 
+        }
         var selected = document.getElementById(arrayId[j]);
         selected.removeAttribute("selected");
-        //HACER OTRO POST PARA MANDAR DATOS AL SERVIDOR
+        //HACER OTRO POST PARA MANDAR DATOS AL SERVIDOR             
+        //compliance y notes
+        //id y el pass o lo q sea
         j=j+1;
-        k=k+1;
-        
+        k=k+1;  
     });
     
 });
