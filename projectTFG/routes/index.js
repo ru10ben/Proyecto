@@ -452,7 +452,7 @@ router.get('/evaluation', function(req, res, next) {
 router.post('/clausesEvaluation', function(req, res, next) {
   var idProject=req.body.idProject;
   getClausesOfProject2(idProject, function(err, results){
-    //console.log(results);
+    console.log(results);
     res.send(results);
   });
 });
@@ -500,23 +500,26 @@ router.post('/tablaEvaluation', function(req, res, next) {
 
 router.post('/dataClause', function(req, res, next) {
   var idClause=req.body.idClause;
-  var idClause='05.1.3.01';
+  //var idClause='05.1.3.01';
   var compliance;
   var note;
   var clause;
   getComplianceOfClause(idClause, function(err, results){
     compliance=new Array();
     for (var i = 0; i < results.length; i++) {
-      compliance=compliance.concat(results[i]);
+      compliance=compliance.concat(results[i].typeOfAssessment+';'+results[i].preconditions+';'+results[i].procedure+';'+results[i].result);
     };
     getNoteOfClause(idClause, function(err, results){
       note=new Array();
       for (var i = 0; i < results.length; i++) {
         note=note.concat(results[i].text);
       };
-      var render={compliance: compliance, note:note};
-      console.log(render);
-      res.send(render);
+      getDataClause(idClause, function(err, results){
+        clause=results[0].text;
+        var render={clause:clause,compliance:compliance, note:note};
+        console.log(render);
+        res.send(render);
+      });
     });
   });
 });

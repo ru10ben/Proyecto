@@ -133,7 +133,7 @@ global.getClauses2 = function(actualQuest,callback) {
 };
 
 global.getDataClause = function(idClause, callback) {
-    connection.query('SELECT id, title FROM clause WHERE id='+'"'+idClause+'"',function(err,results,fields){
+    connection.query('SELECT id, title,text FROM clause WHERE id='+'"'+idClause+'"',function(err,results,fields){
       callback(err, results);
     });
 };
@@ -157,7 +157,7 @@ global.getClausesOfProject = function(id, callback) {
 };
 //SELECT clause.id, clause.title,evaluation.answer FROM clause, evaluation INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj=1 ORDER BY clause.id ASC
 global.getClausesOfProject2 = function(id, callback) {
-    connection.query('SELECT clause.id, clause.title,evaluation.answer FROM clause INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
+    connection.query('SELECT clause.id, clause.title,clause.text,evaluation.answer FROM clause INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
       callback(err, rows);
     });
 };
@@ -199,7 +199,7 @@ global.getTotalSH = function(id, should, callback) {
 };
 /////////////////////////////
 global.getComplianceOfClause = function(idClause, callback) {
-    connection.query('SELECT `typeOfAssessment`, `pre-conditions`, `procedure`, `result` FROM `compliance` WHERE idClause='+'"'+idClause+'"',function(err, rows, fields) {
+    connection.query('SELECT `typeOfAssessment`, `preconditions`, `procedure`, `result` FROM `compliance` WHERE idClause='+'"'+idClause+'"',function(err, rows, fields) {
       callback(err, rows);
     });
 };

@@ -1,6 +1,6 @@
 $(function(){
     var idProject=$.cookie('idProject');
-    var i=0; 
+    var i=0; //tamaño array
     var arrayId;
     var valor;
     var valor2;
@@ -9,6 +9,7 @@ $(function(){
     var datos={idProject: idProject};
     var idSelect;
     var strText;
+    var k=0;
     
     $("#notes").click(function(){   
          $(".p1").toggle();
@@ -64,12 +65,14 @@ $(function(){
                 opt.style.backgroundColor = "#FF9973";
                 opt.style.borderStyle = "solid";
                 var valNot = document.getElementById("notApp"); 
+                //$("input[name='ans']").prop("checked", false); //OJOOOOOOOOOOOOOOOOOOOO
                 //valNot.setAttribute("checked", "checked");
             }
             opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
             i++;
         }
+        console.log(arrayId);
         var selected = document.getElementById(arrayId[0]); //esto es para sacar el primer requisito seleccionado
         selected.setAttribute("selected", "selected");
         
@@ -77,24 +80,39 @@ $(function(){
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
             strText = $("select option:selected").text(); 
         }
+
+        var datos={idClause: idSelect};
+        $.post('/dataClause',datos,function(data){
+            $(".clausesName").text(data.clause);
+            $("#textCompliance").text(data.compliance);
+            $("#note").text(data.note);        
+        });
         
         $(".clausesTitle").text(strText);
         
 
     }); //END POST
     
-            $("select").on("change", function() {
+        $("select").on("change", function() {
             var strText1="";
             var strVal="";
-            var idSelect1=null;
+            var idSelect1;
+            // var selected = document.getElementById(arrayId[k]);
+            // selected.removeAttribute("selected");
+
             idSelect1 = $("select option:selected").attr("id");
-            strText1 = $("select option:selected").text();
-            strVal = $("select option:selected").val();
-            console.log(idSelect1);
-            console.log(strText1);
-            console.log(strVal);
+            k=arrayId.indexOf(idSelect1);
+            console.log('k change: '+k);
+            if($("select option:selected")){
+                strText1 = $("select option:selected").text();
+                strVal = $("select option:selected").val();
+            }
+            //console.log(idSelect1);
+            //console.log(strText1);
+            //console.log(strVal);
             $(".clausesTitle").text(strText1);
-            
+            console.log(strVal);
+
             if(strVal=="Pass"){
                 var valP = document.getElementById("pass");
                 console.log(strVal);
@@ -109,28 +127,42 @@ $(function(){
                 valNA.setAttribute("checked", "checked");
             }
             else{
-                var juan = document.getElementsByName("ans");
-                juan.setAttribute("checked", false);
+                //$("input[name='ans']").prop("checked", false);
             }
             //HACER UN POST MANDANDOLE EL ID PARA QUE ME DEVUELVA DATOS No lo entiendo este post
         })
     
-    var j = 0;
-    var k = 1;
-    $("#next2").click(function(){
-        var selected = document.getElementById(arrayId[k]); //esto es para sacar el primer requisito seleccionado
+    //var j = 0;
+    //var k = 1;
+    $("#next2").click(function(){   
+
+        $("select option:selected").removeAttr("selected")
+
+        // var selected = document.getElementById(arrayId[k]);
+        // console.log('k click actual: '+k);
+        // selected.removeAttribute("selected");
+
+        var selected = document.getElementById(arrayId[k+1]); //esto es para sacar el primer requisito seleccionado
         selected.setAttribute("selected", "selected");
+
+        //k=k+1;
         if($("select option:selected")){
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-            strText = $("select option:selected").text(); 
+            strText = $("select option:selected").text();
+            k=arrayId.indexOf(idSelect); 
+            //console.log('k click: '+k);
+            $(".clausesTitle").text(strText);
         }
-        var selected = document.getElementById(arrayId[j]);
-        selected.removeAttribute("selected");
+        var datos={idClause: idSelect};
+        $.post('/dataClause',datos,function(data){
+            $(".clausesName").text(data.clause);
+            $("#textCompliance").text(data.compliance);
+            $("#note").text(data.note);        
+        });
         //HACER OTRO POST PARA MANDAR DATOS AL SERVIDOR             
         //compliance y notes
         //id y el pass o lo q sea
-        j=j+1;
-        k=k+1;  
+        //j=j+1; 
     });
     
 });
