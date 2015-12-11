@@ -453,6 +453,7 @@ router.post('/clausesEvaluation', function(req, res, next) {
   var idProject=req.body.idProject;
   getClausesOfProject2(idProject, function(err, results){
     console.log(results);
+    var render={};
     res.send(results);
   });
 });
@@ -501,13 +502,22 @@ router.post('/tablaEvaluation', function(req, res, next) {
 router.post('/dataClause', function(req, res, next) {
   var idClause=req.body.idClause;
   //var idClause='05.1.3.01';
-  var compliance;
+  var typeOfAssessment;
+  var preconditions;
+  var procedure;
+  var result;
   var note;
   var clause;
   getComplianceOfClause(idClause, function(err, results){
-    compliance=new Array();
+    typeOfAssessment=new Array();
+    preconditions=new Array();
+    procedure=new Array();
+    result=new Array();
     for (var i = 0; i < results.length; i++) {
-      compliance=compliance.concat(results[i].typeOfAssessment+';'+results[i].preconditions+';'+results[i].procedure+';'+results[i].result);
+      typeOfAssessment=typeOfAssessment.concat(results[i].typeOfAssessment);
+      preconditions=preconditions.concat(results[i].preconditions);
+      procedure=procedure.concat(results[i].procedure);
+      result=result.concat(results[i].result);
     };
     getNoteOfClause(idClause, function(err, results){
       note=new Array();
@@ -516,7 +526,7 @@ router.post('/dataClause', function(req, res, next) {
       };
       getDataClause(idClause, function(err, results){
         clause=results[0].text;
-        var render={clause:clause,compliance:compliance, note:note};
+        var render={clause:clause,typeOfAssessment:typeOfAssessment,preconditions:preconditions,procedure:procedure,result:result,note:note};
         console.log(render);
         res.send(render);
       });

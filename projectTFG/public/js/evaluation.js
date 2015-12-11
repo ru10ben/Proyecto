@@ -84,13 +84,13 @@ $(function(){
         var datos={idClause: idSelect};
         $.post('/dataClause',datos,function(data){
             $(".clausesName").text(data.clause);
-            $("#textCompliance").text(data.compliance);
-            $("#note").text(data.note);        
+            //Aquí se debería crear una tabla con los datos
+            $("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
+            $("#note").text(data.note.join("\n"));        
         });
         
         $(".clausesTitle").text(strText);
         
-
     }); //END POST
     
         $("select").on("change", function() {
@@ -107,6 +107,19 @@ $(function(){
                 strText1 = $("select option:selected").text();
                 strVal = $("select option:selected").val();
             }
+            var datos={idClause: idSelect1};
+            $.post('/dataClause',datos,function(data){
+                $(".clausesName").text(data.clause);
+                //$("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
+                //Aquí se debería crear j tablas con los datos
+                var j=0;
+                var compliance='';
+                while(j<data.typeOfAssessment.length){
+                    compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
+                    j++;
+                }
+                $("#note").text(data.note.join("\n"));        
+            });
             //console.log(idSelect1);
             //console.log(strText1);
             //console.log(strVal);
@@ -156,8 +169,15 @@ $(function(){
         var datos={idClause: idSelect};
         $.post('/dataClause',datos,function(data){
             $(".clausesName").text(data.clause);
-            $("#textCompliance").text(data.compliance);
-            $("#note").text(data.note);        
+            //Aquí se debería crear j tablas con los datos
+            var j=0;
+            var compliance='';
+            while(j<data.typeOfAssessment.length){
+                compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
+                j++;
+            }
+            $("#textCompliance").text(compliance);
+            $("#note").text(data.note.join("\n"));      
         });
         //HACER OTRO POST PARA MANDAR DATOS AL SERVIDOR             
         //compliance y notes
