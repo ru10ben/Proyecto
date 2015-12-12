@@ -1,15 +1,25 @@
 $(function(){
     var idProject=$.cookie('idProject');
     var i=0; //tamaño array
+    var selected;
     var arrayId;
     var valor;
     var valor2;
     var valorId;
     var opt;
-    var datos={idProject: idProject};
+    var datos={idClause: idSelect, idProject: idProject, answer: ans};
     var idSelect;
     var strText;
+    var valSelect;
     var k=0;
+    var ans;
+
+    //var valPass;
+
+//    $("input[name=ans]").click(function () {     
+        //ans = $("input[name='ans']:checked").val();
+//        console.log(ans);
+//    });
     
     $("#notes").click(function(){   
          $(".p1").toggle();
@@ -34,64 +44,72 @@ $(function(){
         $('#pru9').html(data.notEvaluatedSH);
     });
     
-    $.post('/clausesEvaluation', datos, function(data) {
+    $.post('/clausesEvaluation', datos, function(data) { //PRIMER POST
+        
         while(i<data.length){
             opt = document.createElement("option");
             opt.id = data[i].id;
             opt.value= data[i].answer;
-            //opt.name= "opti";
             arrayId=arrayId.concat(opt.id);
             
-            if(opt.value=="Not Evaluated"){
+            paint(opt.value,opt); //funcion para pintar la tabla
+            
+            /*if(opt.value=="Not Evaluated"){
                 opt.style.backgroundColor = "lightgray";
                 opt.style.borderStyle = "solid";
             }     
             else if(opt.value=="Pass"){
-                //opt.style.backgroundColor = "#66C266";
                 opt.style.backgroundColor = "lightgreen";
                 opt.style.borderStyle = "solid";
                 var valPass = document.getElementById("pass"); 
                 valPass.setAttribute("checked", "checked");
             }
             else if(opt.value=="Fail"){
-                //opt.style.backgroundColor = "#FF4D4D";
                 opt.style.backgroundColor = "#FF8C8C";
                 opt.style.borderStyle = "solid";
                 var valFail = document.getElementById("fail"); 
-                //valFail.setAttribute("checked", "checked");
+                valFail.setAttribute("checked", "checked");
             }
             else {
-                //opt.style.backgroundColor = "#FF5C33";
                 opt.style.backgroundColor = "#FF9973";
                 opt.style.borderStyle = "solid";
                 var valNot = document.getElementById("notApp"); 
                 //$("input[name='ans']").prop("checked", false); //OJOOOOOOOOOOOOOOOOOOOO
                 //valNot.setAttribute("checked", "checked");
-            }
+            }*/
+            
             opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
             i++;
-        }
-        console.log(arrayId);
-        var selected = document.getElementById(arrayId[0]); //esto es para sacar el primer requisito seleccionado
+            
+        } //END WHILE
+        
+        selected = document.getElementById(arrayId[0]); //esto es para sacar el primer requisito seleccionado
         selected.setAttribute("selected", "selected");
         
         if($("select option:selected")){
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-            strText = $("select option:selected").text(); 
+            strText = $("select option:selected").text();
+            valSelect = $("select option:selected").val();
+            console.log("primer:"+idSelect);
         }
 
-        var datos={idClause: idSelect};
-        $.post('/dataClause',datos,function(data){
+        var datos={idClause: idSelect, idProject: idProject, answer: ans};
+        $.post('/dataClause',datos,function(data){  //SEGUNDO POST
             $(".clausesName").text(data.clause);
             //Aquí se debería crear una tabla con los datos
             $("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
+            
+            if(data.note.length <=1){
+                $("#divNotes").attr("style","display:none");
+            }
+            
             $("#note").text(data.note.join("\n"));        
-        });
+        }); //END SEGUNDO POST
         
         $(".clausesTitle").text(strText);
         
-    }); //END POST
+    }); //END PRIMER POST
     
         $("select").on("change", function() {
             var strText1="";
@@ -108,7 +126,16 @@ $(function(){
                 strVal = $("select option:selected").val();
             }
             var datos={idClause: idSelect1};
-            $.post('/dataClause',datos,function(data){
+            $.post('/dataClause',datos,function(data){ // POST CHANGE
+                
+            $('#pru1').html(data.notApplicableRQ);
+            $('#pru2').html(data.passRQ);
+            $('#pru3').html(data.failRQ);
+            $('#pru4').html(data.notEvaluatedRQ);
+            $('#pru6').html(data.notApplicableSH);
+            $('#pru7').html(data.passSH);
+            $('#pru8').html(data.failSH);
+            $('#pru9').html(data.notEvaluatedSH);
                 $(".clausesName").text(data.clause);
                 //$("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
                 //Aquí se debería crear j tablas con los datos
@@ -118,11 +145,18 @@ $(function(){
                     compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
                     j++;
                 }
+                $("#textCompliance").text(compliance);
+                
+                if(data.note.length <1){
+                    $("#divNotes").attr("style","display:none");
+                }
+                else{
+                    $("#divNotes").removeAttr("style");
+                }
+                
                 $("#note").text(data.note.join("\n"));        
-            });
-            //console.log(idSelect1);
-            //console.log(strText1);
-            //console.log(strVal);
+            });// END POST CHANGE
+ 
             $(".clausesTitle").text(strText1);
             console.log(strVal);
 
@@ -142,34 +176,35 @@ $(function(){
             else{
                 //$("input[name='ans']").prop("checked", false);
             }
-            //HACER UN POST MANDANDOLE EL ID PARA QUE ME DEVUELVA DATOS No lo entiendo este post
         })
-    
     //var j = 0;
     //var k = 1;
-    $("#next2").click(function(){   
-
+    $("#next2").click(function(){ 
+        ans = $("input[name='ans']:checked").val();
+        console.log(ans);
         $("select option:selected").removeAttr("selected")
-
+        
         // var selected = document.getElementById(arrayId[k]);
         // console.log('k click actual: '+k);
         // selected.removeAttribute("selected");
 
         var selected = document.getElementById(arrayId[k+1]); //esto es para sacar el primer requisito seleccionado
         selected.setAttribute("selected", "selected");
-
-        //k=k+1;
-        if($("select option:selected")){
-            idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-            strText = $("select option:selected").text();
-            k=arrayId.indexOf(idSelect); 
-            //console.log('k click: '+k);
-            $(".clausesTitle").text(strText);
-        }
-        var datos={idClause: idSelect};
-        $.post('/dataClause',datos,function(data){
+        
+        var datos={idClause: idSelect, idProject: idProject, answer: ans};
+        
+            $.post('/dataClause',datos,function(data){ // POST CLICK
+                
+            $('#pru1').html(data.notApplicableRQ);
+            $('#pru2').html(data.passRQ);
+            $('#pru3').html(data.failRQ);
+            $('#pru4').html(data.notEvaluatedRQ);
+            $('#pru6').html(data.notApplicableSH);
+            $('#pru7').html(data.passSH);
+            $('#pru8').html(data.failSH);
+            $('#pru9').html(data.notEvaluatedSH);        
             $(".clausesName").text(data.clause);
-            //Aquí se debería crear j tablas con los datos
+
             var j=0;
             var compliance='';
             while(j<data.typeOfAssessment.length){
@@ -177,12 +212,49 @@ $(function(){
                 j++;
             }
             $("#textCompliance").text(compliance);
+            
+            if(data.note.length <1){
+                $("#divNotes").attr("style","display:none");
+            }
+            else{
+                $("#divNotes").removeAttr("style");
+            }
+            
             $("#note").text(data.note.join("\n"));      
-        });
-        //HACER OTRO POST PARA MANDAR DATOS AL SERVIDOR             
-        //compliance y notes
-        //id y el pass o lo q sea
-        //j=j+1; 
+        }); //END POST CLICK
+        if($("select option:selected")){
+            idSelect = $("select option:selected").attr("id"); //aqui cojo el id
+            strText = $("select option:selected").text();
+            k=arrayId.indexOf(idSelect); 
+            $(".clausesTitle").text(strText);
+            console.log(idSelect);
+        }
     });
     
 });
+
+function paint(argv,argv2) { //FUNCION PARA PINTAR
+    if(argv == "Not Evaluated"){
+        argv2.style.backgroundColor = "lightgray";
+        argv2.style.borderStyle = "solid";
+    }     
+    else if(argv == "Pass"){
+        argv2.style.backgroundColor = "lightgreen";
+        argv2.style.borderStyle = "solid";
+        //var valPass = document.getElementById("pass"); 
+        //valPass.setAttribute("checked", "checked");
+    }
+    else if(argv == "Fail"){
+        argv2.style.backgroundColor = "#FF8C8C";
+        argv2.style.borderStyle = "solid";
+        //var valFail = document.getElementById("fail"); 
+        //valFail.setAttribute("checked", "checked");
+    }
+    else {
+        argv2.style.backgroundColor = "#FF9973";
+        argv2.style.borderStyle = "solid";
+        //var valNot = document.getElementById("notApp"); 
+                //$("input[name='ans']").prop("checked", false); //OJOOOOOOOOOOOOOOOOOOOO
+                //valNot.setAttribute("checked", "checked");
+    }
+}
