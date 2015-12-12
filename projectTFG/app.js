@@ -210,6 +210,12 @@ global.getNoteOfClause = function(idClause, callback) {
     });
 };
 
+global.insertForEvaluation = function(idProj,idClause, answer, callback) {
+    connection.query('UPDATE evaluation SET answer='+'"'+answer+'" WHERE idProj='+'"'+idProj+'" AND idClause='+'"'+idClause+'"',function(err,results,fields){
+      callback(err, results);
+    });
+};
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

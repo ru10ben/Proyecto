@@ -501,13 +501,16 @@ router.post('/tablaEvaluation', function(req, res, next) {
 
 router.post('/dataClause', function(req, res, next) {
   var idClause=req.body.idClause;
-  //var idClause='05.1.3.01';
+  var idProject=req.body.idProject;
+  var answer=req.body.answer;
   var typeOfAssessment;
   var preconditions;
   var procedure;
   var result;
   var note;
   var clause;
+  insertForEvaluation(idProject,idClause,answer, function(err, results){});
+
   getComplianceOfClause(idClause, function(err, results){
     typeOfAssessment=new Array();
     preconditions=new Array();
@@ -526,9 +529,43 @@ router.post('/dataClause', function(req, res, next) {
       };
       getDataClause(idClause, function(err, results){
         clause=results[0].text;
-        var render={clause:clause,typeOfAssessment:typeOfAssessment,preconditions:preconditions,procedure:procedure,result:result,note:note};
-        console.log(render);
-        res.send(render);
+        var should='No'; //Requeriments
+        var notApplicableRQ=0;
+        var passRQ=0;
+        var failRQ=0;
+        var notEvaluatedRQ=0;
+        var totalRQ=214;
+        var totalClause=240;
+        getTotalRQ(idProject, should, function(err, results){
+          //results[0].num total de requisitos de un proyecto
+          notApplicableRQ=totalRQ-results[0].num;
+          getAnswerEvaluation(idProject, 'Pass',should, function(err, results){
+            passRQ=results[0].num;
+            getAnswerEvaluation(idProject, 'Fail',should, function(err, results){
+              failRQ=results[0].num;
+              getAnswerEvaluation(idProject, 'Not Evaluated',should, function(err, results){
+                notEvaluatedRQ=results[0].num;
+                should='Si'; //Recomendations
+                getTotalSH(idProject, should, function(err, results){
+                  var totalSH=totalClause-totalRQ;
+                  notApplicableSH=totalSH-results[0].num;
+                  getAnswerEvaluation(idProject, 'Pass',should, function(err, results){
+                    passSH=results[0].num;
+                    getAnswerEvaluation(idProject, 'Fail',should, function(err, results){
+                      failSH=results[0].num;
+                      getAnswerEvaluation(idProject, 'Not Evaluated',should, function(err, results){
+                        notEvaluatedSH=results[0].num;
+                        var render={notApplicableRQ: notApplicableRQ, passRQ: passRQ, failRQ: failRQ, notEvaluatedRQ: notEvaluatedRQ, notApplicableSH: notApplicableSH, passSH: passSH, failSH: failSH, notEvaluatedSH: notEvaluatedSH,clause:clause,typeOfAssessment:typeOfAssessment,preconditions:preconditions,procedure:procedure,result:result,note:note};
+                        console.log(render);
+                        res.send(render);
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
       });
     });
   });
