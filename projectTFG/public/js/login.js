@@ -18,12 +18,13 @@ $(function(){
                     $('#log').attr('disabled', false);
                     $.cookie('username',data.username);
                     $.cookie('roles',data.roles);
+                    console.log(data.id);
                     $('#error2').hide();
                     $('#labelname').css({'color': ""});
                     $('#username').css({'border-color': ""});
   			   }
   		    });
         }
-        },1000);//1 segundo
+        });
     });
 });

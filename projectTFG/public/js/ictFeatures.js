@@ -26,7 +26,7 @@ $(function(){
 
     $("#nextquest").on("click",function(){
         var param = { answer:$("input[name='answer']:checked").val(),idProject: idProject,actualQuest: actualQuest, clauses: clausesArr};
-        //$("#Yes").prop("checked", true);//
+        $("#Yes").prop("checked", true);
         $.post( "/next", param, function( data ) {
             if(data.message=='You have completed the evaluation'){
                 var question=$('#question').text();
@@ -41,7 +41,6 @@ $(function(){
                 $('#showresults').show();
 
                 clausesArr=clausesArr.concat(data.clauses);
-                //var historic=data.historic;
                 var actualHistoric='['+param.answer+'] <- '+question;
                 myHistoric=myHistoric.concat(actualHistoric);
                 
@@ -61,10 +60,7 @@ $(function(){
                 var question=$('#question').text();
                 $('#question').text(data.question);
                 $('#help').text(data.help);
-                //console.log(data.clauses);
                 clausesArr=clausesArr.concat(data.clauses);
-                
-                //var historic=data.historic;
                 var actualHistoric='['+param.answer+'] <- '+question;
                 myHistoric=myHistoric.concat(actualHistoric);
                 
@@ -92,13 +88,11 @@ $(function(){
         }
         arrayId.splice(0,6);
         arrayId.unshift("05.2","05.3","05.4","05.7","05.8","05.9");
-        //console.log(arrayId);
         var arrayId2={arrayId:arrayId.toString(),idProject:idProject};
         $.post( "/clausesFinal", arrayId2,function( data ) {
             if(data='OK'){
                 window.location='/result'; 
             }
         });
-        //window.location='/result';
     });
 });

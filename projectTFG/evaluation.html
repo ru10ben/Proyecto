@@ -26,7 +26,7 @@
             </div>    
             <div class="row">	
                 <div class="small-5 small-centered large-6 large-centered medium-centered columns">
-				    <h1 id="title" class="projectName">Project Name</h1>
+				    <h1 id="title" class="projectName"></h1>
                 </div>
             </div>
         </div>
@@ -37,10 +37,10 @@
                     <thead>
                         <tr>
                             <th width="120">    </th>
-                            <th width="50">N/A</th>
-                            <th width="50">Pass</th>
-                            <th width="50">Fail</th>
-                            <th width="150">Not Evaluated</th>                           
+                            <th width="50" style="text-align: center;">N/A</th>
+                            <th width="50" style="text-align: center;">Pass</th>
+                            <th width="50" style="text-align: center;">Fail</th>
+                            <th width="150" style="text-align: center;">Not Evaluated</th>                           
                         </tr>
                     </thead>
                     <tbody id="">
@@ -61,8 +61,9 @@
                     </tbody>
                 </table>
                 
-                <select id="selectClas" name="selectClas" multiple style="height: 400px; background-color: white">
-                    <!--option class="clauses" name="clauses" style="display:none"></option-->
+                <button  type="button" id="allReque" class="button-nav">Show all requeriments</button>
+                
+                <select id="selectClas" name="selectClas" multiple style="height: 330px; background-color: white">
                 </select>
                 
             </div>
@@ -79,7 +80,7 @@
                 <!--Subtitle Clause result-->
                 <h5>Clause result:</h5>
             <!--button Notes-->
-                <div id="">
+                <div id="divNotes">
                     <dl class="myaccordion" data-accordion>
                         <dd class="myaccordion-navigation">
                             <a href="#panel" id="notes" style="padding:0.375rem 0.5625rem 0.275rem;height: 38px">
@@ -87,7 +88,7 @@
                                 <p class="p1" style="display:none;font-weight: bold;">Hide Notes</p></a>                            
                             <div id="panel"class="content">
                                 <div>
-                                    <textarea rows="10" cols="50" tabindex="-1" id="note" class="notes" disabled style="background-color:white;height: 60px;"> </textarea>
+                                    <textarea rows="10" cols="50" tabindex="-1" id="note"  class="notes" disabled style="background-color:white;height: 60px;"> </textarea>
                                 </div>
                             </div>
                         </dd>
@@ -102,7 +103,29 @@
                                 <p class="p2" style="display:none;font-weight: bold;">Hide Compliance</p></a>                            
                             <div id="panel2"class="content">
                                 <div>
-                                    <textarea rows="10" cols="50" tabindex="-1" id="textCompliance" class="notes" disabled style="background-color:white;height: 60px;"> </textarea>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="200">Type of assessment</th>
+                                            <th width="900" id="t0" style="display:none"></th>                           
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        <tr class="clon2">
+                                            <td id="t1">Pre-conditions</td>                            
+                                            <td id="t2" style="display:none"></td>
+                                        </tr>
+                                        <tr>
+                                            <td id="t3">Procedure</td>                            
+                                            <td id="t4" style="display:none"></td>
+                                        </tr>
+                                        <tr>
+                                            <td id="t5">Result</td>
+                                            <td id="t6" style="display:none"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                    <textarea rows="10" cols="50" tabindex="-1" id="textCompliance" class="textCompliance" disabled style="background-color:white;height: 60px;"> </textarea>
                                 </div>
                             </div>
                         </dd>
@@ -114,17 +137,17 @@
                 <div id="design-checkbox">
                     &nbsp;
                     <input type="radio" name="ans" value="Pass" id="pass" tabindex="">
-                    <label id="mybold" for="pass" class="s1">Pass</label>
+                    <label id="mybold" for="pass" class="ans1">Pass</label>
                 </div>
                 <div>
                     &nbsp;
                     <input type="radio" name="ans" value="Fail" id="fail" tabindex="">
-                    <label id="mybold" for="fail" class="s2">Fail</label>
+                    <label id="mybold" for="fail" class="ans2">Fail</label>
                 </div>
                 <div>
                     &nbsp;
-                    <input type="radio" name="ans" value="Not applicable" id="notApp" tabindex="">
-                    <label id="mybold" for="eval" class="s3">Not Applicable</label>
+                    <input type="radio" name="ans" value="Not Applicable" id="notApp" tabindex="">
+                    <label id="mybold" for="eval" class="ans3">Not Applicable</label>
                 </div>                
             </div>  
             <!--Subtitle Definition-->
@@ -139,7 +162,7 @@
             </div>
             <div class="small-4 small-centered large-4 large-centered medium-centered columns">
                 <a  id="main" class="button-nav">Close</a>
-                <a  id="next2" class="button-nav">Next</a>
+                <button  type="button" id="next2" class="button-nav">Next</button>
             </div>
             <div class="small-2 small-centered large-2 large-centered medium-centered columns">
                   &nbsp;    

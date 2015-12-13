@@ -2,7 +2,7 @@ $(function(){
     var i=0;
     var checkboxValues;
     var arrayId=new Array();
-    //$('#save2').attr('disabled', 'disabled'); //desactiva el boton
+    //$('#save').attr('disabled', 'disabled'); //desactiva el boton
 
     $.get( "/allEvaluators", function( data ) {
         if(data!="ERROR"){
@@ -14,7 +14,8 @@ $(function(){
             }            
         }
         $("input[name=evaluator]").click(function () { 
-            //$('#save2').attr('disabled', false); //desactiva el boton
+            //$(".evaluator").css("color", "mediumblue");
+            //$('#save').attr('disabled', false); //desactiva el boton
             checkboxValues = new Array();
             $("input[name='evaluator']:checked").each(function() {
                 checkboxValues.push($(this).attr("id"));

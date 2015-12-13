@@ -1,4 +1,5 @@
 $(function(){
+    $('#create').attr('disabled', 'disabled'); //desactiva el boton
     $('#name').on('focusout', function(){
         if($('name').val()!=""){
             var productName = $('#name').val();
@@ -8,6 +9,7 @@ $(function(){
                 $.cookie('help',data.help);
                 $.cookie('idProject',data.idProject);
                 $.cookie('myClauses',data.clauses);
+                $('#create').attr('disabled', false);
             });
         }
     });

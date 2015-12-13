@@ -1,5 +1,6 @@
 $(function(){
-    var idProject=$.cookie('idProject');
+    var idProject = $.cookie('idProject');
+    var nameProject = $.cookie('nameProject');
     var i=0; //tamaño array
     var selected;
     var arrayId;
@@ -7,19 +8,39 @@ $(function(){
     var valor2;
     var valorId;
     var opt;
-    var datos={idClause: idSelect, idProject: idProject, answer: ans};
+    var datos={idProject: idProject};
     var idSelect;
     var strText;
     var valSelect;
     var k=0;
     var ans;
-
-    //var valPass;
-
-//    $("input[name=ans]").click(function () {     
-        //ans = $("input[name='ans']:checked").val();
-//        console.log(ans);
-//    });
+    select = document.getElementById("selectClas");
+    arrayId = new Array();
+    
+    $(".projectName").text(nameProject);
+    
+    //$('#next2').attr('disabled', 'disabled'); 
+    
+    $("#pass").click(function () { 
+        $(".ans1").css("color", "mediumblue");
+        if($(this).is(":checked")){
+            $("#next2").attr("disabled", false);
+         }
+    });
+    
+    $("#fail").click(function () { 
+        $(".ans2").css("color", "mediumblue");
+        if($(this).is(":checked")){
+            $("#next2").attr("disabled", false);
+         }
+    });
+    
+    $("#notApp").click(function () { 
+        $(".ans3").css("color", "mediumblue");
+        if($(this).is(":checked")){
+            $("#next2").attr("disabled", false);
+         }
+    });
     
     $("#notes").click(function(){   
          $(".p1").toggle();
@@ -29,22 +50,26 @@ $(function(){
          $(".p2").toggle();
     });
     
-    select = document.getElementById("selectClas");
-        arrayId=new Array();
-    
-    //tabla
     $.post('/tablaEvaluation', datos, function(data) {
         $('#pru1').html(data.notApplicableRQ);
+        $('#pru1').attr("Style", "text-align: center");
         $('#pru2').html(data.passRQ);
+        $('#pru2').attr("Style", "text-align: center");
         $('#pru3').html(data.failRQ);
+        $('#pru3').attr("Style", "text-align: center");
         $('#pru4').html(data.notEvaluatedRQ);
+        $('#pru4').attr("Style", "text-align: center");
         $('#pru6').html(data.notApplicableSH);
+        $('#pru6').attr("Style", "text-align: center");
         $('#pru7').html(data.passSH);
+        $('#pru7').attr("Style", "text-align: center");
         $('#pru8').html(data.failSH);
+        $('#pru8').attr("Style", "text-align: center");
         $('#pru9').html(data.notEvaluatedSH);
+        $('#pru9').attr("Style", "text-align: center");
     });
     
-    $.post('/clausesEvaluation', datos, function(data) { //PRIMER POST
+    $.post('/clausesEvaluation', datos, function(data) { //--------------------------------------PRIMER POST
         
         while(i<data.length){
             opt = document.createElement("option");
@@ -52,31 +77,7 @@ $(function(){
             opt.value= data[i].answer;
             arrayId=arrayId.concat(opt.id);
             
-            paint(opt.value,opt); //funcion para pintar la tabla
-            
-            /*if(opt.value=="Not Evaluated"){
-                opt.style.backgroundColor = "lightgray";
-                opt.style.borderStyle = "solid";
-            }     
-            else if(opt.value=="Pass"){
-                opt.style.backgroundColor = "lightgreen";
-                opt.style.borderStyle = "solid";
-                var valPass = document.getElementById("pass"); 
-                valPass.setAttribute("checked", "checked");
-            }
-            else if(opt.value=="Fail"){
-                opt.style.backgroundColor = "#FF8C8C";
-                opt.style.borderStyle = "solid";
-                var valFail = document.getElementById("fail"); 
-                valFail.setAttribute("checked", "checked");
-            }
-            else {
-                opt.style.backgroundColor = "#FF9973";
-                opt.style.borderStyle = "solid";
-                var valNot = document.getElementById("notApp"); 
-                //$("input[name='ans']").prop("checked", false); //OJOOOOOOOOOOOOOOOOOOOO
-                //valNot.setAttribute("checked", "checked");
-            }*/
+            paint(opt.value,opt); //funcion para pintar los options
             
             opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
@@ -92,14 +93,20 @@ $(function(){
             strText = $("select option:selected").text();
             valSelect = $("select option:selected").val();
             console.log("primer:"+idSelect);
+            //paint()
         }
-
+            ans=valSelect;
+            
         var datos={idClause: idSelect, idProject: idProject, answer: ans};
+        
         $.post('/dataClause',datos,function(data){  //SEGUNDO POST
             $(".clausesName").text(data.clause);
-            //Aquí se debería crear una tabla con los datos
+//----------------------------------------------------------------------------------------------------------------------------------------
             $("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
+            //console.log(lele);
+           //table(data.typeOfAssessment, data.preconditions, data.procedure, data.result+'\n');
             
+//------------------------------------------------------------------------------------------------------------------------------
             if(data.note.length <=1){
                 $("#divNotes").attr("style","display:none");
             }
@@ -110,21 +117,16 @@ $(function(){
         $(".clausesTitle").text(strText);
         
     }); //END PRIMER POST
-    
+//-----------------------------------------------------------------------------------CHANGE
         $("select").on("change", function() {
             var strText1="";
             var strVal="";
             var idSelect1;
-            // var selected = document.getElementById(arrayId[k]);
-            // selected.removeAttribute("selected");
 
             idSelect1 = $("select option:selected").attr("id");
             k=arrayId.indexOf(idSelect1);
             console.log('k change: '+k);
-            if($("select option:selected")){
-                strText1 = $("select option:selected").text();
-                strVal = $("select option:selected").val();
-            }
+            
             var datos={idClause: idSelect1};
             $.post('/dataClause',datos,function(data){ // POST CHANGE
                 
@@ -136,16 +138,20 @@ $(function(){
             $('#pru7').html(data.passSH);
             $('#pru8').html(data.failSH);
             $('#pru9').html(data.notEvaluatedSH);
-                $(".clausesName").text(data.clause);
-                //$("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
+                
+            $(".clausesName").text(data.clause);
+                
                 //Aquí se debería crear j tablas con los datos
+                
                 var j=0;
                 var compliance='';
                 while(j<data.typeOfAssessment.length){
                     compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
+                    console.log(data.result[j]);
                     j++;
                 }
-                $("#textCompliance").text(compliance);
+                
+                $("#textCompliance").text(compliance); //CAMBIAR POR UNA TABLA
                 
                 if(data.note.length <1){
                     $("#divNotes").attr("style","display:none");
@@ -153,42 +159,36 @@ $(function(){
                 else{
                     $("#divNotes").removeAttr("style");
                 }
+                $("#note").text(data.note.join("\n"));
                 
-                $("#note").text(data.note.join("\n"));        
             });// END POST CHANGE
+            
+            if($("select option:selected")){
+                strText1 = $("select option:selected").text();
+                strVal = $("select option:selected").val();
+            }
  
             $(".clausesTitle").text(strText1);
-            console.log(strVal);
-
-            if(strVal=="Pass"){
-                var valP = document.getElementById("pass");
-                console.log(strVal);
-                valP.setAttribute("checked", "checked");
-            }
-            else if(strVal=="Fail"){
-                var valF = document.getElementById("fail"); 
-                valF.setAttribute("checked", "checked");
-            }
-            else if(strVal=="Not Applicable"){
-                var valNA = document.getElementById("notApp"); 
-                valNA.setAttribute("checked", "checked");
-            }
-            else{
-                //$("input[name='ans']").prop("checked", false);
-            }
-        })
-    //var j = 0;
-    //var k = 1;
+            console.log("valorChange: "+strVal);
+            
+            check(strVal);
+        });
+//--------------------------------------------------------------------------------------CLICK NEXT
     $("#next2").click(function(){ 
-        ans = $("input[name='ans']:checked").val();
-        console.log(ans);
+        ans = $("input[name='ans']:checked").val(); //RECOGEMOS EL VALOR DEL RADIO
+        
         $("select option:selected").removeAttr("selected")
         
         // var selected = document.getElementById(arrayId[k]);
-        // console.log('k click actual: '+k);
+         //console.log('k click actual: '+k);
+        //console.log(i);
         // selected.removeAttribute("selected");
-
-        var selected = document.getElementById(arrayId[k+1]); //esto es para sacar el primer requisito seleccionado
+        
+        var w = i-1; //prueba
+        if(k==w){
+            $('#next2').attr('disabled', 'disabled'); 
+        }
+        var selected = document.getElementById(arrayId[k+1]); //SELECCIONA EL SEGUNDO
         selected.setAttribute("selected", "selected");
         
         var datos={idClause: idSelect, idProject: idProject, answer: ans};
@@ -222,17 +222,22 @@ $(function(){
             
             $("#note").text(data.note.join("\n"));      
         }); //END POST CLICK
+        
         if($("select option:selected")){
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
             strText = $("select option:selected").text();
             k=arrayId.indexOf(idSelect); 
             $(".clausesTitle").text(strText);
-            console.log(idSelect);
+            console.log("siguientes Ids:"+idSelect);
+            console.log(ans);
+            paint(ans, selected);
+            //removeOption(ans, idSelect);
         }
+        //selected = document.getElementById(arrayId[k+1]);
     });
     
 });
-
+//----------------------------------------------------------FUNCIONES AUXILIRES
 function paint(argv,argv2) { //FUNCION PARA PINTAR
     if(argv == "Not Evaluated"){
         argv2.style.backgroundColor = "lightgray";
@@ -257,4 +262,49 @@ function paint(argv,argv2) { //FUNCION PARA PINTAR
                 //$("input[name='ans']").prop("checked", false); //OJOOOOOOOOOOOOOOOOOOOO
                 //valNot.setAttribute("checked", "checked");
     }
+}
+
+function check (argv) {
+    if(argv == "Pass"){
+        $("#pass").attr('checked', true);
+        console.log("Entra");
+    }
+    else {
+        $("input[name='ans']").attr("checked", false);
+    //$("input[name='ans']").prop("checked", "");
+    }
+    //else if(strVal=="Fail"){
+    //    var valF = document.getElementById("fail"); 
+    //    valF.setAttribute("checked", "checked");
+    //}
+    //else if(strVal=="Not Applicable"){
+    //    var valNA = document.getElementById("notApp"); 
+    //    valNA.setAttribute("checked", "checked");
+    //}
+    //else{
+    //    //$("input[name='ans']").prop("checked", "false");
+    //}
+}
+
+function removeOption(argv, argv2) {
+    if(argv == "Not Applicable"){
+        var remov = document.getElementById(argv2); 
+        remov.setAttribute("style", "display:none");   
+    }
+}
+
+function table (column,column2,column3,column4){
+        var clon = $("#myTable").clone();
+        clon.removeAttr('style');
+        clon.find('#t0').text(column);
+        clon.find('#t2').text(column2);
+        clon.find('#t4').text(column3);
+        clon.find('#t6').text(column4);
+        $("#myTable").after(clon);    
+}
+
+function tdResult (column) {
+        var clon = $("#t2").clone();
+        clon.text(column);
+        $("#t2").after(clon);    
 }
