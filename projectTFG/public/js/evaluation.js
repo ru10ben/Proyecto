@@ -19,7 +19,7 @@ $(function(){
     
     $(".projectName").text(nameProject);
     
-    //$('#next2').attr('disabled', 'disabled'); 
+    $('#next2').attr('disabled', 'disabled'); 
     
     $("#pass").click(function () { 
         $(".ans1").css("color", "mediumblue");
@@ -78,6 +78,7 @@ $(function(){
             arrayId=arrayId.concat(opt.id);
             
             paint(opt.value,opt); //funcion para pintar los options
+            //check(opt.value);
             
             opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
@@ -93,7 +94,6 @@ $(function(){
             strText = $("select option:selected").text();
             valSelect = $("select option:selected").val();
             console.log("primer:"+idSelect);
-            //paint()
         }
             ans=valSelect;
             
@@ -105,7 +105,11 @@ $(function(){
             $("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
             //console.log(lele);
            //table(data.typeOfAssessment, data.preconditions, data.procedure, data.result+'\n');
-            
+            $("#table0").show();
+            $("#t00").html(data.typeOfAssessment);
+            $("#t01").html(data.preconditions);
+            $("#t02").html(data.procedure);
+            $("#t03").html(data.result);
 //------------------------------------------------------------------------------------------------------------------------------
             if(data.note.length <=1){
                 $("#divNotes").attr("style","display:none");
@@ -119,6 +123,7 @@ $(function(){
     }); //END PRIMER POST
 //-----------------------------------------------------------------------------------CHANGE
         $("select").on("change", function() {
+            
             var strText1="";
             var strVal="";
             var idSelect1;
@@ -146,8 +151,13 @@ $(function(){
                 var j=0;
                 var compliance='';
                 while(j<data.typeOfAssessment.length){
-                    compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
-                    console.log(data.result[j]);
+                    //compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
+                    $("#table"+j).show();
+                    $("#t"+j+"0").html(data.typeOfAssessment[j]);
+                    $("#t"+j+"1").html(data.preconditions[j]);
+                    $("#t"+j+"2").html(data.procedure[j]);
+                    $("#t"+j+"3").html(data.result[j]);
+                    //console.log(data.result[j]);
                     j++;
                 }
                 
@@ -208,7 +218,12 @@ $(function(){
             var j=0;
             var compliance='';
             while(j<data.typeOfAssessment.length){
-                compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
+                //compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
+                $("#table"+j).show();
+                $("#t"+j+"0").html(data.typeOfAssessment[j]);
+                $("#t"+j+"1").html(data.preconditions[j]);
+                $("#t"+j+"2").html(data.procedure[j]);
+                $("#t"+j+"3").html(data.result[j]);
                 j++;
             }
             $("#textCompliance").text(compliance);
@@ -224,6 +239,7 @@ $(function(){
         }); //END POST CLICK
         
         if($("select option:selected")){
+            var selected = document.getElementById(arrayId[k]);
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
             strText = $("select option:selected").text();
             k=arrayId.indexOf(idSelect); 
@@ -264,26 +280,23 @@ function paint(argv,argv2) { //FUNCION PARA PINTAR
     }
 }
 
-function check (argv) {
+function check(argv) {
     if(argv == "Pass"){
         $("#pass").attr('checked', true);
-        console.log("Entra");
-    }
-    else {
-        $("input[name='ans']").attr("checked", false);
-    //$("input[name='ans']").prop("checked", "");
-    }
-    //else if(strVal=="Fail"){
+        //console.log("Entra");
+    }else if(argv=="Fail"){
     //    var valF = document.getElementById("fail"); 
     //    valF.setAttribute("checked", "checked");
-    //}
-    //else if(strVal=="Not Applicable"){
+        $("#fail").attr('checked', true);
+    }else if(argv=="Not Applicable"){
     //    var valNA = document.getElementById("notApp"); 
     //    valNA.setAttribute("checked", "checked");
-    //}
-    //else{
-    //    //$("input[name='ans']").prop("checked", "false");
-    //}
+        $("#notApp").attr('checked', true);
+    }
+    /*else {
+        $("input[name='ans']").attr("checked", false);
+        //$("input[name='ans']").prop("checked", "");
+    }*/
 }
 
 function removeOption(argv, argv2) {
@@ -293,7 +306,7 @@ function removeOption(argv, argv2) {
     }
 }
 
-function table (column,column2,column3,column4){
+/*function table (column,column2,column3,column4){
         var clon = $("#myTable").clone();
         clon.removeAttr('style');
         clon.find('#t0').text(column);
@@ -301,7 +314,7 @@ function table (column,column2,column3,column4){
         clon.find('#t4').text(column3);
         clon.find('#t6').text(column4);
         $("#myTable").after(clon);    
-}
+}*/
 
 function tdResult (column) {
         var clon = $("#t2").clone();
