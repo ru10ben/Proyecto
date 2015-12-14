@@ -60,7 +60,11 @@ router.post('/login', function(req, res, next) {
   	  var maxAge=req.session.cookie.maxAge;
       getSession(username, function(err, result){
       	if (result.length == 0){
-          insertSession(sessionID, username, path, expires, maxAge, function(err, result){});
+            getUser(username, function(err, result){
+              //console.log(result);
+              var idUser= result[0].id;
+              insertSession(sessionID,idUser, username, path, expires, maxAge, function(err, result){});
+            });
         }else{
           updateSession(sessionID, username, path, expires, maxAge,function(err, result){});
         }
@@ -78,7 +82,11 @@ router.get('/logout', function(req, res, next) {
   var expires=date;
   getSession(username, function(err, result){
       if (result.length == 0){
-          insertSession(sessionID, username, path, expires, maxAge, function(err, result){});
+          getUser(username, function(err, result){
+            //console.log(result);
+            var idUser= result[0].id;
+            insertSession(sessionID,idUser, username, path, expires, maxAge, function(err, result){});
+          });
         }else{
           updateSession(sessionID, username, path, expires, maxAge,function(err, result){});
         }

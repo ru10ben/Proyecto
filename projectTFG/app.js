@@ -66,8 +66,8 @@ global.getAllUsers = function(callback) {
     });
 };
 
-global.insertSession = function(id_session, user_name, path, expires, originalMaxAge, callback) {
-    connection.query("INSERT INTO session(id,userName,path,expires,originalMaxAge) VALUES ('"+id_session+"','"+user_name+"','"+path+"','"+expires+"','"+originalMaxAge+"');",function(err, rows, fields) {
+global.insertSession = function(id_session,idUser, user_name, path, expires, originalMaxAge, callback) {
+    connection.query("INSERT INTO session(id,idUser,userName,path,expires,originalMaxAge) VALUES ('"+id_session+"','"+idUser+"','"+user_name+"','"+path+"','"+expires+"','"+originalMaxAge+"');",function(err, rows, fields) {
       callback(err, rows);
     });
 };
