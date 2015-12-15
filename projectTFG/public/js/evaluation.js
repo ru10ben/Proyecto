@@ -21,7 +21,10 @@ $(function(){
     
     $('#next2').attr('disabled', 'disabled'); 
     
-    $("#pass").click(function () { 
+    //PINTAMOS LOS RADIOS
+    $("#pass").click(function () {
+        $(".ans2").css("color", "");
+        $(".ans3").css("color", "");
         $(".ans1").css("color", "mediumblue");
         if($(this).is(":checked")){
             $("#next2").attr("disabled", false);
@@ -29,13 +32,17 @@ $(function(){
     });
     
     $("#fail").click(function () { 
+        $(".ans1").css("color", "");
+        $(".ans3").css("color", "");
         $(".ans2").css("color", "mediumblue");
         if($(this).is(":checked")){
             $("#next2").attr("disabled", false);
          }
     });
     
-    $("#notApp").click(function () { 
+    $("#notApp").click(function () {
+        $(".ans1").css("color", "");
+        $(".ans2").css("color", "");        
         $(".ans3").css("color", "mediumblue");
         if($(this).is(":checked")){
             $("#next2").attr("disabled", false);
@@ -49,6 +56,7 @@ $(function(){
     $("#compliance").click(function(){
          $(".p2").toggle();
     });
+    
     
     $.post('/tablaEvaluation', datos, function(data) {
         $('#pru1').html(data.notApplicableRQ);
@@ -93,7 +101,6 @@ $(function(){
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
             strText = $("select option:selected").text();
             valSelect = $("select option:selected").val();
-            console.log("primer:"+idSelect);
         }
             ans=valSelect;
             
@@ -103,8 +110,6 @@ $(function(){
             $(".clausesName").text(data.clause);
 //----------------------------------------------------------------------------------------------------------------------------------------
             $("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
-            //console.log(lele);
-           //table(data.typeOfAssessment, data.preconditions, data.procedure, data.result+'\n');
             $("#table0").show();
             $("#t00").html(data.typeOfAssessment);
             $("#t01").html(data.preconditions);
@@ -121,7 +126,8 @@ $(function(){
         $(".clausesTitle").text(strText);
         
     }); //END PRIMER POST
-//-----------------------------------------------------------------------------------CHANGE
+    
+//-------------------------------------------------------------------------------------------------------------------CHANGE
         $("select").on("change", function() {
             
             var strText1="";
@@ -132,7 +138,13 @@ $(function(){
             k=arrayId.indexOf(idSelect1);
             console.log('k change: '+k);
             
-            var datos={idClause: idSelect1};
+            ans = $("select option:selected").val();
+            
+            //console.log("Chaaaange:"+idSelect1);
+            
+            var datos={idClause: idSelect1, idProject: idProject, answer: ans};
+            
+            //var datos={idClause: idSelect1};
             $.post('/dataClause',datos,function(data){ // POST CHANGE
                 
             $('#pru1').html(data.notApplicableRQ);
@@ -145,23 +157,21 @@ $(function(){
             $('#pru9').html(data.notEvaluatedSH);
                 
             $(".clausesName").text(data.clause);
-                
-                //Aquí se debería crear j tablas con los datos
-                
+                console.log("precondicion change:"+data.preconditions);
                 var j=0;
                 var compliance='';
                 while(j<data.typeOfAssessment.length){
-                    //compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
                     $("#table"+j).show();
                     $("#t"+j+"0").html(data.typeOfAssessment[j]);
                     $("#t"+j+"1").html(data.preconditions[j]);
                     $("#t"+j+"2").html(data.procedure[j]);
                     $("#t"+j+"3").html(data.result[j]);
-                    //console.log(data.result[j]);
                     j++;
                 }
                 
-                $("#textCompliance").text(compliance); //CAMBIAR POR UNA TABLA
+                if(j==1) {
+                    $("#table"+j).hide();
+                }
                 
                 if(data.note.length <1){
                     $("#divNotes").attr("style","display:none");
@@ -201,6 +211,7 @@ $(function(){
         var selected = document.getElementById(arrayId[k+1]); //SELECCIONA EL SEGUNDO
         selected.setAttribute("selected", "selected");
         
+        idSelect = $("select option:selected").attr("id"); //aqui cojo el id
         var datos={idClause: idSelect, idProject: idProject, answer: ans};
         
             $.post('/dataClause',datos,function(data){ // POST CLICK
@@ -215,10 +226,9 @@ $(function(){
             $('#pru9').html(data.notEvaluatedSH);        
             $(".clausesName").text(data.clause);
 
+            console.log("precondicion next:"+data.preconditions);
             var j=0;
-            var compliance='';
             while(j<data.typeOfAssessment.length){
-                //compliance=compliance.concat(data.typeOfAssessment[j]+'\n'+data.preconditions[j]+'\n'+data.procedure[j]+'\n'+data.result[j]+'\n');
                 $("#table"+j).show();
                 $("#t"+j+"0").html(data.typeOfAssessment[j]);
                 $("#t"+j+"1").html(data.preconditions[j]);
@@ -226,7 +236,12 @@ $(function(){
                 $("#t"+j+"3").html(data.result[j]);
                 j++;
             }
-            $("#textCompliance").text(compliance);
+                
+            if(j==1) {
+                $("#table"+j).hide();
+            }
+                
+            //$("#textCompliance").text(compliance);
             
             if(data.note.length <1){
                 $("#divNotes").attr("style","display:none");
@@ -238,18 +253,16 @@ $(function(){
             $("#note").text(data.note.join("\n"));      
         }); //END POST CLICK
         
-        if($("select option:selected")){
+            if($("select option:selected")){
             var selected = document.getElementById(arrayId[k]);
             idSelect = $("select option:selected").attr("id"); //aqui cojo el id
             strText = $("select option:selected").text();
             k=arrayId.indexOf(idSelect); 
             $(".clausesTitle").text(strText);
             console.log("siguientes Ids:"+idSelect);
-            console.log(ans);
+            console.log("valor del next:"+ans);
             paint(ans, selected);
-            //removeOption(ans, idSelect);
         }
-        //selected = document.getElementById(arrayId[k+1]);
     });
     
 });
@@ -305,16 +318,6 @@ function removeOption(argv, argv2) {
         remov.setAttribute("style", "display:none");   
     }
 }
-
-/*function table (column,column2,column3,column4){
-        var clon = $("#myTable").clone();
-        clon.removeAttr('style');
-        clon.find('#t0').text(column);
-        clon.find('#t2').text(column2);
-        clon.find('#t4').text(column3);
-        clon.find('#t6').text(column4);
-        $("#myTable").after(clon);    
-}*/
 
 function tdResult (column) {
         var clon = $("#t2").clone();

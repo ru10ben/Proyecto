@@ -80,7 +80,7 @@ button:hover, button:focus, a:hover, a:focus, .button-nav:hover, .button-nav:foc
   background-color:mediumblue;
   line-height: none;}
 
-#log:disabled, #saveandclose:disabled { /* desactiva los botones*/
+#log:disabled, #saveandclose:disabled, #create:disabled, #next2:disabled  { /* desactiva los botones*/
   -webkit-appearance: none;
   -moz-appearance: none;
   border-radius: 6px;
@@ -166,3 +166,74 @@ button:hover, button:focus, a:hover, a:focus, .button-nav:hover, .button-nav:foc
 .myaccordion .myaccordion-navigation > .content.active, .myaccordion dd > .content.active {
         background: #FFF5EE;
         display: block; }
+
+.css-treeview {
+    background-color:lightgray}
+/*-----------------------------------------------------------------------------------------------------------*/
+
+.css-treeview ul,
+.css-treeview li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ 
+/*.css-treeview input
+{
+    position: absolute;
+    opacity: 0;
+}*/
+ 
+.css-treeview input + label + ul
+{
+    margin: 0 0 0 22px;
+}
+ 
+.css-treeview input ~ ul
+{
+    display: none;
+}
+ 
+.css-treeview label,
+.css-treeview label::before
+{
+    cursor: pointer;
+}
+ 
+/*.css-treeview input:disabled + label
+{
+    cursor: default;
+    opacity: .6;
+}*/
+ 
+.css-treeview input:checked:not(:disabled) ~ ul /*Esto hace que aparezca o desaparezca el tree*/
+{
+    display: block;
+}
+ 
+.css-treeview label,
+.css-treeview label::before
+{
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+}
+ 
+.css-treeview label
+{
+    background-position: 18px 0;
+}
+ 
+/*.css-treeview label::before
+{
+    content: "";
+    width: 16px;
+    margin: 0 22px 0 0;
+    vertical-align: middle;
+    background-position: 0 -32px;
+}*/
+ 
+
+ 
