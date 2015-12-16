@@ -132,20 +132,20 @@ $(function(){
             
             var strText1="";
             var strVal="";
-            var idSelect1;
+            //var idSelect1;
 
-            idSelect1 = $("select option:selected").attr("id");
-            k=arrayId.indexOf(idSelect1);
+            idSelect = $("select option:selected").attr("id");
+            k=arrayId.indexOf(idSelect);
             console.log('k change: '+k);
             
-            ans = $("select option:selected").val();
+            //ans = $("select option:selected").val();
             
             //console.log("Chaaaange:"+idSelect1);
             
-            var datos={idClause: idSelect1, idProject: idProject, answer: ans};
+            //var datos={idClause: idSelect, idProject: idProject, answer: ans};
             
-            //var datos={idClause: idSelect1};
-            $.post('/dataClause',datos,function(data){ // POST CHANGE
+            var datos={idClause: idSelect,idProject: idProject};
+        $.post('/dataClause',datos,function(data){ // POST CHANGE
                 
             $('#pru1').html(data.notApplicableRQ);
             $('#pru2').html(data.passRQ);
@@ -185,11 +185,11 @@ $(function(){
             
             if($("select option:selected")){
                 strText1 = $("select option:selected").text();
-                strVal = $("select option:selected").val();
+                //strVal = $("select option:selected").val();
             }
  
             $(".clausesTitle").text(strText1);
-            console.log("valorChange: "+strVal);
+            //console.log("valorChange: "+strVal);
             
             check(strVal);
         });
@@ -208,13 +208,24 @@ $(function(){
         if(k==w){
             $('#next2').attr('disabled', 'disabled'); 
         }
+        
+        var data={idClause: idSelect,idProject: idProject, answer: ans};
+        $.post('/insertAnswer',data);
+
         var selected = document.getElementById(arrayId[k+1]); //SELECCIONA EL SEGUNDO
         selected.setAttribute("selected", "selected");
-        
+
         idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-        var datos={idClause: idSelect, idProject: idProject, answer: ans};
-        
-            $.post('/dataClause',datos,function(data){ // POST CLICK
+
+        var selected1 = document.getElementById(arrayId[k]);
+        strText = $("select option:selected").text();
+        $(".clausesTitle").text(strText); 
+        paint(ans, selected1);
+
+        k=arrayId.indexOf(idSelect);
+        var datos={idClause: idSelect,idProject: idProject};
+
+        $.post('/dataClause',datos,function(data){ // POST CLICK
                 
             $('#pru1').html(data.notApplicableRQ);
             $('#pru2').html(data.passRQ);
@@ -252,17 +263,15 @@ $(function(){
             
             $("#note").text(data.note.join("\n"));      
         }); //END POST CLICK
-        
-            if($("select option:selected")){
-            var selected = document.getElementById(arrayId[k]);
-            idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-            strText = $("select option:selected").text();
-            k=arrayId.indexOf(idSelect); 
-            $(".clausesTitle").text(strText);
-            console.log("siguientes Ids:"+idSelect);
-            console.log("valor del next:"+ans);
-            paint(ans, selected);
-        }
+
+         //if($("select option:selected")){
+            
+            //idSelect = $("select option:selected").attr("id"); //aqui cojo el id
+
+        //     console.log("siguientes Ids:"+idSelect);
+        //     console.log("valor del next:"+ans);
+         //}
+
     });
     
 });

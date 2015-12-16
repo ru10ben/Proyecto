@@ -507,17 +507,27 @@ router.post('/tablaEvaluation', function(req, res, next) {
   });
 });
 
+router.post('/insertAnswer', function(req, res, next) {
+  var idClause=req.body.idClause;
+  //var idClause2=req.body.idClause2;
+  var idProject=req.body.idProject;
+  //console.log(idClause2);
+  var answer=req.body.answer;
+ insertForEvaluation(idProject,idClause,answer, function(err, results){});
+});
+
 router.post('/dataClause', function(req, res, next) {
   var idClause=req.body.idClause;
+  //var idClause2=req.body.idClause2;
   var idProject=req.body.idProject;
-  var answer=req.body.answer;
+  console.log(idClause);
+  //var answer=req.body.answer;
   var typeOfAssessment;
   var preconditions;
   var procedure;
   var result;
   var note;
   var clause;
-  insertForEvaluation(idProject,idClause,answer, function(err, results){});
 
   getComplianceOfClause(idClause, function(err, results){
     typeOfAssessment=new Array();
