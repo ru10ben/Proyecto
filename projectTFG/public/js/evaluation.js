@@ -14,6 +14,7 @@ $(function(){
     var valSelect;
     var k=0;
     var ans;
+    var flag=0;
     select = document.getElementById("selectClas");
     arrayId = new Array();
     
@@ -102,20 +103,22 @@ $(function(){
             strText = $("select option:selected").text();
             valSelect = $("select option:selected").val();
         }
+        
+            //k=arrayId.indexOf(idSelect); //SE PUEDE BORRAR
+            //console.log("primer k: "+k);
+        
             ans=valSelect;
             
         var datos={idClause: idSelect, idProject: idProject, answer: ans};
         
         $.post('/dataClause',datos,function(data){  //SEGUNDO POST
             $(".clausesName").text(data.clause);
-//----------------------------------------------------------------------------------------------------------------------------------------
-            $("#textCompliance").text(data.typeOfAssessment+'\n'+data.preconditions+'\n'+data.procedure+'\n'+data.result);
             $("#table0").show();
             $("#t00").html(data.typeOfAssessment);
             $("#t01").html(data.preconditions);
             $("#t02").html(data.procedure);
             $("#t03").html(data.result);
-//------------------------------------------------------------------------------------------------------------------------------
+
             if(data.note.length <=1){
                 $("#divNotes").attr("style","display:none");
             }
@@ -129,6 +132,8 @@ $(function(){
     
 //-------------------------------------------------------------------------------------------------------------------CHANGE
         $("select").on("change", function() {
+            flag=1;
+            console.log("flag: "+flag);
             
             var strText1="";
             var strVal="";
@@ -139,8 +144,6 @@ $(function(){
             console.log('k change: '+k);
             
             //ans = $("select option:selected").val();
-            
-            //console.log("Chaaaange:"+idSelect1);
             
             //var datos={idClause: idSelect, idProject: idProject, answer: ans};
             
@@ -157,7 +160,7 @@ $(function(){
             $('#pru9').html(data.notEvaluatedSH);
                 
             $(".clausesName").text(data.clause);
-                console.log("precondicion change:"+data.preconditions);
+    
                 var j=0;
                 var compliance='';
                 while(j<data.typeOfAssessment.length){
@@ -189,16 +192,16 @@ $(function(){
             }
  
             $(".clausesTitle").text(strText1);
-            //console.log("valorChange: "+strVal);
-            
-            check(strVal);
         });
+    
 //--------------------------------------------------------------------------------------CLICK NEXT
     $("#next2").click(function(){ 
         ans = $("input[name='ans']:checked").val(); //RECOGEMOS EL VALOR DEL RADIO
         
-        $("select option:selected").removeAttr("selected")
+        console.log('k NEXT1: '+k);
         
+        //$("select option:selected").removeAttr("selected");
+        $("select option:selected").attr("selected",false);
         // var selected = document.getElementById(arrayId[k]);
          //console.log('k click actual: '+k);
         //console.log(i);
@@ -211,18 +214,36 @@ $(function(){
         
         var data={idClause: idSelect,idProject: idProject, answer: ans};
         $.post('/insertAnswer',data);
-
+        
+        console.log('k NEXT2: '+k);
+        
         var selected = document.getElementById(arrayId[k+1]); //SELECCIONA EL SEGUNDO
-        selected.setAttribute("selected", "selected");
-
+        console.log("ESPECIAL: "+k);
+        
+        selected.setAttribute("selected", "selected"); //EL PROBLEMA NO ES LA K, ES Q SI EL OPTION HABIA ESTADO SELECCIONADO ANTES --> NO SE VUELVE A         SELECCIONAR
+        
         idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-
+        
+        if(idSelect==undefined){
+            
+         //   idSelect = "05.3";
+            
+        console.log("ERROR");
+        }
+        
+        //console.log("problema"+idSelect); //------------------------------ PROBLEMA
+        
         var selected1 = document.getElementById(arrayId[k]);
         strText = $("select option:selected").text();
         $(".clausesTitle").text(strText); 
         paint(ans, selected1);
 
-        k=arrayId.indexOf(idSelect);
+        //k=arrayId.indexOf(idSelect);    //POSIBLE CAMBIO
+        
+        k=k+1;
+        
+        console.log('k NEXT3: '+k);
+        
         var datos={idClause: idSelect,idProject: idProject};
 
         $.post('/dataClause',datos,function(data){ // POST CLICK
@@ -237,7 +258,6 @@ $(function(){
             $('#pru9').html(data.notEvaluatedSH);        
             $(".clausesName").text(data.clause);
 
-            console.log("precondicion next:"+data.preconditions);
             var j=0;
             while(j<data.typeOfAssessment.length){
                 $("#table"+j).show();
@@ -302,7 +322,7 @@ function paint(argv,argv2) { //FUNCION PARA PINTAR
     }
 }
 
-function check(argv) {
+/*function check(argv) {
     if(argv == "Pass"){
         $("#pass").attr('checked', true);
         //console.log("Entra");
@@ -318,18 +338,13 @@ function check(argv) {
     /*else {
         $("input[name='ans']").attr("checked", false);
         //$("input[name='ans']").prop("checked", "");
-    }*/
+    }
 }
+*/
 
 function removeOption(argv, argv2) {
     if(argv == "Not Applicable"){
         var remov = document.getElementById(argv2); 
         remov.setAttribute("style", "display:none");   
     }
-}
-
-function tdResult (column) {
-        var clon = $("#t2").clone();
-        clon.text(column);
-        $("#t2").after(clon);    
 }
