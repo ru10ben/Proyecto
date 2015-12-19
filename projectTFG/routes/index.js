@@ -29,6 +29,7 @@ router.get('/', function(req, res, next) {
   // // // will have a new session here 
   // })
   res.render('login', { title: 'Express' });
+  //res.render('test1');
   //console.log(req.session);
 });
 
@@ -169,7 +170,7 @@ router.post('/insertUser', function(req, res, next) {
   var comments=req.body.comments;
     maxIdUser(function(err, rows){
       var id_user=rows[0].num+1;
-      console.log(id_user);
+      //console.log(id_user);
       var passEncriptada = sha1(password);
 
       insertUser(id_user, firstname, lastname, username, passEncriptada, email, roles, comments, function(err, result){
@@ -513,7 +514,7 @@ router.post('/insertAnswer', function(req, res, next) {
   var idProject=req.body.idProject;
   //console.log(idClause2);
   var answer=req.body.answer;
- insertForEvaluation(idProject,idClause,answer, function(err, results){});
+ insertEvaluation(idProject,idClause,answer, function(err, results){});
 });
 
 router.post('/dataClause', function(req, res, next) {

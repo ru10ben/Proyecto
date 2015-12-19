@@ -84,11 +84,11 @@ global.updateSession = function(id_session, name_user, path, expires, originalMa
     });
 };
 
-global.insertPath = function(name_user, path, callback) {
+/*global.insertPath = function(name_user, path, callback) {
     connection.query("UPDATE session SET path='"+path+"' WHERE userName='"+name_user+"';", function(err, rows, fields) {
         callback(err, rows);
     });
-};
+};*/
 //This function inserts a project
 global.insertProject = function(idProj, idUser, name, description,callback) {
     connection.query("INSERT INTO project(id,idUser,name,description) VALUES('"+idProj+"','"+idUser+"','"+name+"','"+description+"');",function(err,results,fields){
@@ -210,7 +210,7 @@ global.getNoteOfClause = function(idClause, callback) {
     });
 };
 
-global.insertForEvaluation = function(idProj,idClause, answer, callback) {
+global.insertEvaluation = function(idProj,idClause, answer, callback) {
     connection.query('UPDATE evaluation SET answer='+'"'+answer+'" WHERE idProj='+'"'+idProj+'" AND idClause='+'"'+idClause+'"',function(err,results,fields){
       callback(err, results);
     });
