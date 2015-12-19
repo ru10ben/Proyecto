@@ -4,15 +4,15 @@ var sha1=require('sha1');
 var session = require('express-session');
 
 var user;
-var id_user=1;
+//var id_user=1;
 var nameProj;
-var idProj=0;
+//var idProj=0;
 var actualQuest='Q01';
 var myQuestion; 
 var date;
 var nextQuest;
 var idClauses = new Array();
-var idAns=1;
+//var idAns=1;
 
 router.use(session({
   secret: 'session_cookie_secret',
@@ -168,18 +168,18 @@ router.post('/insertUser', function(req, res, next) {
   //console.log('booooody: '+firstname);
   //console.log('Roles: '+roles);
   var comments=req.body.comments;
-    maxIdUser(function(err, rows){
-      var id_user=rows[0].num+1;
+    //maxIdUser(function(err, rows){
+      //var id_user=rows[0].num+1;
       //console.log(id_user);
       var passEncriptada = sha1(password);
 
-      insertUser(id_user, firstname, lastname, username, passEncriptada, email, roles, comments, function(err, result){
-          id_user=id_user+1;
+      insertUser(firstname, lastname, username, passEncriptada, email, roles, comments, function(err, result){
+          //id_user=id_user+1;
           var hour = 3600000; //Una hora 3600000
           req.session.cookie.maxAge = hour;
           res.render('users');
       });
-    });
+    //});
 });
 
 router.get('/allUsers', function(req, res, next) {
@@ -251,7 +251,7 @@ router.post('/insertProj', function(req, res, next) {
   var username=req.session.user.username;
     getUser(username, function(err, result){
       var idUser=result[0].id;
-      insertProject(miProyecto.id, idUser, name, description, function(err, results){});
+      insertProject(idUser, name, description, function(err, results){});
       res.redirect('/ictFeatures');
     });
 });
@@ -289,8 +289,8 @@ router.post('/next',function(req,res){
   req.session.cookie.maxAge = hour;
    if(answer=='No'){
     //Problema de concurrencia
-    insertAnswers(idAns, actualQuest, idProject,answer, function(err, results){});
-    idAns=idAns+1;
+    insertAnswers(actualQuest, idProject,answer, function(err, results){});
+    //idAns=idAns+1;
     //var historic = '['+answer+'] -> '+myQuestion;
     //myHistoric = myHistoric.concat(historic);
     
@@ -316,8 +316,8 @@ router.post('/next',function(req,res){
     });  
    }else{ //el usuario responde si y si no responde se considera si
     answer='Yes';
-    insertAnswers(idAns, actualQuest, idProject,answer, function(err, results){});
-    idAns=idAns+1;
+    insertAnswers(actualQuest, idProject,answer, function(err, results){});
+    //idAns=idAns+1;
     //var historic = '['+answer+'] -> '+myQuestion;
     //myHistoric = myHistoric.concat(historic);
 

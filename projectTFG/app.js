@@ -48,17 +48,17 @@ global.getUser = function(name_user, callback) {
     });
 };
 //Insert a user
-global.insertUser = function(id_user, first_name, last_name, user_name, password, email, roles, comments, callback) {
-    connection.query("INSERT INTO user(id,firstName,lastName,userName,password,email,roles,comments) VALUES ('"+id_user+"','"+first_name+"','"+last_name+"','"+user_name+"','"+password+"','"+email+"','"+roles+"','"+comments+"');",function(err, rows, fields) {
+global.insertUser = function(first_name, last_name, user_name, password, email, roles, comments, callback) {
+    connection.query("INSERT INTO user(firstName,lastName,userName,password,email,roles,comments) VALUES ('"+first_name+"','"+last_name+"','"+user_name+"','"+password+"','"+email+"','"+roles+"','"+comments+"');",function(err, rows, fields) {
       callback(err, rows);
     });
 };
 //Get max(id)
-global.maxIdUser = function(callback) {
+/*global.maxIdUser = function(callback) {
     connection.query("SELECT max(id) num FROM user", function(err, rows, fields) {
       callback(err, rows);
     });
-};
+};*/
 //Get all users
 global.getAllUsers = function(callback) {
     connection.query("SELECT * FROM user", function(err, rows, fields) {
@@ -90,8 +90,8 @@ global.updateSession = function(id_session, name_user, path, expires, originalMa
     });
 };*/
 //This function inserts a project
-global.insertProject = function(idProj, idUser, name, description,callback) {
-    connection.query("INSERT INTO project(id,idUser,name,description) VALUES('"+idProj+"','"+idUser+"','"+name+"','"+description+"');",function(err,results,fields){
+global.insertProject = function(idUser, name, description,callback) {
+    connection.query("INSERT INTO project(idUser,name,description) VALUES('"+idUser+"','"+name+"','"+description+"');",function(err,results,fields){
         callback(err, results);
     });
 };
@@ -114,8 +114,8 @@ global.getClauses = function(callback) {
     });
 };
 //This function inserts the answer to a question
-global.insertAnswers = function(idAns, idQuest, idProj, answer,callback) {
-  connection.query("INSERT INTO answer(id,idQuest,idProj,answer) VALUES('"+idAns+"','"+idQuest+"','"+idProj+"','"+answer+"')",function(err,results,fields){
+global.insertAnswers = function(idQuest, idProj, answer,callback) {
+  connection.query("INSERT INTO answer(idQuest,idProj,answer) VALUES('"+idQuest+"','"+idProj+"','"+answer+"')",function(err,results,fields){
         callback(err, results);
     });
 };
