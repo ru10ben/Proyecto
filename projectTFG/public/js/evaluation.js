@@ -14,7 +14,6 @@ $(function(){
     var valSelect;
     var k=0;
     var ans;
-    var flag=0;
     select = document.getElementById("selectClas");
     arrayId = new Array();
     
@@ -94,6 +93,9 @@ $(function(){
             i++;
             
         } //END WHILE
+
+        //insertamos el atributo size para mostrar todos los options
+        $("select").attr("size", i);
         
         selected = document.getElementById(arrayId[0]); //esto es para sacar el primer requisito seleccionado
         selected.setAttribute("selected", "selected");
@@ -132,8 +134,6 @@ $(function(){
     
 //-------------------------------------------------------------------------------------------------------------------CHANGE
         $("select").on("change", function() {
-            flag=1;
-            console.log("flag: "+flag);
             
             var strText1="";
             var strVal="";
@@ -141,6 +141,7 @@ $(function(){
 
             idSelect = $("select option:selected").attr("id");
             k=arrayId.indexOf(idSelect);
+
             console.log('k change: '+k);
             
             //ans = $("select option:selected").val();
@@ -198,27 +199,27 @@ $(function(){
     $("#next2").click(function(){ 
         ans = $("input[name='ans']:checked").val(); //RECOGEMOS EL VALOR DEL RADIO
         
-        console.log('k NEXT1: '+k);
+        //console.log('k NEXT1: '+k);
         
-        //$("select option:selected").removeAttr("selected");
-        $("select option:selected").attr("selected",false);
-        // var selected = document.getElementById(arrayId[k]);
-         //console.log('k click actual: '+k);
-        //console.log(i);
-        // selected.removeAttribute("selected");
+        //$("select option:selected").attr("selected",false);
         
         var w = i-1; //prueba
         if(k==w){
-            $('#next2').attr('disabled', 'disabled'); 
+
+            //$('#next2').attr('disabled', 'disabled');
+
+            /*Pruebas para sacar el modal*/
+            $('#next2').attr('style', 'display:none;');
+            $('.finish').removeAttr('style');
         }
         
         var data={idClause: idSelect,idProject: idProject, answer: ans};
         $.post('/insertAnswer',data);
         
-        console.log('k NEXT2: '+k);
+       // console.log('k NEXT2: '+k);
         
         var selected = document.getElementById(arrayId[k+1]); //SELECCIONA EL SEGUNDO
-        console.log("ESPECIAL: "+k);
+        //console.log("ESPECIAL: "+k);
         
         selected.setAttribute("selected", "selected"); //EL PROBLEMA NO ES LA K, ES Q SI EL OPTION HABIA ESTADO SELECCIONADO ANTES --> NO SE VUELVE A         SELECCIONAR
         
@@ -241,8 +242,8 @@ $(function(){
         //k=arrayId.indexOf(idSelect);    //POSIBLE CAMBIO
         
         k=k+1;
-        
-        console.log('k NEXT3: '+k);
+        console.log('k NEXT: '+k);
+       // console.log('k NEXT3: '+k);
         
         var datos={idClause: idSelect,idProject: idProject};
 
@@ -292,7 +293,7 @@ $(function(){
         //     console.log("valor del next:"+ans);
          //}
 
-    });
+    });    
     
 });
 //----------------------------------------------------------FUNCIONES AUXILIRES
