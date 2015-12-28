@@ -514,7 +514,8 @@ router.post('/insertAnswer', function(req, res, next) {
   var idProject=req.body.idProject;
   //console.log(idClause2);
   var answer=req.body.answer;
- insertEvaluation(idProject,idClause,answer, function(err, results){});
+  insertEvaluation(idProject,idClause,answer, function(err, results){});
+  res.end();
 });
 
 router.post('/dataClause', function(req, res, next) {
