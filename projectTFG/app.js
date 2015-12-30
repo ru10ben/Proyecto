@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var ipfilter = require('ipfilter');
 var mysql = require('mysql');
 
 var routes = require('./routes/index');
@@ -31,6 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+//filtro de ips
+// var ips = ['0.0.0.0']; //ips aceptadas
+// app.use(ipfilter(ips, {mode: 'allow'}));
 
 // DATABASE
 var connection = mysql.createConnection({
