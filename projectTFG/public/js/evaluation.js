@@ -86,7 +86,6 @@ $(function(){
             arrayId=arrayId.concat(opt.id);
             
             paint(opt.value,opt); //funcion para pintar los options
-            //check(opt.value);
             
             opt.innerHTML = data[i].id+' '+data[i].title;
             select.appendChild(opt);
@@ -105,9 +104,6 @@ $(function(){
             strText = $("select option:selected").text();
             valSelect = $("select option:selected").val();
         }
-        
-            //k=arrayId.indexOf(idSelect); //SE PUEDE BORRAR
-            //console.log("primer k: "+k);
         
             ans=valSelect;
             
@@ -144,23 +140,19 @@ $(function(){
 
             console.log('k change: '+k);
             
-            //ans = $("select option:selected").val();
-            
-            //var datos={idClause: idSelect, idProject: idProject, answer: ans};
-            
             var datos={idClause: idSelect,idProject: idProject};
-        $.post('/dataClause',datos,function(data){ // POST CHANGE
+        	$.post('/dataClause',datos,function(data){ // POST CHANGE
                 
-            $('#pru1').html(data.notApplicableRQ);
-            $('#pru2').html(data.passRQ);
-            $('#pru3').html(data.failRQ);
-            $('#pru4').html(data.notEvaluatedRQ);
-            $('#pru6').html(data.notApplicableSH);
-            $('#pru7').html(data.passSH);
-            $('#pru8').html(data.failSH);
-            $('#pru9').html(data.notEvaluatedSH);
-                
-            $(".clausesName").text(data.clause);
+	            $('#pru1').html(data.notApplicableRQ);
+	            $('#pru2').html(data.passRQ);
+	            $('#pru3').html(data.failRQ);
+	            $('#pru4').html(data.notEvaluatedRQ);
+	            $('#pru6').html(data.notApplicableSH);
+	            $('#pru7').html(data.passSH);
+	            $('#pru8').html(data.failSH);
+	            $('#pru9').html(data.notEvaluatedSH);
+	                
+	            $(".clausesName").text(data.clause);
     
                 var j=0;
                 var compliance='';
@@ -189,7 +181,6 @@ $(function(){
             
             if($("select option:selected")){
                 strText1 = $("select option:selected").text();
-                //strVal = $("select option:selected").val();
             }
  
             $(".clausesTitle").text(strText1);
@@ -199,51 +190,28 @@ $(function(){
     $("#next2").click(function(){ 
         ans = $("input[name='ans']:checked").val(); //RECOGEMOS EL VALOR DEL RADIO
         
-        //console.log('k NEXT1: '+k);
-        
-        //$("select option:selected").attr("selected",false);
-        
-        var w = i-1; //prueba
+        var w = i-1;
         if(k==w){
 
-            //$('#next2').attr('disabled', 'disabled');
-
-            /*Pruebas para sacar el modal*/
-            $('#next2').attr('style', 'display:none;');
-            $('.finish').removeAttr('style');
+        	$('#next2').attr('disabled', 'disabled');
         }
         
         var data={idClause: idSelect,idProject: idProject, answer: ans};
         $.post('/insertAnswer',data);
         
-       // console.log('k NEXT2: '+k);
-        
         var selected = document.getElementById(arrayId[k+1]); //SELECCIONA EL SEGUNDO
-        //console.log("ESPECIAL: "+k);
         
-        selected.setAttribute("selected", "selected"); //EL PROBLEMA NO ES LA K, ES Q SI EL OPTION HABIA ESTADO SELECCIONADO ANTES --> NO SE VUELVE A         SELECCIONAR
+        selected.setAttribute("selected", "selected"); //Seleccion de options
         
         idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-        
-        if(idSelect==undefined){
-            
-         //   idSelect = "05.3";
-            
-        console.log("ERROR");
-        }
-        
-        //console.log("problema"+idSelect); //------------------------------ PROBLEMA
         
         var selected1 = document.getElementById(arrayId[k]);
         strText = $("select option:selected").text();
         $(".clausesTitle").text(strText); 
         paint(ans, selected1);
-
-        //k=arrayId.indexOf(idSelect);    //POSIBLE CAMBIO
         
         k=k+1;
         console.log('k NEXT: '+k);
-       // console.log('k NEXT3: '+k);
         
         var datos={idClause: idSelect,idProject: idProject};
 
@@ -273,8 +241,6 @@ $(function(){
                 $("#table"+j).hide();
             }
                 
-            //$("#textCompliance").text(compliance);
-            
             if(data.note.length <1){
                 $("#divNotes").attr("style","display:none");
             }
@@ -284,14 +250,6 @@ $(function(){
             
             $("#note").text(data.note.join("\n"));      
         }); //END POST CLICK
-
-         //if($("select option:selected")){
-            
-            //idSelect = $("select option:selected").attr("id"); //aqui cojo el id
-
-        //     console.log("siguientes Ids:"+idSelect);
-        //     console.log("valor del next:"+ans);
-         //}
 
     });    
     
@@ -305,43 +263,16 @@ function paint(argv,argv2) { //FUNCION PARA PINTAR
     else if(argv == "Pass"){
         argv2.style.backgroundColor = "lightgreen";
         argv2.style.borderStyle = "solid";
-        //var valPass = document.getElementById("pass"); 
-        //valPass.setAttribute("checked", "checked");
     }
     else if(argv == "Fail"){
         argv2.style.backgroundColor = "#FF8C8C";
         argv2.style.borderStyle = "solid";
-        //var valFail = document.getElementById("fail"); 
-        //valFail.setAttribute("checked", "checked");
     }
     else {
         argv2.style.backgroundColor = "#FF9973";
         argv2.style.borderStyle = "solid";
-        //var valNot = document.getElementById("notApp"); 
-                //$("input[name='ans']").prop("checked", false); //OJOOOOOOOOOOOOOOOOOOOO
-                //valNot.setAttribute("checked", "checked");
     }
 }
-
-/*function check(argv) {
-    if(argv == "Pass"){
-        $("#pass").attr('checked', true);
-        //console.log("Entra");
-    }else if(argv=="Fail"){
-    //    var valF = document.getElementById("fail"); 
-    //    valF.setAttribute("checked", "checked");
-        $("#fail").attr('checked', true);
-    }else if(argv=="Not Applicable"){
-    //    var valNA = document.getElementById("notApp"); 
-    //    valNA.setAttribute("checked", "checked");
-        $("#notApp").attr('checked', true);
-    }
-    /*else {
-        $("input[name='ans']").attr("checked", false);
-        //$("input[name='ans']").prop("checked", "");
-    }
-}
-*/
 
 function removeOption(argv, argv2) {
     if(argv == "Not Applicable"){
