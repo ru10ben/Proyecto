@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-12-2015 a las 18:43:11
+-- Tiempo de generación: 04-01-2016 a las 10:55:46
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -31,37 +31,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `idQuest` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `idProj` int(11) NOT NULL,
   `answer` enum('No','Yes') COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `answer`
---
-
-INSERT INTO `answer` (`id`, `idQuest`, `idProj`, `answer`) VALUES
-(1, 'Q01', 60, 'No'),
-(2, 'Q02', 60, 'No'),
-(3, 'Q02.1', 60, 'No'),
-(4, 'Q03', 60, 'No'),
-(5, 'Q04', 60, 'No'),
-(6, 'Q05', 60, 'No'),
-(7, 'Q06', 60, 'No'),
-(8, 'Q07', 60, 'No'),
-(9, 'Q08', 60, 'No'),
-(10, 'Q09', 60, 'No'),
-(11, 'Q10', 60, 'No'),
-(12, 'Q11', 60, 'No'),
-(13, 'Q01', 61, 'No'),
-(14, 'Q02', 61, 'No'),
-(15, 'Q02.1', 61, 'No'),
-(16, 'Q03', 61, 'No'),
-(17, 'Q04', 61, 'No'),
-(18, 'Q05', 61, 'No'),
-(19, 'Q06', 61, 'No'),
-(20, 'Q07', 61, 'No'),
-(21, 'Q08', 61, 'No'),
-(22, 'Q09', 61, 'No'),
-(23, 'Q10', 61, 'No'),
-(24, 'Q11', 61, 'No');
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -335,25 +305,7 @@ CREATE TABLE IF NOT EXISTS `clausesofproject` (
   `idProj` int(11) NOT NULL,
   `idAnswer` int(11) NOT NULL,
   `answergiven` enum('No','Yes') COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `clausesofproject`
---
-
-INSERT INTO `clausesofproject` (`id`, `idClause`, `idProj`, `idAnswer`, `answergiven`) VALUES
-(1, '05.2', 60, 1, 'No'),
-(2, '05.3', 60, 1, 'No'),
-(3, '05.4', 60, 1, 'No'),
-(4, '05.7', 60, 1, 'No'),
-(5, '05.8', 60, 1, 'No'),
-(6, '05.9', 60, 1, 'No'),
-(7, '05.2', 61, 1, 'No'),
-(8, '05.3', 61, 1, 'No'),
-(9, '05.4', 61, 1, 'No'),
-(10, '05.7', 61, 1, 'No'),
-(11, '05.8', 61, 1, 'No'),
-(12, '05.9', 61, 1, 'No');
+) ENGINE=InnoDB AUTO_INCREMENT=469 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -876,19 +828,7 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   `idProj` int(11) NOT NULL,
   `idClause` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `answer` enum('Not Evaluated','Fail','Pass','Not Applicable') COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `evaluation`
---
-
-INSERT INTO `evaluation` (`id`, `idProj`, `idClause`, `answer`) VALUES
-(1, 61, '05.2', 'Not Evaluated'),
-(2, 61, '05.3', 'Not Evaluated'),
-(3, 61, '05.4', 'Not Evaluated'),
-(4, 61, '05.7', 'Not Evaluated'),
-(5, 61, '05.8', 'Not Evaluated'),
-(6, 61, '05.9', 'Not Evaluated');
+) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -901,15 +841,7 @@ CREATE TABLE IF NOT EXISTS `evaluatorofproject` (
   `idUser` int(11) NOT NULL,
   `idProj` int(11) NOT NULL,
   `situation` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `evaluatorofproject`
---
-
-INSERT INTO `evaluatorofproject` (`id`, `idUser`, `idProj`, `situation`) VALUES
-(4, 192, 44, 0),
-(5, 192, 61, 0);
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1209,17 +1141,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `name` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `project`
---
-
-INSERT INTO `project` (`id`, `idUser`, `name`, `description`, `date`) VALUES
-(44, 192, 'Project0', 'aaaa', '0000-00-00'),
-(60, 192, 'a', 'a', '0000-00-00'),
-(61, 192, 'a', 'a', '0000-00-00'),
-(63, 192, 'aaaaaa', 'a', '0000-00-00');
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -1230,7 +1152,7 @@ INSERT INTO `project` (`id`, `idUser`, `name`, `description`, `date`) VALUES
 CREATE TABLE IF NOT EXISTS `question` (
   `id` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `text` varchar(140) COLLATE utf8_spanish_ci NOT NULL,
-  `help` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
+  `help` varchar(1500) COLLATE utf8_spanish_ci NOT NULL,
   `nextyes` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `nextno` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `relatedPositive` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
@@ -1242,35 +1164,35 @@ CREATE TABLE IF NOT EXISTS `question` (
 --
 
 INSERT INTO `question` (`id`, `text`, `help`, `nextyes`, `nextno`, `relatedPositive`, `relatedNegative`) VALUES
-('Q01', 'Does the ICT have closed functionality?\r\n	', 'ICT has closed functionality for many reasons, including design or policy. Some of the functionality of products can be closed because the product is self-contained and users are precluded from adding peripherals or software in order to access that functionality. ', 'Q01.1', 'Q02', '', ''),
-('Q01.1', 'Is visual information needed to enable the use of those functions of ICT that are closed to assistive technologies for screen reading?', '', 'Q01.1.1', 'Q01.2', '', ''),
-('Q01.1.1', 'Is auditory output provided as non-visual access to closed functionality?', '', 'Q01.1.1.1', 'Q01.2', '', ''),
-('Q01.1.1.1', 'Is speech output provided as non-visual access to closed functionality?', '', 'Q01.2', 'Q01.2', '', ''),
-('Q01.2', 'Is ICT functionality closed to keyboards or keyboard interfaces?', '', 'Q02', 'Q02', '', ''),
-('Q02', 'Does the ICT have operable parts?', '', 'Q02.1', 'Q02.1', '', ''),
-('Q02.1', 'Does the ICT have a locking or toggle control?', '', 'Q03', 'Q03', '', ''),
-('Q03', 'Does the ICT provide two-way voice communication?', '', 'Q03.1', 'Q04', '', ''),
-('Q03.1', 'Does the ICT have RTT capabilities?', '', 'Q03.1.1', 'Q03.2', '', ''),
-('Q03.1.1', 'Does the ICT support assistive technologies (i.e. it is not closed)?', '', 'Q03.2', 'Q03.2', '', 'Q01'),
-('Q03.2', 'Does the ICT include real-time video functionality?', '', 'Q04', 'Q04', '', ''),
-('Q04', 'Does the ICT have video capabilities (playing, transmitting, converting or recording)?', '', 'Q05', 'Q05', '', ''),
-('Q05', 'Is the ICT hardware or does the ICT has hardware?', '', 'Q05.1', 'Q06', '', ''),
-('Q05.1', 'Does the ICT have hardware speech output?', '', 'Q05.2', 'Q05.2', '', ''),
-('Q05.2', 'Does the ICT have physical dimensions that are integral to the ICT and that may restrict physical access?', '', 'Q05.3', 'Q05.3', '', ''),
-('Q05.3', 'Does the ICT have mechanically operable parts?', '', 'Q06', 'Q06', '', ''),
-('Q06', 'Is the ICT a web page or does the ICT have web pages?', '', 'Q07', 'Q07', '', ''),
-('Q07', 'Is the ICT a non-web document or does the ICT have non-web documents?', '', 'Q08', 'Q08', '', ''),
-('Q08', 'Is the ICT software or does the ICT have software?', '', 'Q08.1', 'Q09', '', ''),
-('Q08.1', 'Is it non-web software that provides a user interface?', '', 'Q08.1.1', 'Q08.2', '', ''),
-('Q08.1.1', 'Does the non-web software have functionality that supports access to assistive technologies (i.e. it is not closed)?', '', 'Q08.1.2', 'Q08.1.2', '', 'Q01'),
-('Q08.1.2', 'Does the non-web software have closed functionality?', '', 'Q08.2', 'Q08.2', 'Q01', ''),
-('Q08.2', 'Is it platform software?', '', 'Q08.3', 'Q08.3', '', ''),
-('Q08.3', 'Does the software support access to assistive technologies (i.e. it is not closed)?', '', 'Q08.4', 'Q08.4', '', 'Q01'),
-('Q08.4', 'Does the non-web software have closed functionality?', '', 'Q08.5', 'Q08.5', 'Q01', ''),
-('Q08.5', 'Is the ICT an authoring tool?', '', 'Q09', 'Q09', '', ''),
-('Q09', 'Does the ICT have product documentation?', '', 'Q10', 'Q10', '', ''),
-('Q10', 'Does the ICT have support services?', '', 'Q11', 'Q11', '', ''),
-('Q11', 'Is the ICT intended to provide relay services?', '', '', '', '', '');
+('Q01', 'Does the ICT have closed functionality?\r\n	', 'closed functionality: functionality that is limited by characteristics that prevent a user from attaching, installing or using assistive technology', 'Q01.1', 'Q02', '', ''),
+('Q01.1', 'Is visual information needed to enable the use of those functions of ICT that are closed to assistive technologies for screen reading?', 'assistive technology: hardware or software added to or connected to a system that increases accessibility for an individual\nNOTE 1: Examples are Braille displays, screen readers, screen magnification software and eye tracking devices that are added to the ICT.\nNOTE 2: Where ICT does not support directly connected assistive technology, but which can be operated by a system connected over a network or other remote connection, such a separate system (with any included assistive technology) can also be considered assistive technology.\nInformation and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information\nNOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and fax documents.', 'Q01.1.1', 'Q01.2', '', ''),
+('Q01.1.1', 'Is auditory output provided as non-visual access to closed functionality?', 'closed functionality: functionality that is limited by characteristics that prevent a user from attaching, installing or using assistive technology\r\n', 'Q01.1.1.1', 'Q01.2', '', ''),
+('Q01.1.1.1', 'Is speech output provided as non-visual access to closed functionality?', 'closed functionality: functionality that is limited by characteristics that prevent a user from attaching, installing or using assistive technology', 'Q01.2', 'Q01.2', '', ''),
+('Q01.2', 'Is ICT functionality closed to keyboards or keyboard interfaces?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and fax documents.', 'Q02', 'Q02', '', ''),
+('Q02', 'Does the ICT have operable parts?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.\r\noperable part: component of ICT used to activate, deactivate, or adjust the ICT.', 'Q02.1', 'Q02.1', '', ''),
+('Q02.1', 'Does the ICT have a locking or toggle control?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q03', 'Q03', '', ''),
+('Q03', 'Does the ICT provide two-way voice communication?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q03.1', 'Q04', '', ''),
+('Q03.1', 'Does the ICT have RTT capabilities?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.\r\nreal-time text: form of a text conversation in point to point situations or in multipoint conferencing where the text being entered is sent in such a way that the communication is perceived by the user as being continuous.', 'Q03.1.1', 'Q03.2', '', ''),
+('Q03.1.1', 'Does the ICT support assistive technologies (i.e. it is not closed)?', 'assistive technology: hardware or software added to or connected to a system that increases accessibility for an individual\r\nNOTE 1: Examples are Braille displays, screen readers, screen magnification software and eye tracking devices that are added to the ICT.\r\nNOTE 2: Where ICT does not support directly connected assistive technology, but which can be operated by a system connected over a network or other remote connection, such a separate system (with any included assistive technology) can also be considered assistive technology.\r\nInformation and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q03.2', 'Q03.2', '', 'Q01'),
+('Q03.2', 'Does the ICT include real-time video functionality?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q04', 'Q04', '', ''),
+('Q04', 'Does the ICT have video capabilities (playing, transmitting, converting or recording)?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q05', 'Q05', '', ''),
+('Q05', 'Is the ICT hardware or does the ICT has hardware?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q05.1', 'Q06', '', ''),
+('Q05.1', 'Does the ICT have hardware speech output?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q05.2', 'Q05.2', '', ''),
+('Q05.2', 'Does the ICT have physical dimensions that are integral to the ICT and that may restrict physical access?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q05.3', 'Q05.3', '', ''),
+('Q05.3', 'Does the ICT have mechanically operable parts?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.\r\noperable part: component of ICT used to activate, deactivate, or adjust the ICT.', 'Q06', 'Q06', '', ''),
+('Q06', 'Is the ICT a web page or does the ICT have web pages?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.\r\nweb page: non-embedded resource obtained from a single URI using HTTP plus any other resources that are used in the rendering or intended to be rendered together with it by a user agent (after WCAG 2.0 [4])', 'Q07', 'Q07', '', ''),
+('Q07', 'Is the ICT a non-web document or does the ICT have non-web documents?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.\r\nnon-web document: document that is not a web page, not embedded in web pages nor used in the rendering or functioning of the page.', 'Q08', 'Q08', '', ''),
+('Q08', 'Is the ICT software or does the ICT have software?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q08.1', 'Q09', '', ''),
+('Q08.1', 'Is it non-web software that provides a user interface?', 'non-web software: software that is not a web page, not embedded in web pages nor used in the rendering or functioning of the page.\r\nuser interface: all components of an interactive system (software or hardware) that provide information and/or controls for the user to accomplish specific tasks with the interactive system (from ISO 9241-110 [i.16])', 'Q08.1.1', 'Q08.2', '', ''),
+('Q08.1.1', 'Does the non-web software have functionality that supports access to assistive technologies (i.e. it is not closed)?', 'assistive technology: hardware or software added to or connected to a system that increases accessibility for an individual\r\nNOTE 1: Examples are Braille displays, screen readers, screen magnification software and eye tracking devices that are added to the ICT.\r\nNOTE 2: Where ICT does not support directly connected assistive technology, but which can be operated by a system connected over a network or other remote connection, such a separate system (with any included assistive technology) can also be considered assistive technology.\r\nnon-web software: software that is not a web page, not embedded in web pages nor used in the rendering or functioning of the page.\r\n', 'Q08.1.2', 'Q08.1.2', '', 'Q01'),
+('Q08.1.2', 'Does the non-web software have closed functionality?', 'closed functionality: functionality that is limited by characteristics that prevent a user from attaching, installing or using assistive technology.\r\nnon-web software: software that is not a web page, not embedded in web pages nor used in the rendering or functioning of the page.', 'Q08.2', 'Q08.2', 'Q01', ''),
+('Q08.2', 'Is it platform software?', 'platform software: collection of software components that runs on an underlying software or hardware layer, and that provides a set of software services to other software components that allows those applications to be isolated from the underlying software or hardware layer (after ISO/IEC 13066-1 [i.19])\r\nNOTE: A particular software component might play the role of a platform in some situations and a client in others.', 'Q08.3', 'Q08.3', '', ''),
+('Q08.3', 'Does the software support access to assistive technologies (i.e. it is not closed)?', 'assistive technology: hardware or software added to or connected to a system that increases accessibility for an individual\r\nNOTE 1: Examples are Braille displays, screen readers, screen magnification software and eye tracking devices that are added to the ICT.\r\nNOTE 2: Where ICT does not support directly connected assistive technology, but which can be operated by a system connected over a network or other remote connection, such a separate system (with any included assistive technology) can also be considered assistive technology.', 'Q08.4', 'Q08.4', '', 'Q01'),
+('Q08.4', 'Does the non-web software have closed functionality?', 'closed functionality: functionality that is limited by characteristics that prevent a user from attaching, installing or using assistive technology.\r\nnon-web software: software that is not a web page, not embedded in web pages nor used in the rendering or functioning of the page.\r\n', 'Q08.5', 'Q08.5', 'Q01', ''),
+('Q08.5', 'Is the ICT an authoring tool?', 'authoring tool: software that can be used to create or modify content\r\nNOTE 1: An authoring tool may be used by a single user or multiple users working collaboratively.\r\nNOTE 2: An authoring tool may be a single stand-alone application or be comprised of collections of applications.\r\nNOTE 3: An authoring tool may produce content that is intended for further modification or for use by end-users.\r\nInformation and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q09', 'Q09', '', ''),
+('Q09', 'Does the ICT have product documentation?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q10', 'Q10', '', ''),
+('Q10', 'Does the ICT have support services?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', 'Q11', 'Q11', '', ''),
+('Q11', 'Is the ICT intended to provide relay services?', 'Information and Communication Technology (ICT): technology, equipment, or interconnected system or subsystem of equipment for which the principal function is the creation, conversion, duplication, automatic acquisition, storage, analysis, evaluation, manipulation, management, movement, control, display, switching, interchange, transmission, reception, or broadcast of data or information NOTE: Examples of ICT are electronic content, telecommunications products, computers and ancillary equipment, software, information kiosks and transaction machines, videos, IT services, and multifunction office machines which copy, scan, and f.', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1292,7 +1214,7 @@ CREATE TABLE IF NOT EXISTS `session` (
 --
 
 INSERT INTO `session` (`id`, `idUser`, `userName`, `path`, `expires`, `originalMaxAge`) VALUES
-('tl3jBz0AYSjQXxD0IXpem7bwx_2wD0YT', 192, 'user0', '/', '2015-12-20 19:36:08', 3599988);
+('7lcxZgcjjkns1tKCwavnjtkPBr708mTD', 1, 'user0', '/', '2015-12-31 17:05:42', 3599991);
 
 -- --------------------------------------------------------
 
@@ -1311,31 +1233,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `comments` varchar(500) NOT NULL,
   `hitRatio` float NOT NULL,
   `numProject` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`id`, `firstName`, `lastName`, `userName`, `email`, `password`, `roles`, `comments`, `hitRatio`, `numProject`) VALUES
-(192, 'firstname0', 'lastname0', 'user0', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Administrator,Project Manager,Evaluator', 'aaa', 0, 0),
-(193, 'firstname1', 'lastname1', 'user1', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(194, 'firstname2', 'lastname2', 'user2', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(195, 'firstname3', 'lastname3', 'user3', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(196, 'firstname4', 'lastname4', 'user4', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(197, 'firstname5', 'lastname5', 'user5', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(198, 'firstname10', 'lastname10', 'user10', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(199, 'firstname11', 'lastname11', 'user11', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(200, 'firstname16', 'lastname16', 'user16', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(201, 'firstname7', 'lastname7', 'user7', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(202, 'firstname17', 'lastname17', 'user17', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(203, 'firstname6', 'lastname6', 'user6', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(204, 'firstname8', 'lastname8', 'user8', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(205, 'firstname18', 'lastname18', 'user18', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(206, 'firstname13', 'lastname13', 'user13', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(207, 'firstname14', 'lastname14', 'user14', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(208, 'firstname15', 'lastname15', 'user15', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0),
-(209, 'firstname19', 'lastname19', 'user19', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Evaluator', 'aaa', 0, 0);
+(1, 'firstname0', 'lastname0', 'user0', 'a@gmail.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Administrator,Project Manager,Evaluator', 'aaa', 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -1442,12 +1347,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT de la tabla `clausesofproject`
 --
 ALTER TABLE `clausesofproject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=469;
 --
 -- AUTO_INCREMENT de la tabla `compliance`
 --
@@ -1457,22 +1362,22 @@ ALTER TABLE `compliance`
 -- AUTO_INCREMENT de la tabla `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=236;
 --
 -- AUTO_INCREMENT de la tabla `evaluatorofproject`
 --
 ALTER TABLE `evaluatorofproject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=210;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
 --
 -- Restricciones para tablas volcadas
 --
