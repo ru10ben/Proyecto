@@ -232,7 +232,7 @@ router.get('/getData', function(req, res, next) {
     miProyecto=new Proyecto(idProject);////
   });
 
-  getClauses(function(err, results){
+  getInitialClauses(function(err, results){
     for (var i = 0; i < results.length; i++) {
       myClauses[i]= results[i].id+' '+results[i].title; //Poner clauses formato adecuado
     };
@@ -321,10 +321,10 @@ router.post('/next',function(req,res){
     //var historic = '['+answer+'] -> '+myQuestion;
     //myHistoric = myHistoric.concat(historic);
 
-    getClauses2(actualQuest, function(err, results){
+    getClausesFromQuestion(actualQuest, function(err, results){
       for (var i = 0; i < results.length; i++) {
         idClauses[i] = results[i].idClause;
-        getDataClause(idClauses[i], function(err, results){
+        getClauseData(idClauses[i], function(err, results){
               var newClauses = {id:results[0].id,title: results[0].title}; /////
               myClauses = myClauses.concat(newClauses);     /////
         });        
@@ -346,10 +346,10 @@ router.post('/next',function(req,res){
           });
         });
       }else{
-        getClauses2('Q11', function(err, results){
+        getClausesFromQuestion('Q11', function(err, results){
           for (var i = 0; i < results.length; i++) {
             idClauses[i] = results[i].idClause;
-            getDataClause(idClauses[i], function(err, results){
+            getClauseData(idClauses[i], function(err, results){
               // newClauses = results[0].id+' '+results[0].title;
               // myClauses=myClauses.concat(newClauses); 
               var newClauses = {id:results[0].id,title: results[0].title};
@@ -448,7 +448,7 @@ router.post('/allProjects', function(req, res, next) {
   var username=req.body.username;
    getUser(username, function(err, results){
       var idUser=results[0].id;
-      allProjects(idUser, function(err, results){
+      getEvaluatorProjects(idUser, function(err, results){
         res.send(results);
       });
    });
@@ -460,7 +460,7 @@ router.get('/evaluation', function(req, res, next) {
 
 router.post('/clausesEvaluation', function(req, res, next) {
   var idProject=req.body.idProject;
-  getClausesOfProject2(idProject, function(err, results){
+  getClausesOfProjectFromEvaluation(idProject, function(err, results){
     console.log(results);
     var render={};
     res.send(results);
@@ -547,7 +547,7 @@ router.post('/dataClause', function(req, res, next) {
       for (var i = 0; i < results.length; i++) {
         note=note.concat(results[i].text);
       };
-      getDataClause(idClause, function(err, results){
+      getClauseData(idClause, function(err, results){
         clause=results[0].text;
         var should='No'; //Requeriments
         var notApplicableRQ=0;

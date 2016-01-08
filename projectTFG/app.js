@@ -113,7 +113,7 @@ global.getHelp = function(actualQuest, callback) {
     });
 };
 //This function gets the id and the title of the clauses always apply
-global.getClauses = function(callback) {
+global.getInitialClauses = function(callback) {
     connection.query('SELECT id, title FROM clause WHERE id="05.2" or id="05.3" or id="05.4" or id="05.7" or id="05.8" or id="05.9"',function(err,results,fields){
       callback(err, results);
     });
@@ -131,13 +131,13 @@ global.getQuestionAns = function(nextAns,actualQuest, callback) {
     });
 };
 
-global.getClauses2 = function(actualQuest,callback) {
+global.getClausesFromQuestion = function(actualQuest,callback) {
     connection.query('SELECT idClause FROM clausesofquestion WHERE idQuest='+'"'+actualQuest+'"',function(err,results,fields){
       callback(err, results);
     });
 };
 
-global.getDataClause = function(idClause, callback) {
+global.getClauseData = function(idClause, callback) {
     connection.query('SELECT id, title,text FROM clause WHERE id='+'"'+idClause+'"',function(err,results,fields){
       callback(err, results);
     });
@@ -161,7 +161,7 @@ global.getClausesOfProject = function(id, callback) {
     });
 };
 //SELECT clause.id, clause.title,evaluation.answer FROM clause, evaluation INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj=1 ORDER BY clause.id ASC
-global.getClausesOfProject2 = function(id, callback) {
+global.getClausesOfProjectFromEvaluation = function(id, callback) {
     connection.query('SELECT clause.id, clause.title,clause.text,evaluation.answer FROM clause INNER JOIN evaluation ON clause.id=evaluation.idClause WHERE idProj='+'"'+id+'" ORDER BY clause.id ASC',function(err, rows, fields) {
       callback(err, rows);
     });
@@ -173,7 +173,7 @@ global.insertEvaluatorOfProject = function(idUser, idProj, situation,callback) {
     });
 };
 //SELECT project.id, project.name, project.description FROM project INNER JOIN evaluatorofproject ON project.id=evaluatorofproject.idProj WHERE evaluatorofproject.idUser=5
-global.allProjects = function(idUser, callback) {
+global.getEvaluatorProjects = function(idUser, callback) {
     connection.query('SELECT project.id, project.name, project.description FROM project INNER JOIN evaluatorofproject ON project.id=evaluatorofproject.idProj WHERE evaluatorofproject.idUser='+'"'+idUser+'"', function(err, rows, fields) {
       callback(err, rows);
     });
