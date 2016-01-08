@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-01-2016 a las 10:55:46
+-- Tiempo de generación: 08-01-2016 a las 18:41:46
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `idQuest` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `idProj` int(11) NOT NULL,
   `answer` enum('No','Yes') COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -305,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `clausesofproject` (
   `idProj` int(11) NOT NULL,
   `idAnswer` int(11) NOT NULL,
   `answergiven` enum('No','Yes') COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=469 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -828,7 +828,7 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   `idProj` int(11) NOT NULL,
   `idClause` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `answer` enum('Not Evaluated','Fail','Pass','Not Applicable') COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -841,29 +841,7 @@ CREATE TABLE IF NOT EXISTS `evaluatorofproject` (
   `idUser` int(11) NOT NULL,
   `idProj` int(11) NOT NULL,
   `situation` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `initialclauses`
---
-
-CREATE TABLE IF NOT EXISTS `initialclauses` (
-  `id` varchar(15) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `initialclauses`
---
-
-INSERT INTO `initialclauses` (`id`) VALUES
-('05.2'),
-('05.3'),
-('05.4'),
-('05.7'),
-('05.8'),
-('05.9');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1141,7 +1119,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `name` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -1233,7 +1211,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `comments` varchar(500) NOT NULL,
   `hitRatio` float NOT NULL,
   `numProject` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `user`
@@ -1300,12 +1278,6 @@ ALTER TABLE `evaluatorofproject`
   ADD KEY `idProject` (`idProj`);
 
 --
--- Indices de la tabla `initialclauses`
---
-ALTER TABLE `initialclauses`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `noteofclause`
 --
 ALTER TABLE `noteofclause`
@@ -1347,12 +1319,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `clausesofproject`
 --
 ALTER TABLE `clausesofproject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=469;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `compliance`
 --
@@ -1362,22 +1334,22 @@ ALTER TABLE `compliance`
 -- AUTO_INCREMENT de la tabla `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=236;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `evaluatorofproject`
 --
 ALTER TABLE `evaluatorofproject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
